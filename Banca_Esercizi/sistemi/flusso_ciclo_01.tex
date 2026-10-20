@@ -1,0 +1,126 @@
+% ---------------------------------------------------------------------
+% Argomento: diagramma di flusso con ciclo a contatore (N dati letti)
+%   fila A: N voti -> media e numero di insufficienze
+%   fila B: N numeri -> quanti positivi e quanti negativi
+%   fila C: N pacchi -> peso totale e quanti pacchi superano 20 kg
+% Livello: intermedio   |   Tempo stimato: 20 min
+% ---------------------------------------------------------------------
+\begin{esercizio}[10]
+Disegna il diagramma di flusso di un algoritmo che
+\ABC{%
+legge il numero $N$ di studenti di una classe e poi i loro $N$ voti. Alla fine visualizza la
+media dei voti e quanti voti sono insufficienti (minori di 6).}{%
+legge un numero $N$ e poi $N$ numeri interi. Alla fine visualizza quanti numeri sono positivi
+e quanti sono negativi (lo zero non va contato).}{%
+legge il numero $N$ di pacchi da spedire e poi il peso di ogni pacco in kg. Alla fine visualizza
+il peso totale e quanti pacchi pesano più di \qty{20}{\kilo\gram}.}
+
+\begin{solution}
+\begin{center}
+\ABC{%
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \node[fcterm] (ini) at (0,0) {Inizio};
+  \node[fcio]   (in)  at (0,-1.1) {Leggi $N$};
+  \node[fcproc] (ini0) at (0,-2.2) {$S \gets 0$, \ $K \gets 0$, \ $i \gets 0$};
+  \node[fcdec]  (d1)  at (0,-3.75) {$i < N$};
+  \node[fcio]   (lv)  at (0,-5.3) {Leggi $V$};
+  \node[fcproc] (som) at (0,-6.4) {$S \gets S + V$};
+  \node[fcdec]  (d2)  at (0,-7.75) {$V < 6$};
+  \node[fcproc] (cnt) at (3.2,-7.75) {$K \gets K + 1$};
+  \node[fcproc] (inc) at (0,-9.5) {$i \gets i + 1$};
+  \node[fcproc] (med) at (5.6,-3.75) {$M \gets S / N$};
+  \node[fcio]   (out) at (5.6,-4.95) {Scrivi $M$, $K$};
+  \node[fcterm] (fin) at (5.6,-6.1) {Fine};
+  \draw[fcfreccia] (ini) -- (in);
+  \draw[fcfreccia] (in) -- (ini0);
+  \draw[fcfreccia] (ini0) -- (d1);
+  \draw[fcfreccia] (d1) -- node[fcsi,right] {Sì} (lv);
+  \draw[fcfreccia] (lv) -- (som);
+  \draw[fcfreccia] (som) -- (d2);
+  \draw[fcfreccia] (d2) -- node[fcsi,above] {Sì} (cnt);
+  \draw[fcfreccia] (d2) -- node[fcno,right] {No} (inc);
+  \draw[thick] (cnt) |- (0,-8.75);
+  \draw[fcfreccia] (inc.south) -- ++(0,-0.5) -| (-2.6,-2.95) -- (0,-2.95);
+  \draw[fcfreccia] (d1) -- node[fcno,above] {No} (med);
+  \draw[fcfreccia] (med) -- (out);
+  \draw[fcfreccia] (out) -- (fin);
+\end{tikzpicture}}{%
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \node[fcterm] (ini) at (0,0) {Inizio};
+  \node[fcio]   (in)  at (0,-1.1) {Leggi $N$};
+  \node[fcproc] (ini0) at (0,-2.2) {$P \gets 0$, \ $Q \gets 0$, \ $i \gets 0$};
+  \node[fcdec]  (d1)  at (0,-3.75) {$i < N$};
+  \node[fcio]   (lv)  at (0,-5.3) {Leggi $X$};
+  \node[fcdec]  (d2)  at (0,-6.75) {$X > 0$};
+  \node[fcproc] (cp)  at (3.2,-6.75) {$P \gets P + 1$};
+  \node[fcdec]  (d3)  at (0,-8.35) {$X < 0$};
+  \node[fcproc] (cn)  at (3.2,-8.35) {$Q \gets Q + 1$};
+  \node[fcproc] (inc) at (0,-10.1) {$i \gets i + 1$};
+  \node[fcio]   (out) at (6.0,-3.75) {Scrivi $P$, $Q$};
+  \node[fcterm] (fin) at (6.0,-4.95) {Fine};
+  \draw[fcfreccia] (ini) -- (in);
+  \draw[fcfreccia] (in) -- (ini0);
+  \draw[fcfreccia] (ini0) -- (d1);
+  \draw[fcfreccia] (d1) -- node[fcsi,right] {Sì} (lv);
+  \draw[fcfreccia] (lv) -- (d2);
+  \draw[fcfreccia] (d2) -- node[fcsi,above] {Sì} (cp);
+  \draw[fcfreccia] (d2) -- node[fcno,right] {No} (d3);
+  \draw[fcfreccia] (d3) -- node[fcsi,above] {Sì} (cn);
+  \draw[fcfreccia] (d3) -- node[fcno,right] {No} (inc);
+  \draw[thick] (cp.east) -- (4.8,-6.75) |- (0,-9.35);
+  \draw[thick] (cn.east) -- (4.8,-8.35);
+  \draw[fcfreccia] (inc.south) -- ++(0,-0.5) -| (-2.6,-2.95) -- (0,-2.95);
+  \draw[fcfreccia] (d1) -- node[fcno,above] {No} (out);
+  \draw[fcfreccia] (out) -- (fin);
+\end{tikzpicture}}{%
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \node[fcterm] (ini) at (0,0) {Inizio};
+  \node[fcio]   (in)  at (0,-1.1) {Leggi $N$};
+  \node[fcproc] (ini0) at (0,-2.2) {$T \gets 0$, \ $K \gets 0$, \ $i \gets 0$};
+  \node[fcdec]  (d1)  at (0,-3.75) {$i < N$};
+  \node[fcio]   (lv)  at (0,-5.3) {Leggi $P$};
+  \node[fcproc] (som) at (0,-6.4) {$T \gets T + P$};
+  \node[fcdec]  (d2)  at (0,-7.75) {$P > 20$};
+  \node[fcproc] (cnt) at (3.2,-7.75) {$K \gets K + 1$};
+  \node[fcproc] (inc) at (0,-9.5) {$i \gets i + 1$};
+  \node[fcio]   (out) at (5.6,-3.75) {Scrivi $T$, $K$};
+  \node[fcterm] (fin) at (5.6,-4.95) {Fine};
+  \draw[fcfreccia] (ini) -- (in);
+  \draw[fcfreccia] (in) -- (ini0);
+  \draw[fcfreccia] (ini0) -- (d1);
+  \draw[fcfreccia] (d1) -- node[fcsi,right] {Sì} (lv);
+  \draw[fcfreccia] (lv) -- (som);
+  \draw[fcfreccia] (som) -- (d2);
+  \draw[fcfreccia] (d2) -- node[fcsi,above] {Sì} (cnt);
+  \draw[fcfreccia] (d2) -- node[fcno,right] {No} (inc);
+  \draw[thick] (cnt) |- (0,-8.75);
+  \draw[fcfreccia] (inc.south) -- ++(0,-0.5) -| (-2.6,-2.95) -- (0,-2.95);
+  \draw[fcfreccia] (d1) -- node[fcno,above] {No} (out);
+  \draw[fcfreccia] (out) -- (fin);
+\end{tikzpicture}}
+\end{center}
+\ABC{%
+  $S$ = somma dei voti, $K$ = contatore delle insufficienze, $i$ = contatore dei voti già letti.
+  Il ciclo si ripete finché $i < N$; la media si calcola una volta sola, dopo il ciclo.}{%
+  $P$ = contatore dei positivi, $Q$ = contatore dei negativi, $i$ = contatore dei numeri già letti.
+  Se $X$ non è né positivo né negativo (è zero) non si conta. Il ciclo si ripete finché $i < N$.}{%
+  $T$ = peso totale, $K$ = contatore dei pacchi oltre \qty{20}{\kilo\gram}, $i$ = contatore dei pacchi
+  già letti. Il ciclo si ripete finché $i < N$.}
+  \criterioABC
+  {Inizio/Fine e simboli corretti: 1 pt; lettura di $N$: 1 pt; inizializzazione a 0 di somma,
+    contatore delle insufficienze e contatore del ciclo: 1 pt; ciclo (condizione $i<N$, incremento
+    $i\gets i+1$, ritorno alla condizione): 3 pt; lettura del voto e somma dentro il ciclo: 1 pt;
+    decisione $V<6$ con conteggio: 1 pt; media $S/N$ calcolata dopo il ciclo: 1 pt; uscita di media e
+    numero di insufficienze: 1 pt. Ciclo con condizione in fondo (ripeti\ldots finché) corretto: stessi punti.}
+  {Inizio/Fine e simboli corretti: 1 pt; lettura di $N$: 1 pt; inizializzazione a 0 dei due contatori
+    e del contatore del ciclo: 1 pt; ciclo (condizione $i<N$, incremento $i\gets i+1$, ritorno alla
+    condizione): 3 pt; lettura di $X$ dentro il ciclo: 1 pt; decisione $X>0$ con conteggio: 1 pt;
+    decisione $X<0$ (lo zero non si conta) con conteggio: 1 pt; uscita dei due contatori dopo il ciclo:
+    1 pt. Ciclo con condizione in fondo (ripeti\ldots finché) corretto: stessi punti.}
+  {Inizio/Fine e simboli corretti: 1 pt; lettura di $N$: 1 pt; inizializzazione a 0 del totale, del
+    contatore dei pacchi pesanti e del contatore del ciclo: 1 pt; ciclo (condizione $i<N$, incremento
+    $i\gets i+1$, ritorno alla condizione): 3 pt; lettura del peso dentro il ciclo: 1 pt; somma
+    $T\gets T+P$: 1 pt; decisione $P>20$ con conteggio: 1 pt; uscita di totale e contatore dopo il
+    ciclo: 1 pt. Ciclo con condizione in fondo (ripeti\ldots finché) corretto: stessi punti.}
+\end{solution}
+\end{esercizio}

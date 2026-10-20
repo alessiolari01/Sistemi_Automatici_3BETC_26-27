@@ -1,4 +1,4 @@
-# Istruzioni per Claude — Template Didattica
+# Istruzioni per Claude — Sistemi Automatici 3BETC 26-27
 
 Progetto LaTeX per il materiale scolastico di Alessio (verifiche, soluzioni,
 esercizi a casa, lezioni, dispense). Si usa su **Overleaf**, collegato a questo
@@ -51,6 +51,28 @@ repo. Il materiale lo prepara Claude; Alessio imposta un file come
   solo simboli già introdotti nel testo, dati e risultati verificati.
 - Soluzioni per gli studenti senza criteri; criteri solo con `\criterio{}`
   (finiscono nella griglia di correzione).
+
+## Regole per Sistemi Automatici 3BETC
+- Argomenti finora: sistema binario (conversioni), diagrammi di flusso, porte logiche.
+  Solo argomenti già fatti a lezione.
+- Struttura della verifica (appunti di Alessio del 20/10/2026), 40 pt:
+  1) decimale → binario (5 pt), 2) binario → decimale (5 pt), 3) diagramma di flusso con
+  due decisioni (8 pt), 4) diagramma di flusso con ciclo (10 pt), 5–6) 3 ingressi e 2 porte
+  logiche in cascata (6+6 pt). Esempio: `Compiti/Verifica_2026_10_XX_Sistemi_3BETC/`.
+- Conversioni: testo come negli appunti, `$1373_{10} = \ldots_2$`; decimali a 4 cifre (11 bit),
+  binari a 10 bit; le tre file con lo stesso numero di bit e quasi lo stesso numero di 1.
+  Soluzione: tabella delle divisioni per 2 con i resti / somma delle potenze di 2.
+- Qui i risultati sono numeri interi o tabelle: niente `\calcola`/[!]; i risultati attesi
+  delle tre file vanno scritti nei criteri (`\criterioABC`), così compaiono nella correzione.
+- Diagrammi di flusso: stili in `stili/comune.sty` (`fcterm` inizio/fine, `fcio` Leggi/Scrivi,
+  `fcproc` elaborazione, `fcdec` decisione, `fcfreccia`, etichette Sì/No); assegnazione con
+  $\gets$; ramo Sì a destra, ramo No in basso; il ciclo torna sopra la decisione da sinistra.
+  Testi brevi in contesto (forno, serbatoio, pacchi, voti), senza suggerimenti sulla soluzione.
+- Porte logiche: simboli americani (`american and port`, `or`, `nand`, `nor`) dentro
+  `circuitikz` con `scale=1.25,transform shape`; ingressi $A$, $B$, $C$, uscita intermedia $X$,
+  uscita $Y$. AND = $\cdot$, OR = $+$, negazione con la barra sopra.
+  Si chiedono espressione di $X$ e $Y$ e tabella di verità (8 righe).
+- Le file A, B, C hanno esercizi diversi ma di pari difficoltà (`\ABC{...}{...}{...}`).
 
 ## Nuova verifica
 1. Copia `Compiti/Verifica_AAAA_MM_GG_Materia_Classe/` in

@@ -1,0 +1,113 @@
+% ---------------------------------------------------------------------
+% Argomento: diagramma di flusso con calcolo e due decisioni annidate
+%   fila A: forno, media di due temperature -> resistenza / ventola / ok
+%   fila B: serbatoio, percentuale di riempimento -> carico / scarico / ok
+%   fila C: totale di un acquisto con sconto del 20 % o del 10 %
+% Livello: intermedio   |   Tempo stimato: 15 min
+% ---------------------------------------------------------------------
+\begin{esercizio}[8]
+Disegna il diagramma di flusso di un algoritmo che
+\ABC{%
+legge le temperature $T_1$ e $T_2$ misurate da due sensori in un forno e ne calcola la
+media $T$. Se $T$ è minore di \qty{180}{\degreeCelsius} visualizza ``Accendi la resistenza'', se è
+maggiore di \qty{220}{\degreeCelsius} visualizza ``Accendi la ventola'', altrimenti visualizza
+``Temperatura corretta''.}{%
+legge il livello $L$ dell'acqua in un serbatoio e l'altezza $H$ del serbatoio (entrambi in cm)
+e calcola la percentuale di riempimento $P$. Se $P$ è minore del \qty{20}{\percent} visualizza
+``Apri il carico'', se è maggiore del \qty{90}{\percent} visualizza ``Apri lo scarico'',
+altrimenti visualizza ``Livello corretto''.}{%
+legge il prezzo $P$ di un prodotto e la quantità $Q$ acquistata e calcola il totale $T$.
+Se il totale supera \qty{100}{\eur} applica uno sconto del \qty{20}{\percent}, se supera
+\qty{50}{\eur} (ma non \qty{100}{\eur}) uno sconto del \qty{10}{\percent}, altrimenti nessuno
+sconto. Alla fine visualizza il totale da pagare.}
+
+\begin{solution}
+\begin{center}
+\ABC{%
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \node[fcterm] (ini) at (0,0) {Inizio};
+  \node[fcio]   (in)  at (0,-1.1) {Leggi $T_1$, $T_2$};
+  \node[fcproc] (med) at (0,-2.2) {$T \gets (T_1+T_2)/2$};
+  \node[fcdec]  (d1)  at (0,-3.55) {$T < 180$};
+  \node[fcio]   (o1)  at (4.6,-3.55) {Scrivi ``Accendi la resistenza''};
+  \node[fcdec]  (d2)  at (0,-5.25) {$T > 220$};
+  \node[fcio]   (o2)  at (4.6,-5.25) {Scrivi ``Accendi la ventola''};
+  \node[fcio]   (o3)  at (0,-6.75) {Scrivi ``Temperatura corretta''};
+  \node[fcterm] (fin) at (0,-8.4) {Fine};
+  \draw[fcfreccia] (ini) -- (in);
+  \draw[fcfreccia] (in) -- (med);
+  \draw[fcfreccia] (med) -- (d1);
+  \draw[fcfreccia] (d1) -- node[fcsi,above] {Sì} (o1);
+  \draw[fcfreccia] (d1) -- node[fcno,right] {No} (d2);
+  \draw[fcfreccia] (d2) -- node[fcsi,above] {Sì} (o2);
+  \draw[fcfreccia] (d2) -- node[fcno,right] {No} (o3);
+  \draw[thick] (o1.east) -- (7.4,-3.55) |- (0,-7.65);
+  \draw[thick] (o2.east) -- (7.4,-5.25);
+  \draw[fcfreccia] (o3) -- (fin);
+\end{tikzpicture}}{%
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \node[fcterm] (ini) at (0,0) {Inizio};
+  \node[fcio]   (in)  at (0,-1.1) {Leggi $L$, $H$};
+  \node[fcproc] (med) at (0,-2.2) {$P \gets L/H \cdot 100$};
+  \node[fcdec]  (d1)  at (0,-3.55) {$P < 20$};
+  \node[fcio]   (o1)  at (4.4,-3.55) {Scrivi ``Apri il carico''};
+  \node[fcdec]  (d2)  at (0,-5.25) {$P > 90$};
+  \node[fcio]   (o2)  at (4.4,-5.25) {Scrivi ``Apri lo scarico''};
+  \node[fcio]   (o3)  at (0,-6.75) {Scrivi ``Livello corretto''};
+  \node[fcterm] (fin) at (0,-8.4) {Fine};
+  \draw[fcfreccia] (ini) -- (in);
+  \draw[fcfreccia] (in) -- (med);
+  \draw[fcfreccia] (med) -- (d1);
+  \draw[fcfreccia] (d1) -- node[fcsi,above] {Sì} (o1);
+  \draw[fcfreccia] (d1) -- node[fcno,right] {No} (d2);
+  \draw[fcfreccia] (d2) -- node[fcsi,above] {Sì} (o2);
+  \draw[fcfreccia] (d2) -- node[fcno,right] {No} (o3);
+  \draw[thick] (o1.east) -- (6.8,-3.55) |- (0,-7.65);
+  \draw[thick] (o2.east) -- (6.8,-5.25);
+  \draw[fcfreccia] (o3) -- (fin);
+\end{tikzpicture}}{%
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \node[fcterm] (ini) at (0,0) {Inizio};
+  \node[fcio]   (in)  at (0,-1.1) {Leggi $P$, $Q$};
+  \node[fcproc] (tot) at (0,-2.2) {$T \gets P \cdot Q$};
+  \node[fcdec]  (d1)  at (0,-3.55) {$T > 100$};
+  \node[fcproc] (s1)  at (3.8,-3.55) {$T \gets T \cdot 0{,}8$};
+  \node[fcdec]  (d2)  at (0,-5.25) {$T > 50$};
+  \node[fcproc] (s2)  at (3.8,-5.25) {$T \gets T \cdot 0{,}9$};
+  \node[fcio]   (out) at (0,-7.15) {Scrivi $T$};
+  \node[fcterm] (fin) at (0,-8.4) {Fine};
+  \draw[fcfreccia] (ini) -- (in);
+  \draw[fcfreccia] (in) -- (tot);
+  \draw[fcfreccia] (tot) -- (d1);
+  \draw[fcfreccia] (d1) -- node[fcsi,above] {Sì} (s1);
+  \draw[fcfreccia] (d1) -- node[fcno,right] {No} (d2);
+  \draw[fcfreccia] (d2) -- node[fcsi,above] {Sì} (s2);
+  \draw[fcfreccia] (d2) -- node[fcno,right] {No} (out);
+  \draw[thick] (s1.east) -- (5.4,-3.55) |- (0,-6.35);
+  \draw[thick] (s2.east) -- (5.4,-5.25);
+  \draw[fcfreccia] (out) -- (fin);
+\end{tikzpicture}}
+\end{center}
+\ABC{%
+  Il secondo controllo si fa solo se $T \geq 180$: quindi nel ramo ``No'' vale già $T \geq 180$ e
+  basta controllare $T > 220$.}{%
+  Il secondo controllo si fa solo se $P \geq 20$: quindi nel ramo ``No'' vale già $P \geq 20$ e
+  basta controllare $P > 90$.}{%
+  Il secondo controllo si fa solo se $T \leq 100$: quindi nel ramo ``No'' basta controllare $T > 50$.
+  Sconto del \qty{20}{\percent}: si paga l'\qty{80}{\percent}, cioè $T \cdot 0{,}8$
+  (oppure $T \gets T - T\cdot 20/100$).}
+  \criterioABC
+  {Inizio/Fine e simboli corretti (ovale, parallelogramma, rettangolo, rombo): 1 pt; lettura di $T_1$ e
+    $T_2$: 1 pt; calcolo della media $(T_1+T_2)/2$: 1 pt (senza parentesi: 0 pt); prima decisione
+    $T<180$ con i rami Sì/No: 2 pt; seconda decisione $T>220$ nel ramo No: 2 pt; tre messaggi
+    nei rami giusti e rami che si ricongiungono prima di Fine: 1 pt.}
+  {Inizio/Fine e simboli corretti (ovale, parallelogramma, rettangolo, rombo): 1 pt; lettura di $L$ e
+    $H$: 1 pt; calcolo $P = L/H\cdot 100$: 1 pt; prima decisione $P<20$ con i rami Sì/No: 2 pt;
+    seconda decisione $P>90$ nel ramo No: 2 pt; tre messaggi nei rami giusti e rami che si
+    ricongiungono prima di Fine: 1 pt.}
+  {Inizio/Fine e simboli corretti (ovale, parallelogramma, rettangolo, rombo): 1 pt; lettura di $P$ e
+    $Q$: 1 pt; calcolo $T = P\cdot Q$: 1 pt; prima decisione $T>100$ con sconto del 20\,\%: 2 pt;
+    seconda decisione $T>50$ nel ramo No con sconto del 10\,\%: 2 pt; rami che si ricongiungono e
+    una sola uscita ``Scrivi $T$'' (o una per ramo): 1 pt.}
+\end{solution}
+\end{esercizio}

@@ -1,0 +1,89 @@
+% ---------------------------------------------------------------------
+% Argomento: conversione decimale -> binario (divisioni successive per 2)
+%   fila A: 1373 = 10101011101   fila B: 1461 = 10110110101
+%   fila C: 1339 = 10100111011   (tutti a 11 bit, 7 bit a 1)
+% Livello: base   |   Tempo stimato: 8 min
+% ---------------------------------------------------------------------
+\begin{esercizio}[5]
+Converti in binario:\quad $\ABC{%
+1373}{%
+1461}{%
+1339}_{10} = \ldots\ldots\ldots_{2}$
+
+\begin{solution}
+\ABC{%
+  \begin{minipage}[t]{0.3\linewidth}
+  \renewcommand{\arraystretch}{1.05}
+  \begin{tabular}{r|l}
+    1373 & 1\\
+    686 & 0\\
+    343 & 1\\
+    171 & 1\\
+    85 & 1\\
+    42 & 0\\
+    21 & 1\\
+    10 & 0\\
+    5 & 1\\
+    2 & 0\\
+    1 & 1\\
+    0 & \\
+  \end{tabular}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.66\linewidth}
+  Si divide per 2 fino ad arrivare a 0; a destra i resti.\\[3pt]
+  Si leggono i resti dal basso verso l'alto:\\[6pt]
+  $$1373_{10} = 10101011101_2$$
+  \end{minipage}}{%
+  \begin{minipage}[t]{0.3\linewidth}
+  \renewcommand{\arraystretch}{1.05}
+  \begin{tabular}{r|l}
+    1461 & 1\\
+    730 & 0\\
+    365 & 1\\
+    182 & 0\\
+    91 & 1\\
+    45 & 1\\
+    22 & 0\\
+    11 & 1\\
+    5 & 1\\
+    2 & 0\\
+    1 & 1\\
+    0 & \\
+  \end{tabular}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.66\linewidth}
+  Si divide per 2 fino ad arrivare a 0; a destra i resti.\\[3pt]
+  Si leggono i resti dal basso verso l'alto:\\[6pt]
+  $$1461_{10} = 10110110101_2$$
+  \end{minipage}}{%
+  \begin{minipage}[t]{0.3\linewidth}
+  \renewcommand{\arraystretch}{1.05}
+  \begin{tabular}{r|l}
+    1339 & 1\\
+    669 & 1\\
+    334 & 0\\
+    167 & 1\\
+    83 & 1\\
+    41 & 1\\
+    20 & 0\\
+    10 & 0\\
+    5 & 1\\
+    2 & 0\\
+    1 & 1\\
+    0 & \\
+  \end{tabular}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.66\linewidth}
+  Si divide per 2 fino ad arrivare a 0; a destra i resti.\\[3pt]
+  Si leggono i resti dal basso verso l'alto:\\[6pt]
+  $$1339_{10} = 10100111011_2$$
+  \end{minipage}}
+  \criterioABC
+  {Divisioni successive per 2 corrette: 3 pt ($-0{,}5$ per ogni divisione sbagliata); resti letti dal basso
+    verso l'alto: 1 pt; risultato $10101011101_2$: 1 pt.}
+  {Divisioni successive per 2 corrette: 3 pt ($-0{,}5$ per ogni divisione sbagliata); resti letti dal basso
+    verso l'alto: 1 pt; risultato $10110110101_2$: 1 pt.}
+  {Divisioni successive per 2 corrette: 3 pt ($-0{,}5$ per ogni divisione sbagliata); resti letti dal basso
+    verso l'alto: 1 pt; risultato $10100111011_2$: 1 pt.}
+\end{solution}
+\end{esercizio}

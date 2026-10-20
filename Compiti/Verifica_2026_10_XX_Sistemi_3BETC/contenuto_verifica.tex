@@ -1,0 +1,55 @@
+% =====================================================================
+%  VERIFICA DI SISTEMI AUTOMATICI 3BETC — dati ed esercizi.
+%  Per ottenere i PDF imposta come Main document uno dei file numerati
+%  di questa cartella:
+%     1_Testo_FilaA   2_Testo_FilaB   3_Testo_FilaC          (da stampare)
+%     4_Soluzioni_FilaA  5_Soluzioni_FilaB  6_Soluzioni_FilaC  (da dare agli alunni)
+%     7_Correzione                                            (griglia per il docente)
+%  Struttura (dagli appunti di Alessio del 20/10/2026):
+%     1) decimale -> binario   2) binario -> decimale
+%     3-4) due diagrammi di flusso di difficoltà media
+%     5-6) 3 ingressi, 2 porte logiche in cascata
+% =====================================================================
+% valori predefiniti se compili direttamente questo file
+\providecommand{\fila}{A}          % A | B | C
+\providecommand{\versione}{testo}  % testo | soluzioni | correzione | completa
+
+\documentclass[a4paper,11pt,addpoints]{exam}
+\usepackage{stili/verifica}
+
+% ---------- Dati della prova --------------------------------------------
+\scuola{ITIS G. Galilei -- Livorno}
+\annoscolastico{2026/27}
+\tipoprova{Verifica}
+\materia{Sistemi Automatici}
+\argomento{Sistema binario, diagrammi di flusso, porte logiche}
+\classe{3BETC}
+\dataprova{}            % vuoto -> riga da compilare (data da decidere)
+\durata{}               % non indicata sul foglio
+\votominimo{2}          % voto con 0 punti
+\sogliasufficienza{60}  % % del punteggio per il 6
+\criterigenerali{Conversioni: errore di calcolo isolato con procedimento corretto: metà dei punti.
+  Diagrammi di flusso: si valuta la logica dell'algoritmo; simboli sbagliati o frecce mancanti
+  $-0{,}5$ pt (una sola volta per esercizio); soluzioni diverse ma corrette prendono tutti i punti.
+  Porte logiche: un errore su $X$ non viene penalizzato di nuovo nella colonna $Y$ se $Y$ è
+  coerente con la $X$ scritta.}
+
+\begin{document}
+
+\intestazione
+
+\begin{questions}
+
+\input{Banca_Esercizi/sistemi/dec_bin_01}
+\input{Banca_Esercizi/sistemi/bin_dec_01}
+\input{Banca_Esercizi/sistemi/flusso_selezione_01}
+\input{Banca_Esercizi/sistemi/flusso_ciclo_01}
+\input{Banca_Esercizi/sistemi/porte_cascata_and_or_01}
+\input{Banca_Esercizi/sistemi/porte_cascata_nand_nor_01}
+
+\end{questions}
+
+% Tabella punti + griglia voti in fondo alla 2ª pagina
+\riepilogo
+
+\end{document}

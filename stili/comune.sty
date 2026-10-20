@@ -106,6 +106,28 @@
   \node[inner sep=0pt] at ({#1+0.62},{#2-0.45}) {\small $-$};
   \node[anchor=west,inner sep=1pt] at ({#1+0.8},{#2}) {\small $#3$};}
 
+% ---------- Diagrammi di flusso -----------------------------------------
+% Dentro \begin{tikzpicture}[x=1cm,y=1cm]:
+%   \node[fcterm] (i) at (0,0) {Inizio};        inizio / fine (ovale)
+%   \node[fcio]   (l) at (0,-1) {Leggi $N$};    input / output (parallelogramma)
+%   \node[fcproc] (p) at (0,-2) {$S \gets 0$};  elaborazione (rettangolo)
+%   \node[fcdec]  (d) at (0,-3) {$N>0$?};       decisione (rombo)
+%   \draw[fcfreccia] (i) -- (l);                freccia di collegamento
+%   \node[fcsi] at (...) {Sì};  \node[fcno] at (...) {No};  etichette dei rami
+\tikzset{
+  fcbase/.style  = {draw, thick, align=center, font=\small, inner sep=3pt,
+                    minimum height=7.5mm, fill=white},
+  fcterm/.style  = {fcbase, rounded corners=3.75mm, minimum width=19mm},
+  fcio/.style    = {fcbase, trapezium, trapezium left angle=72,
+                    trapezium right angle=108, trapezium stretches body,
+                    minimum width=24mm},
+  fcproc/.style  = {fcbase, rectangle, minimum width=22mm},
+  fcdec/.style   = {fcbase, diamond, aspect=2.2, inner sep=1pt},
+  fcfreccia/.style = {thick, -{Stealth[length=2.2mm]}},
+  fcsi/.style    = {font=\footnotesize, inner sep=1.5pt},
+  fcno/.style    = {font=\footnotesize, inner sep=1.5pt},
+}
+
 % ---------- Utilità -----------------------------------------------------
 \RequirePackage{array}
 \RequirePackage{booktabs}

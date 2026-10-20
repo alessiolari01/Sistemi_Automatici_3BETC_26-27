@@ -1,0 +1,29 @@
+% ---------------------------------------------------------------------
+% Argomento: conversione binario -> decimale (somma delle potenze di 2)
+%   fila A: 1010110101 = 693   fila B: 1101001011 = 843
+%   fila C: 1100101101 = 813   (tutti a 10 bit, 6 bit a 1)
+% Livello: base   |   Tempo stimato: 6 min
+% ---------------------------------------------------------------------
+\begin{esercizio}[5]
+Converti in decimale:\quad $\ABC{%
+1010110101}{%
+1101001011}{%
+1100101101}_{2} = \ldots\ldots\ldots_{10}$
+
+\begin{solution}
+\ABC{%
+  $1010110101_2 = 1\cdot 2^{9} + 0\cdot 2^{8} + 1\cdot 2^{7} + 0\cdot 2^{6} + 1\cdot 2^{5} + 1\cdot 2^{4} + 0\cdot 2^{3} + 1\cdot 2^{2} + 0\cdot 2^{1} + 1\cdot 2^{0} =$\\[4pt]
+  $\phantom{1010110101_2} = 512 + 128 + 32 + 16 + 4 + 1 = 693_{10}$}{%
+  $1101001011_2 = 1\cdot 2^{9} + 1\cdot 2^{8} + 0\cdot 2^{7} + 1\cdot 2^{6} + 0\cdot 2^{5} + 0\cdot 2^{4} + 1\cdot 2^{3} + 0\cdot 2^{2} + 1\cdot 2^{1} + 1\cdot 2^{0} =$\\[4pt]
+  $\phantom{1101001011_2} = 512 + 256 + 64 + 8 + 2 + 1 = 843_{10}$}{%
+  $1100101101_2 = 1\cdot 2^{9} + 1\cdot 2^{8} + 0\cdot 2^{7} + 0\cdot 2^{6} + 1\cdot 2^{5} + 0\cdot 2^{4} + 1\cdot 2^{3} + 1\cdot 2^{2} + 0\cdot 2^{1} + 1\cdot 2^{0} =$\\[4pt]
+  $\phantom{1100101101_2} = 512 + 256 + 32 + 8 + 4 + 1 = 813_{10}$}
+  \criterioABC
+  {Pesi (potenze di 2) assegnati correttamente a partire da $2^0$ a destra: 2 pt; somma dei soli pesi
+    dei bit a 1: 2 pt; risultato $693_{10}$: 1 pt.}
+  {Pesi (potenze di 2) assegnati correttamente a partire da $2^0$ a destra: 2 pt; somma dei soli pesi
+    dei bit a 1: 2 pt; risultato $843_{10}$: 1 pt.}
+  {Pesi (potenze di 2) assegnati correttamente a partire da $2^0$ a destra: 2 pt; somma dei soli pesi
+    dei bit a 1: 2 pt; risultato $813_{10}$: 1 pt.}
+\end{solution}
+\end{esercizio}

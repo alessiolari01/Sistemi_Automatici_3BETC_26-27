@@ -12,6 +12,7 @@ stili/                 stili condivisi (non si compilano)
 Banca_Esercizi/        BANCA ESERCIZI: un file = un esercizio
   _MODELLO_esercizio.tex
   catalogo_esercizi.tex   compila per vedere tutta la banca con le soluzioni
+  sistemi/...          conversioni binarie, diagrammi di flusso, porte logiche
   elettrotecnica/...
 Dispensa/              teoria per argomento (capitoli/, figure/)
 Lezioni/               un file per lezione (AAAA-MM-GG_argomento.tex), dati.tex, registro
