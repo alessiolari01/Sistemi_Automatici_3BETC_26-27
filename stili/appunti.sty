@@ -1,0 +1,172 @@
+% =====================================================================
+%  stili/appunti.sty — stile per Dispensa e Lezioni (classe article)
+%  Uso:  \documentclass[12pt,a4paper]{article}
+%        \usepackage{stili/appunti}
+% =====================================================================
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{stili/appunti}[2026/10/19 Didattica - appunti]
+
+\RequirePackage{stili/comune}
+
+\RequirePackage{lmodern}
+\RequirePackage{microtype}
+\RequirePackage{subcaption}
+\RequirePackage{longtable}
+\RequirePackage{float}            % figure/tabelle "ferme" dove le scrivi
+\RequirePackage{fancyhdr}
+\RequirePackage{geometry}
+\RequirePackage{titlesec}
+\RequirePackage[most]{tcolorbox}
+\RequirePackage{tocloft}
+\RequirePackage{hyperref}         % sempre per ultimo
+\RequirePackage{bookmark}
+\hypersetup{hidelinks, bookmarksopen=true}   % link cliccabili ma neri
+\graphicspath{{Dispensa/figure/}{Lezioni/figure/}}
+
+% =====================================================================
+%  DATI DEL DOCUMENTO (facoltativi: se vuoti non si stampano)
+% =====================================================================
+\def\a@titolo{Appunti}
+\def\a@materia{}
+\def\a@classe{}
+\def\a@destinatario{}
+\def\a@docente{}
+\def\a@as{}
+\newcommand{\titolodoc}[1]{\def\a@titolo{#1}}
+\newcommand{\materia}[1]{\def\a@materia{#1}}
+\newcommand{\classe}[1]{\def\a@classe{#1}}
+\newcommand{\destinatario}[1]{\def\a@destinatario{#1}}  % es. per le ripetizioni
+\newcommand{\docente}[1]{\def\a@docente{#1}}
+\newcommand{\annoscolastico}[1]{\def\a@as{#1}}
+
+% Frontespizio + indice
+\newcommand{\frontespizio}{%
+  \hypersetup{pdftitle={\a@titolo\ifdefempty{\a@materia}{}{ -- \a@materia}},
+              pdfauthor={\a@docente}}%
+  \begin{titlepage}
+    \centering\vspace*{3cm}
+    \ifdefempty{\a@destinatario}{}{{\Large\bfseries \a@destinatario\par}\vspace{0.6cm}}
+    {\huge\bfseries \a@titolo\par}
+    \ifdefempty{\a@materia}{}{\vspace{0.4cm}{\LARGE \a@materia\par}}
+    \ifdefempty{\a@classe}{}{\vspace{0.4cm}{\Large Classe \a@classe\par}}
+    \vfill
+    \ifdefempty{\a@docente}{}{{\large\itshape \a@docente\par}}
+    \ifdefempty{\a@as}{}{\vspace{0.2cm}{\large A.S.~\a@as\par}}
+  \end{titlepage}
+  \tableofcontents
+  \clearpage}
+
+% =====================================================================
+%  IMPAGINAZIONE
+% =====================================================================
+\geometry{a4paper,margin=2.5cm,headheight=15pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancyhead[L]{\small\nouppercase{\leftmark}}
+\fancyfoot[L]{\small\a@classe}
+\fancyfoot[C]{\thepage}
+\fancyfoot[R]{\small\itshape\a@materia}
+
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalsize\itshape}{\thesubsubsection}{1em}{}
+\titleformat{\paragraph}[block]{\normalsize\bfseries}{\theparagraph}{1em}{}
+\titleformat{\subparagraph}[block]{\normalsize\itshape}{\thesubparagraph}{1em}{}
+
+% Figure e tabelle: [H] implicito
+\floatplacement{figure}{H}
+\floatplacement{table}{H}
+
+% Numerazione 2.3 (sezione.numero)
+\numberwithin{equation}{section}
+\counterwithin{figure}{section}
+\counterwithin{table}{section}
+
+% Paragrafi: niente rientro, separazione leggera
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.35em}
+\AtBeginEnvironment{itemize}{\setlength{\parskip}{0pt}}
+\AtBeginEnvironment{enumerate}{\setlength{\parskip}{0pt}}
+\AtBeginEnvironment{description}{\setlength{\parskip}{0pt}}
+
+% Ogni \section a pagina nuova (tranne la prima)
+\newbool{a@primasez}\booltrue{a@primasez}
+\pretocmd{\section}{\ifbool{a@primasez}{}{\clearpage}\boolfalse{a@primasez}}{}{}
+% Le \subsection non restano orfane in fondo alla pagina
+\pretocmd{\subsection}{\needspace{6\baselineskip}}{}{}
+
+% =====================================================================
+%  BOX E FORMULARIO
+% =====================================================================
+% \blackbox{titolo}{contenuto}
+\newcommand{\blackbox}[2]{%
+  \begin{tcolorbox}[enhanced, colback=black!3, colframe=black,
+    fonttitle=\bfseries, coltitle=white,
+    attach boxed title to top left={xshift=2mm,yshift=-2mm},
+    boxed title style={colback=black!80}, title={#1}]
+  #2
+  \end{tcolorbox}}
+
+% Link con testo bianco (per i titoli dei box scuri)
+\newcommand{\whitelink}[2]{\hyperref[#1]{\begingroup\color{white}#2\endgroup}}
+
+% Lista "Formulario" (tocloft) -> \listofformula
+\newlistof{formula}{frm}{Formulario}
+\setlength{\cftformulanumwidth}{5em}
+\newcommand{\FORMULARIOFULL}{}
+\newcounter{formtext}[section]
+\renewcommand{\theformtext}{\thesection.\arabic{formtext}}
+
+\newcommand{\formulareg}[2]{%
+  \addcontentsline{frm}{formula}{\protect\numberline{Eq.~\ref{#2}}\protect\hyperref[#2]{#1}}}
+\newcommand{\formularegbox}[2]{%
+  \addcontentsline{frm}{formula}{\protect\numberline{Box~\theformtext}\protect\hyperref[#2]{#1}}}
+
+% \keyeq{titolo}{formula (solo contenuto matematico)}{etichetta}
+\newcommand{\keyeq}[3]{%
+  \begin{equation}\label{#3}#2\end{equation}%
+  \formulareg{#1}{#3}%
+  \gappto\FORMULARIOFULL{%
+    \par\noindent\textbf{\hyperref[#3]{Eq.~(\ref{#3})\quad #1}}\par
+    \begin{equation*}#2\end{equation*}\medskip}}
+
+% \keybox{titolo}{contenuto}{etichetta}
+\newcommand{\keybox}[3]{%
+  \refstepcounter{formtext}\label{#3}%
+  \blackbox{\theformtext\quad #1}{#2}%
+  \formularegbox{#1}{#3}%
+  \gappto\FORMULARIOFULL{%
+    \par\noindent\blackbox{\whitelink{#3}{\theformtext\quad #1}}{#2}\medskip}}
+
+% \stampaformulario: indice delle formule + formulario completo
+\newcommand{\stampaformulario}{%
+  \clearpage\listofformula
+  \clearpage\section*{Formulario completo}%
+  \addcontentsline{toc}{section}{Formulario completo}%
+  \FORMULARIOFULL}
+
+% =====================================================================
+%  LEZIONI (registro di cosa è stato fatto ogni giorno)
+% =====================================================================
+% \lezione{gg/mm/aaaa}{argomento}
+% \lezione[2 ore, laboratorio]{gg/mm/aaaa}{argomento}
+% Nell'indice compare "data  argomento" -> l'indice diventa il registro.
+\newcommand{\lezione}[3][]{%
+  \ifdefined\inregistro
+    \section[#2\texorpdfstring{\quad}{ - }#3]{#3}%
+  \else   % lezione compilata da sola: titolo senza numero
+    \stepcounter{section}\section*{#3}%
+  \fi
+  \markboth{Lezione del #2}{}%
+  {\small\itshape Lezione del #2\ifblank{#1}{}{ \textperiodcentered\ #1}\par}%
+  \medskip}
+
+% Box di fine lezione: cosa è stato fatto / cosa resta
+% \begin{sintesi} ... \end{sintesi}
+\newtcolorbox{sintesi}{enhanced, colback=white, colframe=black,
+  boxrule=0.6pt, sharp corners, fonttitle=\bfseries\small,
+  coltitle=black, colbacktitle=black!10, title={In sintesi}}
+
+\endinput

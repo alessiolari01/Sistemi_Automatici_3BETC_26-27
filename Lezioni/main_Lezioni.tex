@@ -1,0 +1,19 @@
+% =====================================================================
+%  REGISTRO DELLE LEZIONI — tutte le lezioni in un PDF, con l'indice
+%  iniziale (data + argomento) che fa da registro.
+%  Ogni lezione si può anche compilare da sola: imposta il suo file
+%  (Lezioni/lezioni/AAAA-MM-GG_argomento.tex) come Main document.
+%  Dati della classe in Lezioni/dati.tex.
+% =====================================================================
+\documentclass[12pt,a4paper]{article}
+\usepackage{stili/appunti}
+\input{Lezioni/dati}
+
+\begin{document}
+\frontespizio
+\def\inregistro{}
+
+\input{Lezioni/lezioni/AAAA-MM-GG_esempio}
+% \input{Lezioni/lezioni/2026-10-09_...}
+
+\end{document}

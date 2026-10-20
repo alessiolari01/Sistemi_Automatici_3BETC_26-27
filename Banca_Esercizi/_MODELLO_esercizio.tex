@@ -1,0 +1,37 @@
+% =====================================================================
+%  MODELLO DI ESERCIZIO PER LA BANCA — copialo in
+%     Banca_Esercizi/<materia>/<argomento>_NN.tex
+%  e aggiungilo a Banca_Esercizi/catalogo_esercizi.tex.
+%  Un file = un esercizio. Si usa sia nelle verifiche sia negli
+%  esercizi a casa (lì vale solo la fila A e i punti non si vedono).
+% ---------------------------------------------------------------------
+%  Argomento:            Livello: base / intermedio / avanzato
+%  Tempo stimato: .. min
+% =====================================================================
+\begin{esercizio}          % [4] dopo \begin{esercizio} = punteggio unico
+% --- DATI: nome, valore fila A, fila B, fila C (unità base: 2.2e3 = 2,2 kΩ)
+%     Scegli valori che NON diano risultati tondi: nelle soluzioni i
+%     risultati con 2 cifre significative o meno vengono segnati con [!].
+\dato{V}{12}{15}{18}
+\dato{R}{390}{560}{470}
+% --- CALCOLI: si fanno da soli per le tre file
+%     [nome da mostrare]{nome}{formula con \x{dato}}
+\calcola[I]{I}{\x{V}/\x{R}}
+
+% --- TESTO
+Un resistore da \mis{R}{\ohm} è alimentato con \mis{V}{\volt}.
+\begin{parts}
+  \part[2] Calcola la corrente.
+\end{parts}
+
+% --- CIRCUITI: generatore con simbolo europeo e segni ai morsetti
+%   \draw (0,0) to[vsource, l=$V$, n=G] (0,3) ... ;   \morsetti{G}
+%   (il + va verso il punto di arrivo del "to")
+
+% --- SOLUZIONE (soluzioni per studenti, griglia di correzione, catalogo)
+%     \criterio{...} compare solo nella griglia di correzione, mai agli studenti
+\begin{solution}
+  $I = V/R = \val{V}/\val{R} \approx \mis{I}{\ampere}$
+  \criterio{1 pt formula, 1 pt risultato con unità.}
+\end{solution}
+\end{esercizio}

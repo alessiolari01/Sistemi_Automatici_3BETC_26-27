@@ -1,0 +1,68 @@
+% ---------------------------------------------------------------------
+% Argomento: rete mista (R1 serie con R2//R3 serie con R4); si conosce la
+%            corrente in R2 e si risale alla tensione E del generatore
+% Livello: intermedio   |   Tempo stimato: 18 min
+% Lezioni: 7/10 (serie e parallelo), 9/10 (KCL e KVL)
+% ---------------------------------------------------------------------
+\begin{esercizio}
+\dato{R1}{14}{4}{5}               % [ohm]
+\dato{R2}{91}{66}{49}
+\dato{R3}{61}{99}{84}
+\dato{R4}{3}{5}{11}
+\dato{I2}{1.7}{2.8}{3.2}          % corrente in R2 [A]
+\calcola[V_{23}]{V23}{\x{R2}*\x{I2}}
+\calcola[I_3]{I3}{\x{V23}/\x{R3}}
+\calcola[I]{I}{\x{I2}+\x{I3}}
+\calcola[V_1]{V1}{\x{R1}*\x{I}}
+\calcola[V_4]{V4}{\x{R4}*\x{I}}
+\calcola[E]{E}{\x{V1}+\x{V23}+\x{V4}}
+
+Sono note le resistenze e la corrente $I_2$ in $R_2$; $E$ non è nota.
+
+\begin{center}
+\begin{minipage}{0.52\linewidth}\centering
+  \begin{circuitikz}[x=0.85cm, y=0.5cm]
+    \ctikzset{bipoles/length=1cm}
+    \draw (0,0) to[vsource, l=$E$, n=G] (0,3)
+          to[R, l=$R_1$] (3,3) node[circ]{} -- (5.5,3)
+          (3,3) to[R, l_=$R_2$] (3,0) node[circ]{}
+          (5.5,3) to[R, l=$R_3$] (5.5,0) -- (3,0)
+          (3,0) to[R, l=$R_4$] (0,0);
+    \draw[-{Stealth[length=2mm]}] (3.5,2.4) -- (3.5,0.6) node[midway, right]{$I_2$};
+    \morsetti{G}
+  \end{circuitikz}
+\end{minipage}\hfill
+\begin{minipage}{0.4\linewidth}
+  \renewcommand{\arraystretch}{1.1}
+  \begin{tabular}{r@{${}={}$}l}
+    $R_1$ & \mis{R1}{\ohm}\\
+    $R_2$ & \mis{R2}{\ohm}\\
+    $R_3$ & \mis{R3}{\ohm}\\
+    $R_4$ & \mis{R4}{\ohm}\\
+    $I_2$ & \mis{I2}{\ampere}
+  \end{tabular}
+\end{minipage}
+\end{center}
+
+\vspace{-6pt}
+\begin{parts}
+  \part[1] Calcola la tensione $V_{23}$ ai capi di $R_2$ (e quindi di $R_3$).
+  \part[1] Calcola la corrente $I_3$ in $R_3$.
+  \part[1] Calcola la corrente $I$ erogata dal generatore.
+  \part[2] Calcola le tensioni $V_1$ e $V_4$ ai capi di $R_1$ e $R_4$.
+  \part[1] Applica la seconda legge di Kirchhoff alla maglia $E$, $R_1$, $R_2$, $R_4$.
+  \part[2] Calcola la tensione $E$ del generatore.
+\end{parts}
+
+\begin{solution}
+  $V_{23} = R_2\,I_2 \approx \mis{V23}{\volt}$\\[4pt]
+  $I_3 = V_{23}/R_3 \approx \mis{I3}{\ampere}$\\[4pt]
+  KCL: $I = I_2 + I_3 \approx \mis{I}{\ampere}$\\[4pt]
+  $V_1 = R_1\,I \approx \mis{V1}{\volt}$,\qquad $V_4 = R_4\,I \approx \mis{V4}{\volt}$\\[4pt]
+  KVL sulla maglia $E$, $R_1$, $R_2$, $R_4$: $E = V_1 + V_{23} + V_4$\\[2pt]
+  $E \approx \mis{E}{\volt}$
+  \criterio{a) 1 pt (R2 e R3 hanno la stessa tensione); b) 1 pt; c) 1 pt KCL;
+    d) 1 pt per ciascuna tensione; e) 1 pt equazione corretta $E=V_1+V_{23}+V_4$ (segni coerenti); f) 1 pt somma, 1 pt risultato con unità.
+    Unità mancanti: $-0{,}5$ pt una volta sola.}
+\end{solution}
+\end{esercizio}

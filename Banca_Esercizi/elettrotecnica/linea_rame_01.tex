@@ -1,0 +1,39 @@
+% ---------------------------------------------------------------------
+% Argomento: seconda legge di Ohm (resistenza di una linea), caduta di
+%            tensione e resistenza del carico
+% Livello: intermedio   |   Tempo stimato: 12 min
+% Lezioni: 5/10 (Ohm, 2ª legge), 16/10 (resistenza della linea)
+% ---------------------------------------------------------------------
+\begin{esercizio}
+\dato{rho}{0.0178}{0.0178}{0.0178}   % resistività del rame [ohm mm2/m]
+\dato{L}{54}{35}{30}               % distanza generatore-carico [m]
+\dato{S}{2.5}{1.5}{1.5}                    % sezione di ciascun filo [mm2]
+\dato{Ic}{14}{13}{16}                % corrente assorbita dal carico [A]
+\dato{Eg}{230}{230}{230}             % tensione all'inizio della linea [V]
+\calcola[R_L]{RL}{\x{rho}*2*\x{L}/\x{S}}
+\calcola[V_L]{VL}{\x{RL}*\x{Ic}}
+\calcola[V_c]{Vc}{\x{Eg}-\x{VL}}
+\calcola[R_c]{Rc}{\x{Vc}/\x{Ic}}
+
+Un carico assorbe una corrente di \mis{Ic}{\ampere} ed è collegato al generatore, che
+fornisce \mis{Eg}{\volt}, con una linea di rame lunga \val{L}~m (il carico si trova a
+\val{L}~m dal generatore). La linea è fatta di due fili, ciascuno con sezione
+\val{S}~mm$^2$. Resistività del rame: $\rho = \val{rho}\ \si{\ohm\milli\metre\squared\per\metre}$.
+\begin{parts}
+  \part[3] Calcola la resistenza $R_L$ della linea (andata e ritorno).
+  \part[2] Calcola la tensione $V_L$ persa sulla linea.
+  \part[1] Calcola la tensione $V_c$ che arriva al carico.
+  \part[2] Calcola la resistenza $R_c$ del carico.
+\end{parts}
+
+\begin{solution}
+  $R_L = \rho\,\dfrac{2L}{S} = \val{rho}\cdot\dfrac{2\cdot\val{L}}{\val{S}} \approx \mis{RL}{\ohm}$\\[4pt]
+  $V_L = R_L\, I = \mis{RL}{\ohm}\cdot\mis{Ic}{\ampere} \approx \mis{VL}{\volt}$\\[4pt]
+  $V_c = E - V_L \approx \mis{Vc}{\volt}$\\[4pt]
+  $R_c = V_c/I \approx \mis{Rc}{\ohm}$
+  \criterio{a) 1 pt lunghezza doppia (due fili), 1 pt formula $\rho\,\ell/S$, 1 pt risultato con unità;
+    b) 1 pt formula, 1 pt risultato; c) 1 pt;
+    d) 1 pt formula $V_c/I$, 1 pt risultato. Se usa un solo filo ($L$ invece di $2L$): $-1$ pt su a) e risultati
+    successivi coerenti accettati.}
+\end{solution}
+\end{esercizio}

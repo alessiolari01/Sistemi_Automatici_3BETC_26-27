@@ -1,0 +1,169 @@
+% ---------------------------------------------------------------------
+% Argomento: due rami in parallelo al generatore
+%   fila A: R1+R2 in serie // R3 + (R4//R5); nota I4 -> E, I, Req
+%   fila B: R1//R2 // R3 + (R4//R5); noti E e I3, R5 incognita
+%   fila C: stessa rete della A; noti E e tutte le R
+% Livello: avanzato   |   Tempo stimato: 30 min
+% Lezioni: 7/10 (serie e parallelo), 9/10 (KCL e KVL)
+% ---------------------------------------------------------------------
+\begin{esercizio}[14]
+\dato{R1}{21}{112}{64}            % [ohm]
+\dato{R2}{32}{142}{54}
+\dato{R3}{25}{23}{19}
+\dato{R4}{98}{61}{35}
+\dato{R5}{50}{0}{58}              % fila B: incognita
+\dato{I4}{1.3}{0}{0}              % fila A: corrente in R4 [A]
+\dato{I3}{0}{3.8}{0}              % fila B: corrente in R3 [A]
+\dato{E}{0}{230}{230}             % file B e C: tensione del generatore [V]
+\soloFila{A}{%
+  \calcola[V_{CB}]{V45}{\x{R4}*\x{I4}}
+  \calcola[I_5]{I5}{\x{V45}/\x{R5}}
+  \calcola[I_3]{I3}{\x{I4}+\x{I5}}
+  \calcola[V_3]{V3}{\x{R3}*\x{I3}}
+  \calcola[E]{E}{\x{V3}+\x{V45}}
+  \calcola[I_1]{I1}{\x{E}/(\x{R1}+\x{R2})}
+  \calcola[V_1]{V1}{\x{R1}*\x{I1}}
+  \calcola[V_2]{V2}{\x{R2}*\x{I1}}
+  \calcola[I]{I}{\x{I1}+\x{I3}}
+  \calcola[R_{eq}]{Req}{\x{E}/\x{I}}}
+\soloFila{B}{%
+  \calcola[V_3]{V3}{\x{R3}*\x{I3}}
+  \calcola[V_{CB}]{V45}{\x{E}-\x{V3}}
+  \calcola[I_4]{I4}{\x{V45}/\x{R4}}
+  \calcola[I_5]{I5}{\x{I3}-\x{I4}}
+  \calcola[R_5]{R5}{\x{V45}/\x{I5}}
+  \calcola[I_1]{I1}{\x{E}/\x{R1}}
+  \calcola[I_2]{I2}{\x{E}/\x{R2}}
+  \calcola[I]{I}{\x{I1}+\x{I2}+\x{I3}}
+  \calcola[R_{12}]{R12}{\x{R1}*\x{R2}/(\x{R1}+\x{R2})}
+  \calcola[R_{eq}]{Req}{\x{E}/\x{I}}}
+\soloFila{C}{%
+  \calcola[R_{12}]{R12}{\x{R1}+\x{R2}}
+  \calcola[R_{45}]{R45}{\x{R4}*\x{R5}/(\x{R4}+\x{R5})}
+  \calcola[R_{345}]{R345}{\x{R3}+\x{R45}}
+  \calcola[R_{eq}]{Req}{\x{R12}*\x{R345}/(\x{R12}+\x{R345})}
+  \calcola[I]{I}{\x{E}/\x{Req}}
+  \calcola[I_1]{I1}{\x{E}/\x{R12}}
+  \calcola[I_3]{I3}{\x{E}/\x{R345}}
+  \calcola[V_3]{V3}{\x{R3}*\x{I3}}
+  \calcola[V_{CB}]{V45}{\x{E}-\x{V3}}
+  \calcola[I_4]{I4}{\x{V45}/\x{R4}}
+  \calcola[I_5]{I5}{\x{V45}/\x{R5}}}
+
+\smallskip
+{\raggedright\setlength{\parindent}{0pt}\settowidth{\dimen0}{\textbf{Dati:}\ }\hangindent=\dimen0 \hangafter=1
+\textbf{Dati:}\ \ABC{%
+$R_1 = \mis{R1}{\ohm}$;\hspace{0.6em}$R_2 = \mis{R2}{\ohm}$;\hspace{0.6em}$R_3 = \mis{R3}{\ohm}$;\hspace{0.6em}$R_4 = \mis{R4}{\ohm}$;\hspace{0.6em}$R_5 = \mis{R5}{\ohm}$;\hspace{0.6em}$I_4 = \mis{I4}{\ampere}$}{%
+$R_1 = \mis{R1}{\ohm}$;\hspace{0.6em}$R_2 = \mis{R2}{\ohm}$;\hspace{0.6em}$R_3 = \mis{R3}{\ohm}$;\hspace{0.6em}$R_4 = \mis{R4}{\ohm}$;\hspace{0.6em}$E = \mis{E}{\volt}$;\hspace{0.6em}$I_3 = \mis{I3}{\ampere}$}{%
+$R_1 = \mis{R1}{\ohm}$;\hspace{0.6em}$R_2 = \mis{R2}{\ohm}$;\hspace{0.6em}$R_3 = \mis{R3}{\ohm}$;\hspace{0.6em}$R_4 = \mis{R4}{\ohm}$;\hspace{0.6em}$R_5 = \mis{R5}{\ohm}$;\hspace{0.6em}$E = \mis{E}{\volt}$}\par}
+\vspace{-4pt}
+\begin{center}
+\begin{minipage}{\linewidth}\centering
+\ABC{%
+  \begin{circuitikz}[x=1.4cm, y=1cm]
+    \ctikzset{bipoles/length=0.9cm}
+    \draw (0,0) to[vsource, l=$E$, n=G] (0,4.8) -- (5.2,4.8) (0,0) -- (6.4,0) (4.0,2.7) -- (6.4,2.7);
+    \resV{2.2}{4.8}{2.4}{R_1}
+    \resV{2.2}{2.4}{0}{R_2}
+    \resV{5.2}{4.8}{2.7}{R_3}
+    \resV{4.0}{2.7}{0}{R_4}
+    \resV{6.4}{2.7}{0}{R_5}
+    \corV{0}{3.6}{u}{I} 
+    \corV{4.0}{2.25}{d}{I_4} 
+    \segniV{6.4}{1.35}{V_{CB}}
+    \nodo{2.2}{4.8}{A}{above left} \nodo{2.2}{0}{B}{below left}
+    \nodo{5.2}{2.7}{C}{below right} \nodo{4.0}{0}{}{below}
+    \morsetti{G}
+  \end{circuitikz}}{%
+  \begin{circuitikz}[x=1.4cm, y=1cm]
+    \ctikzset{bipoles/length=0.9cm}
+    \draw (0,0) to[vsource, l=$E$, n=G] (0,4.8) -- (5.8,4.8) (0,0) -- (7.0,0) (4.6,2.7) -- (7.0,2.7);
+    \resV{1.8}{4.8}{0}{R_1}
+    \resV{3.4}{4.8}{0}{R_2}
+    \resV{5.8}{4.8}{2.7}{R_3}
+    \resV{4.6}{2.7}{0}{R_4}
+    \resV{7.0}{2.7}{0}{R_5}
+    \corV{0}{3.6}{u}{I} \corH{4.6}{4.8}{r}{I_3}
+    
+    \segniV{7.0}{1.35}{V_{CB}}
+    \nodo{1.8}{4.8}{A}{above left} \nodo{1.8}{0}{B}{below left}
+    \nodo{3.4}{4.8}{}{above} \nodo{3.4}{0}{}{below}
+    \nodo{5.8}{2.7}{C}{below right} \nodo{4.6}{0}{}{below}
+    \morsetti{G}
+  \end{circuitikz}}{%
+  \begin{circuitikz}[x=1.4cm, y=1cm]
+    \ctikzset{bipoles/length=0.9cm}
+    \draw (0,0) to[vsource, l=$E$, n=G] (0,4.8) -- (5.2,4.8) (0,0) -- (6.4,0) (4.0,2.7) -- (6.4,2.7);
+    \resV{2.2}{4.8}{2.4}{R_1}
+    \resV{2.2}{2.4}{0}{R_2}
+    \resV{5.2}{4.8}{2.7}{R_3}
+    \resV{4.0}{2.7}{0}{R_4}
+    \resV{6.4}{2.7}{0}{R_5}
+    \corV{0}{3.6}{u}{I} 
+    \corV{6.4}{2.25}{d}{I_5}
+    \segniV{6.4}{1.35}{V_{CB}}
+    \nodo{2.2}{4.8}{A}{above left} \nodo{2.2}{0}{B}{below left}
+    \nodo{5.2}{2.7}{C}{below right} \nodo{4.0}{0}{}{below}
+    \morsetti{G}
+  \end{circuitikz}}
+\end{minipage}
+
+\end{center}
+\vspace{-12pt}
+\ABC{%
+Applica la seconda legge di Kirchhoff alla maglia $E$, $R_3$, $R_4$\ptk{1}.
+\trovare{$V_{CB}$, $E$, $I$, $R_{eq}$}}{%
+Applica la seconda legge di Kirchhoff alla maglia $E$, $R_3$, $R_4$\ptk{1}.
+\trovare{$V_{CB}$, $R_5$, $I$, $R_{eq}$}}{%
+Applica la seconda legge di Kirchhoff alla maglia $E$, $R_3$, $R_4$\ptk{1}.
+\trovare{$R_{eq}$, $I$, $V_{CB}$, $I_5$}}
+
+\begin{solution}
+\ABC{%
+  $V_{CB} = R_4\,I_4 \approx \mis{V45}{\volt}$\\[4pt]
+  $I_5 = V_{CB}/R_5 \approx \mis{I5}{\ampere}$\\[4pt]
+  KCL: $I_3 = I_4 + I_5 \approx \mis{I3}{\ampere}$\\[4pt]
+  $V_3 = R_3\,I_3 \approx \mis{V3}{\volt}$\\[4pt]
+  KVL sulla maglia $E$, $R_3$, $R_4$: $E = V_3 + V_{CB}$\\[2pt]
+  $E \approx \mis{E}{\volt}$\\[4pt]
+  I due rami sono in parallelo (stessa tensione $E$), $R_1$ e $R_2$ in serie:\\[2pt]
+  $I_1 = E/(R_1+R_2) \approx \mis{I1}{\ampere}$\\[4pt]
+  $V_1 = R_1\,I_1 \approx \mis{V1}{\volt}$,\qquad $V_2 = R_2\,I_1 \approx \mis{V2}{\volt}$\\[4pt]
+  KCL: $I = I_1 + I_3 \approx \mis{I}{\ampere}$\\[4pt]
+  $R_{eq} = E/I \approx \mis{Req}{\ohm}$}{%
+  $V_3 = R_3\,I_3 \approx \mis{V3}{\volt}$\\[4pt]
+  KVL sulla maglia $E$, $R_3$, $R_4$: $E = V_3 + V_{CB}$\\[2pt]
+  $V_{CB} = E - V_3 \approx \mis{V45}{\volt}$\\[4pt]
+  $I_4 = V_{CB}/R_4 \approx \mis{I4}{\ampere}$\\[4pt]
+  KCL: $I_5 = I_3 - I_4 \approx \mis{I5}{\ampere}$\\[4pt]
+  $R_5 = V_{CB}/I_5 \approx \mis{R5}{\ohm}$\\[4pt]
+  $R_1$, $R_2$ e il ramo di $R_3$ sono in parallelo (stessa tensione $E$):\\[2pt]
+  $I_1 = E/R_1 \approx \mis{I1}{\ampere}$,\qquad $I_2 = E/R_2 \approx \mis{I2}{\ampere}$\\[4pt]
+  KCL: $I = I_1 + I_2 + I_3 \approx \mis{I}{\ampere}$\\[4pt]
+  $R_{12} = \dfrac{R_1\,R_2}{R_1+R_2} \approx \mis{R12}{\ohm}$\\[6pt]
+  $R_{eq} = E/I \approx \mis{Req}{\ohm}$}{%
+  $R_{12} = R_1 + R_2 = \mis{R12}{\ohm}$\\[4pt]
+  $R_{45} = \dfrac{R_4\,R_5}{R_4+R_5} \approx \mis{R45}{\ohm}$,\qquad
+  $R_{345} = R_3 + R_{45} \approx \mis{R345}{\ohm}$\\[6pt]
+  $R_{eq} = \dfrac{R_{12}\,R_{345}}{R_{12}+R_{345}} \approx \mis{Req}{\ohm}$\\[6pt]
+  $I = E/R_{eq} \approx \mis{I}{\ampere}$\\[4pt]
+  $I_1 = E/R_{12} \approx \mis{I1}{\ampere}$,\qquad $I_3 = E/R_{345} \approx \mis{I3}{\ampere}$\\[4pt]
+  $V_3 = R_3\,I_3 \approx \mis{V3}{\volt}$\\[4pt]
+  KVL sulla maglia $E$, $R_3$, $R_4$: $E = V_3 + V_{CB}$\\[2pt]
+  $V_{CB} = E - V_3 \approx \mis{V45}{\volt}$\\[4pt]
+  $I_4 = V_{CB}/R_4 \approx \mis{I4}{\ampere}$,\qquad $I_5 = V_{CB}/R_5 \approx \mis{I5}{\ampere}$}
+  \criterioABC
+  {$V_{CB}$, $I_5$, $I_3$ (KCL), $V_3$: 1 pt ciascuno; KVL: 1 pt equazione $E=V_3+V_{CB}$; $E$: 1 pt
+    somma, 1 pt risultato con unità; $I_1$: 1 pt riconoscere $R_1+R_2$ in serie sotto $E$, 1 pt
+    risultato; $V_1$, $V_2$: 1 pt ciascuna; $I$ (KCL): 1 pt; $R_{eq}$: 1 pt formula $E/I$, 1 pt
+    risultato. Unità mancanti: $-0{,}5$ pt una volta sola.}
+  {$V_3$: 1 pt; KVL: 1 pt equazione $E=V_3+V_{CB}$ (segni coerenti); $V_{CB}$: 1 pt; $I_4$: 1 pt;
+    $I_5$: 1 pt KCL; $R_5$: 1 pt formula $V_{CB}/I_5$, 1 pt risultato; $I_1$, $I_2$: 1 pt ciascuna
+    (stessa tensione $E$); $I$: 1 pt KCL con tre correnti; $R_{12}$: 1 pt formula parallelo, 1 pt
+    risultato; $R_{eq}$: 1 pt formula $E/I$, 1 pt risultato. Unità mancanti: $-0{,}5$ pt una volta sola.}
+  {$R_{12}$: 1 pt; $R_{45}$: 1 pt formula parallelo, 1 pt risultato; $R_{345}$: 1 pt; $R_{eq}$: 1 pt
+    combinazione dei due rami in parallelo, 1 pt risultato; $I$: 1 pt; $I_1$, $I_3$: 1 pt ciascuna;
+    $V_3$: 1 pt; KVL: 1 pt equazione $E=V_3+V_{CB}$ (segni coerenti); $V_{CB}$: 1 pt; $I_4$, $I_5$: 1 pt
+    ciascuna. Unità mancanti: $-0{,}5$ pt una volta sola.}
+\end{solution}
+\end{esercizio}

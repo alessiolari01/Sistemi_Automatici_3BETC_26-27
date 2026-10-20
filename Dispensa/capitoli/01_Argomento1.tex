@@ -1,0 +1,42 @@
+% =====================================================================
+%  Capitolo di esempio: mostra figure, formule chiave e box.
+%  Sostituisci il contenuto mantenendo la struttura.
+% =====================================================================
+\section{Argomento 1}
+
+Breve introduzione all'argomento: a cosa serve e cosa si impara.
+
+\subsection{Una formula chiave}
+
+Le formule importanti si scrivono con \verb|\keyeq{titolo}{formula}{etichetta}|:
+vengono numerate, finiscono nell'indice del formulario e nel formulario completo
+in fondo alla dispensa.
+
+\keyeq{Legge di Ohm}{V = R\cdot I}{eq:arg1:ohm}
+
+La \eqref{eq:arg1:ohm} lega tensione, corrente e resistenza.
+
+\subsection{Un concetto da ricordare}
+
+\keybox{Resistori in serie}{%
+  Sono attraversati dalla stessa corrente; la resistenza equivalente è la somma:
+  \[ R_{eq} = R_1 + R_2 + \dots + R_n \]
+}{box:arg1:serie}
+
+\subsection{Una figura}
+
+Figure e tabelle restano dove le scrivi (non serve \texttt{[H]}).
+Per un'immagine: \verb|\includegraphics[width=0.6\textwidth]{nomefile}|
+con il file in \texttt{Dispensa/figure/}.
+
+\begin{figure}
+  \centering
+  \begin{circuitikz}
+    \draw (0,0) to[vsource, l=$V$, n=G] (0,2.5)
+          to[R, l=$R_1$] (3,2.5)
+          to[R, l=$R_2$] (3,0) -- (0,0);
+    \morsetti{G}
+  \end{circuitikz}
+  \caption{Due resistori in serie.}
+  \label{fig:arg1:serie}
+\end{figure}

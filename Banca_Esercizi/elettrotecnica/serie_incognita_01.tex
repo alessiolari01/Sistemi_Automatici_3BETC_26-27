@@ -1,0 +1,55 @@
+% ---------------------------------------------------------------------
+% Argomento: circuito serie con una resistenza incognita, nota la corrente
+% Livello: base   |   Tempo stimato: 10 min
+% Lezioni: 5/10 (Ohm), 7/10 (serie)
+% ---------------------------------------------------------------------
+\begin{esercizio}
+\dato{E}{230}{230}{230}              % generatore [V]
+\dato{I}{5.2}{5.4}{5.3}              % corrente nel circuito [A]
+\dato{R1}{14}{18}{16}                % [ohm]
+\dato{R2}{6}{13}{10}
+\calcola[R_{eq}]{Req}{\x{E}/\x{I}}
+\calcola[R_3]{R3}{\x{Req}-\x{R1}-\x{R2}}
+\calcola[V_3]{V3}{\x{R3}*\x{I}}
+\calcola[V_1]{V1}{\x{R1}*\x{I}}
+
+Nel circuito circola la corrente $I$. Sono note $R_1$ e $R_2$; $R_3$ non è nota.
+
+\begin{center}
+\begin{minipage}{0.52\linewidth}\centering
+  \begin{circuitikz}[x=0.85cm, y=0.5cm]
+    \ctikzset{bipoles/length=1cm}
+    \draw (0,0) to[vsource, l=$E$, n=G] (0,2.2)
+          to[R, l=$R_1$, i=$I$] (2.5,2.2) to[R, l=$R_2$] (5,2.2)
+          to[R, l=$R_3$] (5,0) -- (0,0);
+    \morsetti{G}
+  \end{circuitikz}
+\end{minipage}\hfill
+\begin{minipage}{0.4\linewidth}
+  \renewcommand{\arraystretch}{1.1}
+  \begin{tabular}{r@{${}={}$}l}
+    $E$   & \mis{E}{\volt}\\
+    $I$   & \mis{I}{\ampere}\\
+    $R_1$ & \mis{R1}{\ohm}\\
+    $R_2$ & \mis{R2}{\ohm}
+  \end{tabular}
+\end{minipage}
+\end{center}
+
+\vspace{-6pt}
+\begin{parts}
+  \part[2] Calcola la resistenza equivalente $R_{eq}$ vista dal generatore.
+  \part[2] Calcola la resistenza $R_3$.
+  \part[1] Calcola la tensione $V_3$ ai capi di $R_3$.
+  \part[1] Calcola la tensione $V_1$ ai capi di $R_1$.
+\end{parts}
+
+\begin{solution}
+  $R_{eq} = E/I = \dfrac{\val{E}}{\val{I}} \approx \mis{Req}{\ohm}$\\[4pt]
+  $R_3 = R_{eq} - R_1 - R_2 \approx \mis{R3}{\ohm}$\\[4pt]
+  $V_3 = R_3\,I \approx \mis{V3}{\volt}$,\qquad $V_1 = R_1\,I \approx \mis{V1}{\volt}$
+  \criterio{a) 1 pt formula $R_{eq}=E/I$, 1 pt risultato con unità; b) 1 pt riconoscere che
+    $R_{eq}=R_1+R_2+R_3$ (serie), 1 pt risultato; c) 1 pt; d) 1 pt.
+    Unità mancanti: $-0{,}5$ pt una volta sola.}
+\end{solution}
+\end{esercizio}

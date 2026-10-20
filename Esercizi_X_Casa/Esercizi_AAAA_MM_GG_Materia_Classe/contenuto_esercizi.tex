@@ -1,0 +1,31 @@
+% =====================================================================
+%  CONTENUTO DEGLI ESERCIZI PER CASA — qui si scelgono gli esercizi.
+%  Per i PDF imposta come Main document 1_Testo, 2_Soluzioni o 3_Correzione.
+%  Nuova consegna: copia la cartella come
+%     Esercizi_X_Casa/Esercizi_2026_10_27_NomeMateria_3A/
+%  e aggiorna il percorso nell'ultima riga dei file numerati.
+% =====================================================================
+\providecommand{\versione}{testo}  % testo | soluzioni | correzione
+
+\documentclass[a4paper,11pt]{exam}
+\usepackage{stili/verifica}
+\compitoacasa
+
+\materia{}              % vuoto -> titolo solo "Esercizi"
+\argomento{}            % es. Legge di Ohm e resistenze equivalenti
+\classe{}               % vuoto -> riga da compilare
+\annoscolastico{}       % vuoto -> riga da compilare
+\dataprova{}            % data di consegna (vuoto = non stampata)
+
+\begin{document}
+
+\intestazione
+% \istruzioni{...}   % facoltativo: istruzioni sotto l'intestazione
+
+\begin{questions}
+\input{Banca_Esercizi/elettrotecnica/ohm_potenza_01}
+\input{Banca_Esercizi/elettrotecnica/parallelo_tre_01}
+\input{Banca_Esercizi/elettrotecnica/circuito_misto_01}
+\end{questions}
+
+\end{document}

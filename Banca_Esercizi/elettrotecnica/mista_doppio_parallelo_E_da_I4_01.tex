@@ -1,0 +1,85 @@
+% ---------------------------------------------------------------------
+% Argomento: R1 in serie con due paralleli (R2//R3) e (R4//R5); si conosce
+%            la corrente in R4 e si risale alla tensione E del generatore
+% Livello: avanzato   |   Tempo stimato: 35 min
+% Lezioni: 7/10 (serie, parallelo, partitori), 9/10 (KCL e KVL)
+% ---------------------------------------------------------------------
+\begin{esercizio}
+\dato{R1}{11}{5}{12}              % [ohm]
+\dato{R2}{31}{43}{57}
+\dato{R3}{60}{56}{32}
+\dato{R4}{41}{31}{34}
+\dato{R5}{51}{96}{47}
+\dato{I4}{2.3}{3.2}{2.6}          % corrente in R4 [A]
+\calcola[V_{45}]{V45}{\x{R4}*\x{I4}}
+\calcola[I_5]{I5}{\x{V45}/\x{R5}}
+\calcola[I]{I}{\x{I4}+\x{I5}}
+\calcola[R_{23}]{R23}{\x{R2}*\x{R3}/(\x{R2}+\x{R3})}
+\calcola[V_{23}]{V23}{\x{R23}*\x{I}}
+\calcola[V_1]{V1}{\x{R1}*\x{I}}
+\calcola[E]{E}{\x{V1}+\x{V23}+\x{V45}}
+\calcola[R_{45}]{R45}{\x{R4}*\x{R5}/(\x{R4}+\x{R5})}
+\calcola[R_{eq}]{Req}{\x{R1}+\x{R23}+\x{R45}}
+
+Nel circuito in figura sono note tutte le resistenze e la corrente $I_4$ che attraversa
+$R_4$. Non è nota la tensione $E$ del generatore.
+
+\begin{center}
+\begin{minipage}{0.56\linewidth}\centering
+  \begin{circuitikz}[x=0.75cm, y=0.55cm]
+    \ctikzset{bipoles/length=0.9cm}
+    \draw (0,0) to[vsource, l=$E$, n=G] (0,4.4)
+          to[R, l=$R_1$] (2.2,4.4) node[circ]{} -- (3.8,4.4)
+          (2.2,4.4) to[R, l_=$R_2$] (2.2,2.2) node[circ]{}
+          (3.8,4.4) node[circ]{} to[R, l=$R_3$] (3.8,2.2) node[circ]{}
+          (2.2,2.2) -- (7.4,2.2)
+          (5.2,2.2) node[circ]{} to[R, l_=$R_4$] (5.2,0) node[circ]{}
+          (7.4,2.2) node[circ]{} to[R, l=$R_5$] (7.4,0) node[circ]{}
+          (7.4,0) -- (0,0);
+    \draw[-{Stealth[length=2mm]}] (6.0,1.9) -- (6.0,0.3) node[midway, right]{$I_4$};
+    \morsetti{G}
+  \end{circuitikz}
+\end{minipage}\hfill
+\begin{minipage}{0.38\linewidth}
+  \renewcommand{\arraystretch}{1.1}
+  \begin{tabular}{r@{${}={}$}l}
+    $R_1$ & \mis{R1}{\ohm}\\
+    $R_2$ & \mis{R2}{\ohm}\\
+    $R_3$ & \mis{R3}{\ohm}\\
+    $R_4$ & \mis{R4}{\ohm}\\
+    $R_5$ & \mis{R5}{\ohm}\\
+    $I_4$ & \mis{I4}{\ampere}
+  \end{tabular}
+\end{minipage}
+\end{center}
+\vspace{-6pt}
+\begin{parts}
+  \part[1] Calcola la tensione $V_{45}$ ai capi del parallelo tra $R_4$ e $R_5$.
+  \part[1] Calcola la corrente $I_5$ in $R_5$.
+  \part[1] Calcola la corrente $I$ erogata dal generatore.
+  \part[2] Calcola la resistenza $R_{23}$ del parallelo tra $R_2$ e $R_3$.
+  \part[1] Calcola la tensione $V_{23}$ ai capi del parallelo tra $R_2$ e $R_3$.
+  \part[1] Calcola la tensione $V_1$ ai capi di $R_1$.
+  \part[2] Applica la seconda legge di Kirchhoff alla maglia $E$, $R_1$, $R_2$, $R_4$.
+  \part[2] Calcola la tensione $E$ del generatore.
+  \part[3] Calcola la resistenza equivalente $R_{eq}$ vista dal generatore.
+\end{parts}
+
+\begin{solution}
+  $V_{45} = R_4\,I_4 \approx \mis{V45}{\volt}$\\[4pt]
+  $I_5 = V_{45}/R_5 \approx \mis{I5}{\ampere}$\\[4pt]
+  KCL: $I = I_4 + I_5 \approx \mis{I}{\ampere}$\\[4pt]
+  $R_{23} = \dfrac{R_2 R_3}{R_2+R_3} \approx \mis{R23}{\ohm}$,\qquad
+  $V_{23} = R_{23}\,I \approx \mis{V23}{\volt}$\\[4pt]
+  $V_1 = R_1\,I \approx \mis{V1}{\volt}$\\[4pt]
+  KVL: $E = V_1 + V_{23} + V_{45}$\\[2pt]
+  $E \approx \mis{E}{\volt}$\\[4pt]
+  $R_{45} = \dfrac{R_4 R_5}{R_4+R_5} \approx \mis{R45}{\ohm}$,\qquad
+  $R_{eq} = R_1 + R_{23} + R_{45} \approx \mis{Req}{\ohm}$
+  \criterio{a) 1 pt; b) 1 pt; c) 1 pt KCL; d) 1 pt formula del parallelo, 1 pt risultato;
+    e) 1 pt; f) 1 pt; g) 1 pt equazione $E=V_1+V_{23}+V_{45}$, 1 pt segni/maglia coerenti;
+    h) 1 pt somma, 1 pt risultato con unità; i) 1 pt $R_{45}$, 1 pt serie
+    $R_1+R_{23}+R_{45}$, 1 pt risultato (valido anche $E/I$ con $E$ calcolata).
+    Unità mancanti: $-0{,}5$ pt una volta sola.}
+\end{solution}
+\end{esercizio}

@@ -1,0 +1,524 @@
+% =====================================================================
+%  stili/verifica.sty — verifiche, compiti in classe ed esercizi a casa
+%  Uso:  \documentclass[a4paper,11pt,addpoints]{exam}
+%        \usepackage{stili/verifica}
+%  Stampa in bianco e nero, pensata per un foglio fronte/retro.
+% =====================================================================
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{stili/verifica}[2026/10/19 Didattica - verifiche]
+
+\RequirePackage{stili/comune}
+\RequirePackage[scaled=0.92]{helvet}      % sans serif: più leggibile
+\renewcommand{\familydefault}{\sfdefault}
+\RequirePackage[a4paper,top=2.3cm,bottom=2.2cm,left=2cm,right=2.2cm,
+                headheight=22pt,headsep=12pt]{geometry}
+
+% =====================================================================
+%  INTERRUTTORI  (si impostano in cima al file .tex della prova)
+% =====================================================================
+\providecommand{\fila}{A}          % A, B oppure C
+\providecommand{\versione}{testo}  % testo | soluzioni | correzione | completa
+%  testo       -> foglio per gli studenti
+%  soluzioni   -> SOLO le soluzioni, da dare agli studenti (una fila)
+%  correzione  -> griglia per correggere: risultati fila A, B e C affiancati,
+%                 criteri, punti, griglia voti (per il docente)
+%  completa    -> testo + soluzioni + criteri + controllo A/B (catalogo)
+
+\newif\ifv@sol \newif\ifv@corr \newif\ifv@completa \newif\ifv@nascosto
+\ifdefstring{\versione}{soluzioni}{\v@soltrue\v@nascostotrue}{}
+\ifdefstring{\versione}{correzione}{\v@corrtrue\v@nascostotrue}{}
+\ifdefstring{\versione}{completa}{\v@completatrue}{}
+\newcommand{\seCompleta}[2]{\ifv@completa#1\else#2\fi}
+\ifv@completa\printanswers\else\noprintanswers\fi
+
+% \ABC{testo fila A}{testo fila B}{testo fila C}
+\newcommand{\ABC}[3]{\ifdefstring{\fila}{A}{#1}{\ifdefstring{\fila}{B}{#2}{#3}}}
+
+% =====================================================================
+%  DATI DELLA VERIFICA  (tutti facoltativi: se vuoti non si stampano)
+% =====================================================================
+\def\v@scuola{}
+\def\v@as{}
+\def\v@tipo{Verifica}
+\def\v@materia{}
+\def\v@argomento{}
+\def\v@obiettivi{}
+\def\v@classe{}
+\def\v@data{}
+\def\v@durata{}
+\def\v@criteri{}
+\def\v@votomin{2}
+\def\v@soglia{60}
+
+\newcommand{\scuola}[1]{\def\v@scuola{#1}}
+\newcommand{\annoscolastico}[1]{\def\v@as{#1}}
+\newcommand{\tipoprova}[1]{\def\v@tipo{#1}}
+\newcommand{\materia}[1]{\def\v@materia{#1}}
+\newcommand{\argomento}[1]{\def\v@argomento{#1}}
+\newcommand{\obiettivi}[1]{\def\v@obiettivi{#1}}
+\newcommand{\classe}[1]{\def\v@classe{#1}}
+\newcommand{\dataprova}[1]{\def\v@data{#1}}
+\newcommand{\durata}[1]{\def\v@durata{#1}}
+\newcommand{\criterigenerali}[1]{\def\v@criteri{#1}}
+\newcommand{\votominimo}[1]{\def\v@votomin{#1}}
+\newcommand{\sogliasufficienza}[1]{\def\v@soglia{#1}}
+
+% ---------- Modalità "esercizi a casa" -----------------------------------
+% \compitoacasa nel preambolo: niente fila, punteggi, griglia voti.
+\newif\ifv@casa
+\newcommand{\compitoacasa}{%
+  \v@casatrue
+  \def\v@tipo{Esercizi}%
+  \qformat{\large\bfseries Esercizio \thequestion\hfill}%
+  \pointformat{}%
+  \nopointsinmargin}
+
+% ---------- Utilità -----------------------------------------------------
+\newcommand{\linea}[1]{\rule[-2pt]{#1}{0.5pt}}
+\newcommand{\v@campo}[2]{\ifdefempty{#1}{\linea{#2}}{\makebox[#2][l]{\textbf{#1}}}}
+\newcommand{\v@titolo}{\v@tipo\ifdefempty{\v@materia}{}{\ di \v@materia}}
+
+\newcommand{\v@riquadro}[1]{%
+  \tikz[baseline=(b.base)]\node[draw,line width=1pt,rounded corners=2pt,
+     inner xsep=7pt,inner ysep=4pt,font=\bfseries](b){#1};}
+\newcommand{\v@badge}{%
+  \ifv@corr \v@riquadro{CORREZIONE \textperiodcentered\ FILE A, B e C}%
+  \else\ifv@casa
+    \ifv@sol\v@riquadro{SOLUZIONI}\else\ifv@completa\v@riquadro{SOLUZIONI}\fi\fi
+  \else
+    \v@riquadro{\ifv@sol SOLUZIONI \textperiodcentered\ \fi
+                \ifv@completa SOLUZIONI \textperiodcentered\ \fi FILA \fila}%
+  \fi\fi}
+
+% ---------- Intestazioni e piè di pagina --------------------------------
+\pagestyle{headandfoot}
+% 1ª pagina: (scuola) Classe ____  A.S. ____  ...  FILA A
+% (nelle soluzioni e nella correzione il riquadro a sinistra non compare)
+\firstpageheader{\ifv@nascosto\else\small
+  \ifdefempty{\v@scuola}{}{\v@scuola\\}%
+  Classe \v@campo{\v@classe}{2.2cm}\quad A.S.~\v@campo{\v@as}{2cm}\fi}{}{\v@badge}
+% pagine successive: nessuna intestazione
+\runningheader{}{}{}
+\norunningheadrule
+
+% Numerazione solo sulle pagine che contengono esercizi:
+% la pagina con la sola tabella punti non conta.
+% (\v@fine = ultima pagina con esercizi, letta dal file .aux)
+\def\v@fine{0}
+\newcommand{\v@segnapagina}[1]{\ifnum#1>\v@fine\relax\gdef\v@fine{#1}\fi}
+\newcommand{\v@segna}{\protected@write\@auxout{}{\string\v@segnapagina{\thepage}}}
+\newcommand{\v@piede}{%
+  \ifnum\v@fine>1 \ifnum\value{page}>\v@fine\else
+    \small Pagina \thepage\ di \v@fine\fi\fi}
+\newcommand{\v@continua}{%
+  \ifnum\value{page}<\v@fine\relax
+    \small\itshape\ifnum\value{page}=1 continua sul retro\else continua\fi
+    \ $\rightarrow$\fi}
+\ifdefstring{\versione}{testo}{%
+  \firstpagefooter{}{\v@piede}{\v@continua}%
+  \runningfooter{}{\v@piede}{\v@continua}}{%
+  \firstpagefooter{}{\small Pagina \thepage\ di \numpages}{}%
+  \runningfooter{}{\small Pagina \thepage\ di \numpages}{}}
+
+% ---------- Blocco intestazione della prova -----------------------------
+\newcommand{\intestazione}{%
+  \ifv@nascosto\v@intestazioneridotta\else\v@intestazionepiena\fi}
+% soluzioni / correzione: solo titolo
+\newcommand{\v@intestazioneridotta}{%
+  \begin{center}
+    {\LARGE\bfseries \ifv@sol Soluzioni\else Griglia di correzione\fi\par}
+    \vspace{3pt}{\large \v@titolo\par}
+    \ifdefempty{\v@argomento}{}{\vspace{2pt}{\itshape \v@argomento\par}}
+    \ifdefempty{\v@data}{}{\vspace{2pt}{\small \v@data\par}}
+  \end{center}
+  \vspace{6pt}
+  \ifv@corr\v@boxcriteri\fi}
+\newcommand{\v@boxcriteri}{%
+  \ifdefempty{\v@criteri}{}{%
+    \noindent\fbox{\parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule}{\small
+      \textbf{Criteri generali di correzione.} \v@criteri}}\par\vspace{6pt}}}
+% testo / completa: intestazione con nome, punteggio, voto
+\newcommand{\v@intestazionepiena}{%
+  \begin{center}
+    {\LARGE\bfseries \v@titolo\par}
+    \ifdefempty{\v@argomento}{}{\vspace{3pt}{\large\itshape \v@argomento\par}}
+  \end{center}
+  \vspace{2pt}
+  \noindent
+  \ifv@casa
+    Nome \linea{4.2cm}\hfill Cognome \linea{4.5cm}\par\smallskip\noindent
+    \ifdefempty{\v@data}{}{Da consegnare entro: \textbf{\v@data}}%
+  \else
+  \begin{minipage}[c]{0.63\textwidth}
+    \setlength{\parskip}{11pt}
+    Nome \linea{3.4cm}\hfill Cognome \linea{3.7cm}\par
+    Data \v@campo{\v@data}{2.8cm}
+  \end{minipage}\hfill
+  \begin{minipage}[c]{0.33\textwidth}\raggedleft
+    \begin{tikzpicture}
+      \node[draw,line width=0.9pt,rounded corners=4pt,
+            inner sep=8pt,text width=0.85\linewidth,align=left]
+      {Punteggio \linea{1.3cm}\,/\,\textbf{\numpoints}\\[10pt]
+       Voto \hspace{1.05cm}\linea{1.9cm}};
+    \end{tikzpicture}
+  \end{minipage}
+  \fi
+  \par\vspace{8pt}
+  \vspace{8pt}
+  \ifdefempty{\v@obiettivi}{}{%
+    \noindent{\small\textbf{Obiettivi:} \v@obiettivi\par}\vspace{3pt}}%
+  \ifv@completa\v@boxcriteri\fi
+}
+
+% Istruzioni (facoltative): \istruzioni{testo}
+\newcommand{\istruzioni}[1]{%
+  \ifv@nascosto\else
+  \noindent{\small
+    \ifdefempty{\v@durata}{}{\textbf{Durata:} \v@durata.\enspace}#1\par}
+  \vspace{6pt}\fi}
+
+% =====================================================================
+%  ESERCIZI
+% =====================================================================
+\qformat{\large\bfseries Esercizio \thequestion.\fila
+         \hfill\normalsize\mdseries\itshape(\totalpoints\ pt)}
+\renewcommand{\questionshook}{\setlength{\itemsep}{9pt}}
+\renewcommand{\partshook}{\setlength{\itemsep}{2pt}\setlength{\parsep}{0pt}\setlength{\topsep}{2pt}}
+\pointpoints{pt}{pt}
+\bonuspointpoints{pt bonus}{pt bonus}
+\pointsinrightmargin
+\pointformat{\small\itshape(\thepoints)}
+\renewcommand{\partlabel}{\textbf{\thepartno)}}
+\renewcommand{\subpartlabel}{\thesubpart.}
+
+% Esercizio che non si spezza mai tra due pagine:
+%   \begin{esercizio}        ... \end{esercizio}   punti sulle richieste
+%   \begin{esercizio}[4]     ... \end{esercizio}   punteggio unico
+% Nelle versioni "soluzioni" e "correzione" il testo dell'esercizio
+% viene elaborato (dati, calcoli, punti) ma non stampato.
+\def\v@file{}
+\newsavebox{\v@scarto}
+\newenvironment{esercizio}[1][]
+  {\gdef\v@solbody{}\gdef\v@risE{}\gdef\v@critE{}\gdef\v@lista{}%
+   \ifblank{#1}{\question}{\question[#1]}%
+   \ifv@nascosto
+     \setbox\v@scarto\vbox\bgroup
+   \else
+     \begin{minipage}[t]{\linewidth}\setlength{\parskip}{4pt}%
+     \ifdefempty{\v@file}{}{{\footnotesize\ttfamily
+       [\expandafter\detokenize\expandafter{\v@file}]}\par}%
+   \fi}
+  {\ifv@nascosto
+     \egroup
+     \ifv@sol\v@stampasoluzione\fi
+     \ifv@corr\v@registracorrezione\fi
+   \else
+     \v@chiudirighe\v@segna\end{minipage}%
+     % titolo e corpo sono due righe dello stesso paragrafo: vietato separarle
+     \clubpenalty\@M \widowpenalty\@M \interlinepenalty\@M \par
+   \fi}
+
+% \fileesercizio{percorso}: come \input, ma stampa anche il nome del file
+% (usato nel catalogo della banca esercizi)
+\newcommand{\fileesercizio}[1]{\gdef\v@file{#1}\input{#1}\gdef\v@file{}}
+
+% Soluzioni: nel testo sono nascoste; nella versione "completa" sono
+% riquadrate sotto l'esercizio; in "soluzioni" e "correzione" vengono
+% raccolte e usate a fine esercizio.
+\framedsolutions
+\renewcommand{\solutiontitle}{\noindent\textbf{Soluzione.}\enspace}
+\RequirePackage{environ}
+\ifv@nascosto
+  \RenewEnviron{solution}{\xappto\v@solbody{\unexpanded\expandafter{\BODY}}}
+\fi
+
+% Versione "soluzioni": titolo dell'esercizio + soluzione, sempre insieme
+\newcommand{\v@stampasoluzione}{%
+  \ifdefempty{\v@solbody}{}{%
+    \par\noindent\begin{minipage}{\linewidth}
+      {\large\bfseries Esercizio \thequestion\ifv@casa\else.\fila\fi\par}
+      \smallskip\setlength{\parskip}{4pt}%
+      \v@solbody
+    \end{minipage}\par\medskip}}
+
+% Richieste in una riga: \trovare{$I_1$ (1), $V_2$ (2)} -> "Trovare (punti tra parentesi): ..."
+\newcommand{\pt}[1]{\ifv@completa\ (#1)\fi}   % punti: visibili solo nella versione completa
+\newcommand{\ptk}[1]{\ifv@completa\ (#1 pt)\fi}
+\newcommand{\trovare}[1]{\par\smallskip\noindent\textbf{Trovare:} #1.\par}
+
+% Criterio di correzione, da mettere dentro \begin{solution}:
+%   \criterio{1 pt impostazione, 1 pt calcolo, $-0{,}5$ senza unità}
+% Compare nella griglia di correzione e nella versione completa,
+% mai nelle soluzioni per gli studenti.
+\newcommand{\criterio}[1]{%
+  \ifv@corr\gappto\v@critE{#1\par}\fi
+  \ifv@completa\par\smallskip{\small\itshape Criterio: #1}\par\fi}
+% Criteri diversi per le tre file: \criterioABC{fila A}{fila B}{fila C}
+\newcommand{\criterioABC}[3]{%
+  \ifv@corr\gappto\v@critE{\textbf{Fila A.} #1\par\textbf{Fila B.} #2\par
+    \textbf{Fila C.} #3\par}\fi
+  \ifv@completa\par\smallskip{\small\itshape Criterio: \ABC{#1}{#2}{#3}}\par\fi}
+
+% Versione "correzione": per ogni esercizio risultati A/B e criteri
+% (ogni blocco viene composto subito, con i valori di quell'esercizio,
+%  e messo da parte fino a \riepilogo)
+\newbox\v@grigliabox
+\newcommand{\v@registracorrezione}{%
+  \setbox\v@scarto\vbox{\v@solbody}% fila A: unità di misura e criteri
+  \begingroup % file B e C: solo per registrare le unità di misura
+    \def\criterio##1{}\def\criterioABC##1##2##3{}%
+    \def\fila{B}\setbox\v@scarto\vbox{\v@solbody}%
+    \def\fila{C}\setbox\v@scarto\vbox{\v@solbody}%
+  \endgroup
+  \v@costruisci
+  \global\setbox\v@grigliabox\vbox{%
+    \ifvoid\v@grigliabox\else\unvbox\v@grigliabox\fi
+    \hsize\textwidth\linewidth\textwidth\leftskip\z@\@totalleftmargin\z@
+    \expandafter\expandafter\expandafter\v@bloccocorr
+    \expandafter\expandafter\expandafter{\expandafter\thequestion\expandafter}%
+    \expandafter{\v@risE}{\v@critE}}}
+\newcommand{\v@bloccocorr}[3]{%
+  \par\noindent\begin{minipage}{\textwidth}
+    {\bfseries Esercizio #1}\hfill
+    \ifv@casa\else{\itshape \pointsofquestion{#1} pt}\fi\par\smallskip
+    \ifblank{#2}{}{%
+      {\small\renewcommand{\arraystretch}{1.2}%
+       \begin{tabular}{@{\hspace{1em}}l@{\hspace{1.5em}}l@{\hspace{1.5em}}l@{\hspace{1.5em}}l}
+         \textit{Grandezza} & \textit{Fila A} & \textit{Fila B} & \textit{Fila C}\\[1pt]
+         #2
+       \end{tabular}\par}}%
+    \ifblank{#3}{}{\smallskip
+      \noindent\hspace{1em}\parbox{\dimexpr\linewidth-1em}{\small
+        \setlength{\parskip}{2pt}\textit{Criteri:}\par #3}\par}%
+  \end{minipage}\par\vspace{10pt}}
+
+% =====================================================================
+%  DATI NUMERICI E CALCOLI AUTOMATICI  (file A, B e C)
+% =====================================================================
+%  \dato{R1}{150}{180}{220}      dato: valore fila A, fila B, fila C
+%                                (in unità base: 2.2e3 = 2,2 kΩ)
+%  \calcola{Req}{\x{R1}+\x{R2}}  risultato calcolato per tutte e tre le file
+%  \calcola[R_{eq}]{Req}{...}    idem, con il nome da mostrare nel controllo
+%  \x{R1}                        valore numerico, da usare nelle formule
+%  \mis{R1}{\ohm}                stampa con prefisso automatico: 2,2 kΩ
+%  \val{R1}                      stampa solo il numero (unità base)
+%
+%  Nella versione con soluzioni i risultati "troppo tondi" (che si
+%  scrivono con 2 cifre significative o meno, es. 120, 0,5, 800) sono
+%  segnati con [!] e c'è una pagina di controllo con A e B affiancate.
+\def\v@f{A}
+\newcommand{\x}[1]{\csname v@\v@f @#1\endcsname}
+\newcommand{\v@get}[1]{\csname v@\fila @#1\endcsname}
+
+\newcommand{\dato}[4]{%
+  \expandafter\xdef\csname v@A@#1\endcsname{\fpeval{#2}}%
+  \expandafter\xdef\csname v@B@#1\endcsname{\fpeval{#3}}%
+  \expandafter\xdef\csname v@C@#1\endcsname{\fpeval{#4}}}
+
+% 1 se il valore si scrive con <= 2 cifre significative
+\newcommand{\v@tondo}[1]{%
+  \ifnum\fpeval{#1 == 0}=1 1\else
+  \fpeval{round(#1, 1 - floor(ln(abs(#1))/ln(10) + 1e-12))
+          == round(#1, 2 - floor(ln(abs(#1))/ln(10) + 1e-12))}\fi}
+
+\newcounter{v@tondi}
+\def\v@righe{}
+\def\v@lista{}
+% Varianti per fila: dentro \soloFila{AB}{...} i \calcola valgono solo per
+% le file indicate (le altre mostrano "--" nella griglia di correzione).
+\gdef\v@solo{ABC}
+\newcommand{\soloFila}[2]{\gdef\v@solo{#1}#2\gdef\v@solo{ABC}}
+\newif\ifv@appl
+\newcommand{\v@applicabile}[1]{%
+  \edef\v@tmpin{\noexpand\in@{#1}{\v@solo}}\v@tmpin
+  \ifin@\v@appltrue\else\v@applfalse\fi}
+% prima volta che un nome compare in un esercizio: prepara le caselle
+\newcommand{\v@reg}[2]{%
+  \ifcsdef{v@row@\thequestion @#2}{}{%
+    \csgdef{v@row@\thequestion @#2}{1}%
+    \ifblank{#1}{\csgdef{v@lab@#2}{\texttt{\detokenize{#2}}}}%
+                {\csgdef{v@lab@#2}{$#1$}}%
+    \csgdef{v@naA@#2}{}\csgdef{v@naB@#2}{}\csgdef{v@naC@#2}{}%
+    \csgdef{v@tondoA@#2}{0}\csgdef{v@tondoB@#2}{0}\csgdef{v@tondoC@#2}{0}%
+    \listgadd\v@lista{#2}}}
+% calcolo per una sola fila: fila, nome, formula
+\newcommand{\v@cf}[3]{%
+  \v@applicabile{#1}%
+  \ifv@appl
+    \def\v@f{#1}%
+    \expandafter\xdef\csname v@#1@#2\endcsname{\fpeval{#3}}%
+    \expandafter\global\expandafter\let\csname v@na#1@#2\endcsname\@undefined
+    \edef\v@tt{\v@tondo{\csname v@#1@#2\endcsname}}%
+    \expandafter\global\expandafter\let\csname v@tondo#1@#2\endcsname\v@tt
+    \ifnum\v@tt>0 \stepcounter{v@tondi}%
+      \PackageWarningNoLine{verifica}{VERIFICA-TONDO: risultato '#2'
+        (fila #1) dell'esercizio \thequestion\space ha poche cifre significative}\fi
+  \fi}
+\newcommand{\calcola}[3][]{%
+  \v@reg{#1}{#2}%
+  \v@cf{A}{#2}{#3}\v@cf{B}{#2}{#3}\v@cf{C}{#2}{#3}%
+  \def\v@f{A}%
+  \expandafter\xdef\csname v@calc@#2\endcsname{1}}
+% righe della griglia di correzione, composte a fine esercizio
+\newcommand{\v@costruisci}{\gdef\v@risE{}\forlistloop{\v@rigacorr}{\v@lista}}
+\newcommand{\v@rigacorr}[1]{%
+  \gappto\v@risE{\csname v@lab@#1\endcsname & \v@misAB{A}{#1} & \v@misAB{B}{#1} &
+    \v@misAB{C}{#1}\\}}
+% righe per la pagina di controllo (valori "congelati" a fine esercizio)
+\newcommand{\v@chiudirighe}{\forlistloop{\v@snap}{\v@lista}\forlistloop{\v@rigatab}{\v@lista}}
+\newcommand{\v@snap}[1]{\v@snapf{A}{#1}\v@snapf{B}{#1}\v@snapf{C}{#1}}
+\newcommand{\v@snapf}[2]{%
+  \ifcsdef{v@na#1@#2}{\csgdef{v@sna\thequestion #1@#2}{}}{%
+    \csxdef{v@s\thequestion @#1@#2}{\csname v@#1@#2\endcsname}%
+    \csxdef{v@st\thequestion @#1@#2}{\csname v@tondo#1@#2\endcsname}}}
+\newcommand{\v@rigatab}[1]{%
+  \xappto\v@righe{\thequestion &
+    \expandafter\unexpanded\expandafter{\csname v@lab@#1\endcsname} &
+    \noexpand\v@cs{\thequestion}{A}{#1} & \noexpand\v@cs{\thequestion}{B}{#1} &
+    \noexpand\v@cs{\thequestion}{C}{#1}\noexpand\\}}
+\newcommand{\v@cs}[3]{%
+  \ifcsdef{v@sna#1#2@#3}{--}{\v@numtab{\csname v@s#1@#2@#3\endcsname}%
+    \ifnum\csname v@st#1@#2@#3\endcsname=1 \ [!]\fi}}
+\newcommand{\v@numtab}[1]{\num[round-mode=figures,round-precision=4,
+                               round-pad=false]{#1}}
+
+\newcommand{\val}[1]{\num[round-mode=figures,round-precision=3,
+                          round-pad=false]{\v@get{#1}}}
+
+% stampa valore + unità con prefisso ingegneristico (p n µ m - k M G)
+\newcommand{\mis}[2]{%
+  \expandafter\gdef\csname v@u@#1\endcsname{#2}% ricorda l'unità
+  \v@formatta{\v@get{#1}}{#2}%
+  \ifv@completa\ifcsdef{v@calc@#1}{%
+      \ifnum\csname v@tondo\fila @#1\endcsname=1 \,\textbf{[!]}\fi}{}\fi}
+% \misfix{nome}{unità}: valore con unità fissa, senza prefisso (es. kWh, euro)
+\newcommand{\misfix}[2]{%
+  \expandafter\gdef\csname v@x@#1\endcsname{#2}%
+  \v@formattaF{\v@get{#1}}{#2}%
+  \ifv@completa\ifcsdef{v@calc@#1}{%
+      \ifnum\csname v@tondo\fila @#1\endcsname=1 \,\textbf{[!]}\fi}{}\fi}
+\newcommand{\v@formattaF}[2]{%
+  \qty[round-mode=figures,round-precision=3,round-pad=false]{#1}{#2}}
+% risultato di una fila qualsiasi (griglia di correzione)
+\newcommand{\v@misAB}[2]{%
+  \ifcsdef{v@na#1@#2}{--}{\v@misABn{#1}{#2}}}
+\newcommand{\v@misABn}[2]{%
+  \ifcsdef{v@u@#2}%
+    {\letcs\v@uu{v@u@#2}%
+     \expandafter\v@formattaR\expandafter{\v@uu}{\csname v@#1@#2\endcsname}}%
+    {\ifcsdef{v@x@#2}%
+      {\letcs\v@uu{v@x@#2}%
+       \expandafter\v@formattaF\expandafter{\csname v@#1@#2\endcsname}{\v@uu}}%
+      {\num[round-mode=figures,round-precision=3,round-pad=false]%
+         {\csname v@#1@#2\endcsname}}}%
+  \ifnum\csname v@tondo#1@#2\endcsname=1 \,\textbf{[!]}\fi}
+\newcommand{\v@formattaR}[2]{\v@formatta{#2}{#1}}
+\newcommand{\v@formatta}[2]{%
+  \begingroup
+  \edef\v@v{#1}%
+  \ifnum\fpeval{\v@v == 0}=1
+    \def\v@m{0}\def\v@pre{}%
+  \else
+    \edef\v@k{\fpeval{floor(ln(abs(\v@v))/ln(10) + 1e-12)}}%
+    \edef\v@r{\fpeval{round(\v@v, 2 - \v@k)}}%
+    \edef\v@k{\fpeval{floor(ln(abs(\v@r))/ln(10) + 1e-12)}}%
+    \edef\v@e{\fpeval{max(-12, min(9, 3*floor(\v@k/3)))}}%
+    \edef\v@m{\fpeval{\v@r / 10^(\v@e)}}%
+    \ifcase\numexpr\v@e/3+4\relax
+      \def\v@pre{\pico}\or\def\v@pre{\nano}\or\def\v@pre{\micro}\or
+      \def\v@pre{\milli}\or\def\v@pre{}\or\def\v@pre{\kilo}\or
+      \def\v@pre{\mega}\or\def\v@pre{\giga}\fi
+  \fi
+  \edef\v@tmp{\noexpand\qty[round-mode=none]{\v@m}%
+              {\unexpanded\expandafter{\v@pre}\unexpanded{#2}}}%
+  \v@tmp
+  \endgroup}
+
+% Pagina di controllo (versione completa e catalogo)
+\newcommand{\tabellacontrollo}{%
+  \ifdefempty{\v@righe}{}{%
+  \begin{center}
+    {\large\bfseries Controllo risultati -- file A, B e C\par}\medskip
+    \small\renewcommand{\arraystretch}{1.25}%
+    \begin{tabular}{|c|l|r|r|r|}\hline
+      \textbf{Es.} & \textbf{Grandezza} & \textbf{Fila A} & \textbf{Fila B}
+      & \textbf{Fila C}\\\hline
+      \v@righe\hline
+    \end{tabular}\par\medskip
+    \footnotesize Valori in unità base, 4 cifre significative.
+    [!] = risultato con 2 cifre significative o meno (troppo ``tondo'').
+    \ifnum\value{v@tondi}>0 \par\textbf{Risultati tondi trovati: \arabic{v@tondi}.}\fi
+  \end{center}}}
+
+% =====================================================================
+%  RIEPILOGO PUNTI E VOTI
+% =====================================================================
+\hqword{Esercizio}
+\hpword{Punti}
+\hsword{Ottenuti}
+\htword{Totale}
+\newcommand{\tabellapunteggi}{%
+  \begin{center}\small\gradetable[h][questions]\end{center}}
+
+% Lineare a tratti: 0 pt -> voto minimo, soglia% -> 6, punteggio pieno -> 10.
+\newcommand{\v@num}[1]{\num[drop-zero-decimal]{#1}}
+\newcommand{\grigliavoto}{%
+  \@ifundefined{exam@numpoints}%
+    {\par\noindent\textit{(Griglia voti: compila due volte.)}\par}%
+    {\begingroup
+     \def\v@rigaV{\textbf{Voto}}\def\v@rigaP{\textbf{Punti} $\geq$}%
+     \pgfmathsetmacro\v@max{\exam@numpoints}%
+     \pgfmathsetmacro\v@s{\v@soglia/100}%
+     \foreach \v in {\v@votomin,...,10}{%
+       \pgfmathsetmacro\v@p{\v<=6 ? \v@s*\v@max*(\v-\v@votomin)/(6-\v@votomin)
+                                 : \v@max*(\v@s+(1-\v@s)*(\v-6)/4)}%
+       \pgfmathsetmacro\v@p{round(2*\v@p)/2}%
+       \ifnum\v=6
+         \xappto\v@rigaV{& \noexpand\textbf{\v}}%
+         \xappto\v@rigaP{& \noexpand\textbf{\noexpand\v@num{\v@p}}}%
+       \else
+         \xappto\v@rigaV{& \v}\xappto\v@rigaP{& \noexpand\v@num{\v@p}}%
+       \fi}%
+     \pgfmathtruncatemacro\v@n{11-\v@votomin}%
+     \begin{center}\small
+       \renewcommand{\arraystretch}{1.3}%
+       \begin{tabular}{|l|*{\v@n}{c|}}\hline
+         \v@rigaV\\\hline \v@rigaP\\\hline
+       \end{tabular}\\[3pt]
+       {\footnotesize Sufficienza (6) al \v@soglia\,\% del
+        punteggio massimo (\v@num{\v@max}\ pt).}
+     \end{center}
+     \endgroup}}
+
+% \riepilogo: tabella punti + griglia voti in fondo alla 2ª pagina
+% (fronte/retro = un solo foglio). Se la verifica supera le 2 pagine
+% finisce in fondo all'ultima e nel log compare VERIFICA-PAGINE.
+\newcommand{\riepilogo}{%
+  \ifv@corr \v@riepilogocorr
+  \else\ifv@sol
+  \else\ifv@casa
+  \else \v@riepilogo\fi\fi\fi}
+% griglia di correzione: blocchi degli esercizi + griglia voti
+\newcommand{\v@riepilogocorr}{%
+  \par\ifvoid\v@grigliabox\else\unvbox\v@grigliabox\par\fi
+  \ifnum\value{v@tondi}>0
+    \noindent{\small\textbf{[!]} = risultato troppo ``tondo''
+      (\arabic{v@tondi} trovati).}\par\fi
+  \ifv@casa\else\vspace{6pt}\noindent\begin{minipage}{\textwidth}
+    \grigliavoto\end{minipage}\fi}
+\newcommand{\v@riepilogo}{%
+  \par
+  \ifnum\value{page}<2 \newpage\fi
+  \vspace*{\fill}%
+  \noindent\begin{minipage}{\textwidth}
+    \tabellapunteggi
+    \vspace{-4pt}
+    \grigliavoto
+  \end{minipage}%
+  \ifnum\value{page}>2 \ifv@completa\else
+    \PackageWarningNoLine{verifica}{VERIFICA-PAGINE: la prova occupa
+      \thepage\space pagine, non sta in un foglio fronte/retro}\fi
+  \fi
+  \ifv@completa\newpage\tabellacontrollo\fi}
+
+\endinput

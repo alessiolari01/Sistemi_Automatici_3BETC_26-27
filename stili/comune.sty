@@ -1,0 +1,116 @@
+% =====================================================================
+%  stili/comune.sty — pacchetti e impostazioni condivisi da TUTTO
+%  (Dispensa, Lezioni, Verifiche, Esercizi a casa)
+%  Stampa in bianco e nero: niente colori, solo grigi.
+% =====================================================================
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{stili/comune}[2026/10/19 Didattica - comune]
+
+% ---------- Lingua e caratteri ------------------------------------------
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+\IfFileExists{italian.ldf}
+  {\RequirePackage[english,italian]{babel}}
+  {\PackageWarningNoLine{stili/comune}{babel italiano non installato}}
+
+% ---------- Matematica e unità di misura ---------------------------------
+\RequirePackage{amsmath,amssymb,amsfonts}
+\RequirePackage{mathtools}
+\RequirePackage{siunitx}
+\sisetup{
+  output-decimal-marker = {,},   % 4,7 kΩ
+  exponent-product      = \cdot,
+  per-mode              = symbol,
+  group-minimum-digits  = 5,
+  mode                  = match, % le unità prendono il font del testo
+  reset-text-family     = false,
+  reset-text-series     = false,
+}
+\DeclareSIUnit{\ohm}{\ensuremath{\Omega}}  % Ω corretto anche nel testo
+\DeclareSIUnit{\eur}{\textup{\texteuro}}     % euro (per \misfix)
+
+% ---------- Disegni e circuiti -----------------------------------------
+\RequirePackage[gray]{xcolor}   % tutto convertito in scala di grigi
+\RequirePackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc,patterns,shapes.geometric,
+                decorations.pathmorphing,decorations.pathreplacing}
+\RequirePackage[european]{circuitikz}   % simboli CEI (resistore rettangolare)
+\RequirePackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\RequirePackage{graphicx}
+
+% Colori "di stile" in grigio (stessi nomi di prima, leggibili in B/N)
+\definecolor{cb}{gray}{0.15}   % linee principali
+\definecolor{cl}{gray}{0.90}   % riempimenti
+\definecolor{cg}{gray}{0.40}   % assi, etichette
+
+\tikzset{
+  axis/.style    = {->,thin,draw=cg},
+  setfill/.style = {draw=cb,fill=cl,thick},
+  setline/.style = {draw=cb,thick},
+  point/.style   = {circle,fill=cb,inner sep=1.5pt},
+  label/.style   = {font=\scriptsize,text=cg},
+  vect/.style    = {-Latex,thin,draw=cg},
+  tick/.style    = {thin,draw=cg},
+}
+
+% \morsetti{G}: segni + e - accanto a un generatore disegnato con
+%   to[vsource, l=$V$, n=G] (fine)
+% Il + va verso la fine del tratto (il punto dopo "to"), il - verso l'inizio.
+% Opzionale la distanza: \morsetti[0.4cm]{G}
+\newcommand{\morsetti}[2][0.32cm]{%
+  \path ($(#2.center)!1.25!(#2.right)$) coordinate (mors@p)
+        ($(#2.center)!1.25!(#2.left)$)  coordinate (mors@m);
+  \node[inner sep=0pt,font=\normalsize] at ($(mors@p)!#1!90:(#2.right)$) {$+$};
+  \node[inner sep=0pt,font=\normalsize] at ($(mors@m)!#1!-90:(#2.left)$) {$-$};}
+
+% ---------- Circuiti: resistori a rettangolo, correnti sul ramo ---------
+% Da usare dentro \begin{circuitikz}[x=1cm,y=1cm] (coordinate in cm).
+%  \resV{x}{y1}{y2}{R_1}   resistore verticale: filo + rettangolo col nome dentro
+%  \resH{x1}{x2}{y}{R_2}   resistore orizzontale
+%  \corV{x}{y}{d|u}{I_1}   freccia della corrente SUL filo (verticale, giù/su)
+%  \corH{x}{y}{r|l}{I}     freccia della corrente SUL filo (orizzontale)
+%  \nodo{x}{y}{A}{above left}   punto + lettera del nodo (posizione della lettera)
+%  \etich{x}{y}{A}{above}       solo la lettera (se il punto c'è già)
+%  \segniV{x}{y}{V_5}      segni + e - e nome della tensione, a destra di un
+%                          resistore verticale centrato in (x,y)
+\newcommand{\resV}[4]{%
+  \draw (#1,#2) -- (#1,#3);
+  \node[draw,fill=white,minimum width=6mm,minimum height=10.5mm,inner sep=0pt]
+    at ({#1},{(#2+#3)/2}) {\small $#4$};}
+\newcommand{\resH}[4]{%
+  \draw (#1,#3) -- (#2,#3);
+  \node[draw,fill=white,minimum width=10.5mm,minimum height=5.5mm,inner sep=0pt]
+    at ({(#1+#2)/2},{#3}) {\small $#4$};}
+\newcommand{\corV}[4]{%
+  \ifstrequal{#3}{d}%
+    {\draw[thick,-{Stealth[length=2.2mm]}] ({#1},{#2+0.3}) -- ({#1},{#2-0.3});}%
+    {\draw[thick,-{Stealth[length=2.2mm]}] ({#1},{#2-0.3}) -- ({#1},{#2+0.3});}%
+  \node[anchor=west,inner sep=2pt] at ({#1+0.04},{#2}) {\small $#4$};}
+\newcommand{\corH}[4]{%
+  \ifstrequal{#3}{r}%
+    {\draw[thick,-{Stealth[length=2.2mm]}] ({#1-0.3},{#2}) -- ({#1+0.3},{#2});}%
+    {\draw[thick,-{Stealth[length=2.2mm]}] ({#1+0.3},{#2}) -- ({#1-0.3},{#2});}%
+  \node[anchor=south,inner sep=2pt] at ({#1},{#2+0.04}) {\small $#4$};}
+\newcommand{\nodo}[4]{%
+  \node[circ] at (#1,#2) {}; \node[#4,inner sep=1.5pt] at (#1,#2) {\small #3};}
+\newcommand{\etich}[4]{\node[#4,inner sep=1.5pt] at (#1,#2) {\small #3};}
+% resistore orizzontale centrato in (x,y): segni e nome sotto il filo (#4 = l: + a sinistra, r: + a destra)
+\newcommand{\segniH}[4]{%
+  \ifstrequal{#4}{l}{\def\sg@a{+}\def\sg@b{-}}{\def\sg@a{-}\def\sg@b{+}}%
+  \node[inner sep=0pt] at ({#1-0.6},{#2-0.65}) {\small $\sg@a$};
+  \node[inner sep=0pt] at ({#1+0.6},{#2-0.65}) {\small $\sg@b$};
+  \node[inner sep=0pt] at ({#1},{#2-0.65}) {\small $#3$};}
+\newcommand{\segniV}[3]{%
+  \node[inner sep=0pt] at ({#1+0.62},{#2+0.45}) {\small $+$};
+  \node[inner sep=0pt] at ({#1+0.62},{#2-0.45}) {\small $-$};
+  \node[anchor=west,inner sep=1pt] at ({#1+0.8},{#2}) {\small $#3$};}
+
+% ---------- Utilità -----------------------------------------------------
+\RequirePackage{array}
+\RequirePackage{booktabs}
+\RequirePackage{enumitem}
+\RequirePackage{etoolbox}
+\RequirePackage{needspace}
+
+\endinput

@@ -1,0 +1,20 @@
+% ---------------------------------------------------------------------
+% Argomento: resistenze in parallelo
+% Livello: intermedio   |   Tempo stimato: 6 min
+% ---------------------------------------------------------------------
+\begin{esercizio}[4]
+\dato{Ra}{1e3}{1.5e3}{1.2e3}
+\dato{Rb}{2.2e3}{3.3e3}{1.8e3}
+\dato{Rc}{3.3e3}{4.7e3}{2.7e3}
+\calcola[R_{eq}]{Req}{1/(1/\x{Ra}+1/\x{Rb}+1/\x{Rc})}
+
+Tre resistori da \mis{Ra}{\ohm}, \mis{Rb}{\ohm} e \mis{Rc}{\ohm}
+sono collegati in parallelo. Calcola la resistenza equivalente.
+
+\begin{solution}
+  $\dfrac{1}{R_{eq}} = \dfrac{1}{R_a}+\dfrac{1}{R_b}+\dfrac{1}{R_c}
+   \;\Rightarrow\; R_{eq} \approx \mis{Req}{\ohm}$
+  \criterio{2 pt formula del parallelo, 2 pt calcolo; accettare
+    arrotondamenti a 2--3 cifre.}
+\end{solution}
+\end{esercizio}

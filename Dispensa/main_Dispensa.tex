@@ -1,0 +1,22 @@
+% =====================================================================
+%  DISPENSA — teoria per argomento (per gli studenti o per le ripetizioni)
+%  Un capitolo = un file in Dispensa/capitoli/. Immagini in Dispensa/figure/.
+% =====================================================================
+\documentclass[12pt,a4paper]{article}
+\usepackage{stili/appunti}
+
+\titolodoc{Dispensa}
+\materia{}            % es. Elettrotecnica ed Elettronica
+\classe{}             % es. 3ª
+\destinatario{}       % es. Appunti per Mario Rossi (ripetizioni) — vuoto se non serve
+\docente{}            % es. Prof. ...
+\annoscolastico{}
+
+\begin{document}
+\frontespizio
+
+\input{Dispensa/capitoli/01_Argomento1}
+\input{Dispensa/capitoli/02_Argomento2}
+
+\stampaformulario    % togli questa riga se non vuoi il formulario finale
+\end{document}

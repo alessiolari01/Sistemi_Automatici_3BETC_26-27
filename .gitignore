@@ -1,0 +1,10 @@
+# File generati dalla compilazione LaTeX
+*.aux
+*.log
+*.out
+*.toc
+*.frm
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.pdf

@@ -1,0 +1,77 @@
+% ---------------------------------------------------------------------
+% Argomento: leggi di Kirchhoff (nodi e maglie) risalendo da un dato
+%            in fondo alla rete (V3 noto) fino al generatore
+% Livello: intermedio-avanzato   |   Tempo stimato: 28 min
+% Lezioni: 9/10 (Kirchhoff), 10/10 (V3 nota), 16/10
+% ---------------------------------------------------------------------
+\begin{esercizio}
+\dato{R1}{10}{2}{8}             % [ohm]
+\dato{R2}{28}{67}{49}
+\dato{R3}{33}{30}{50}
+\dato{R4}{53}{19}{43}
+\dato{R5}{7}{9}{4}
+\dato{V3}{48}{103}{92}                % tensione nota ai capi di R3 [V]
+\calcola[I_3]{I3}{\x{V3}/\x{R3}}
+\calcola[V_4]{V4}{\x{R4}*\x{I3}}
+\calcola[V_{AB}]{VAB}{\x{V3}+\x{V4}}
+\calcola[I_2]{I2}{\x{VAB}/\x{R2}}
+\calcola[I_1]{I1}{\x{I2}+\x{I3}}
+\calcola[V_1]{V1}{\x{R1}*\x{I1}}
+\calcola[V_5]{V5}{\x{R5}*\x{I1}}
+\calcola[E]{Eg}{\x{V1}+\x{VAB}+\x{V5}}
+
+Nel circuito in figura sono noti i valori di tutte le resistenze e la tensione $V_3$
+ai capi di $R_3$. Non è nota la tensione $E$ del generatore.
+
+\begin{center}
+\begin{minipage}{0.55\linewidth}\centering
+  \begin{circuitikz}[x=0.85cm, y=0.6cm]
+    \ctikzset{bipoles/length=1cm}
+    \draw (0,0) to[vsource, l=$E$, n=G] (0,3.6)
+          to[R, l=$R_1$] (2.5,3.6) node[circ]{} node[above right]{A} -- (5.5,3.6)
+          (2.5,3.6) to[R, l_=$R_2$] (2.5,0) node[circ]{} node[below right]{B}
+          (5.5,3.6) to[R, l=$R_3$] (5.5,1.8) to[R, l=$R_4$] (5.5,0) -- (2.5,0)
+          (2.5,0) to[R, l=$R_5$] (0,0);
+    \draw[-{Stealth[length=2mm]}] (4.85,1.9) -- (4.85,3.5) node[midway, left]{$V_3$};
+    \morsetti{G}
+  \end{circuitikz}
+\end{minipage}\hfill
+\begin{minipage}{0.38\linewidth}
+  \renewcommand{\arraystretch}{1.1}
+  \begin{tabular}{r@{${}={}$}l}
+    $R_1$ & \mis{R1}{\ohm}\\
+    $R_2$ & \mis{R2}{\ohm}\\
+    $R_3$ & \mis{R3}{\ohm}\\
+    $R_4$ & \mis{R4}{\ohm}\\
+    $R_5$ & \mis{R5}{\ohm}\\
+    $V_3$ & \mis{V3}{\volt}
+  \end{tabular}
+\end{minipage}
+\end{center}
+
+\vspace{-6pt}
+\begin{parts}
+  \part[2] Calcola la corrente $I_3$ in $R_3$ e la tensione $V_4$ su $R_4$.
+  \part[3] Calcola la tensione $V_{AB}$ tra i nodi A e B e la corrente $I_2$ in $R_2$.
+  \part[2] Calcola la corrente $I_1$ erogata dal generatore.
+  \part[2] Calcola le tensioni $V_1$ e $V_5$ ai capi di $R_1$ e $R_5$.
+  \part[2] Applica la seconda legge di Kirchhoff alla maglia esterna ($E$, $R_1$, $R_3$, $R_4$, $R_5$).
+  \part[3] Calcola la tensione $E$ del generatore.
+\end{parts}
+
+\begin{solution}
+  $I_3 = V_3/R_3 \approx \mis{I3}{\ampere}$ \quad ($R_3$ e $R_4$ in serie: stessa corrente)\\[2pt]
+  $V_4 = R_4\, I_3 \approx \mis{V4}{\volt}$\\[4pt]
+  KVL sulla maglia $R_2$, $R_3$, $R_4$: $V_{AB} = V_3 + V_4 \approx \mis{VAB}{\volt}$\\[2pt]
+  $I_2 = V_{AB}/R_2 \approx \mis{I2}{\ampere}$\\[4pt]
+  KCL nel nodo B: $I_1 = I_2 + I_3 \approx \mis{I1}{\ampere}$\\[4pt]
+  $V_1 = R_1 I_1 \approx \mis{V1}{\volt}$,\qquad $V_5 = R_5 I_1 \approx \mis{V5}{\volt}$\\[4pt]
+  KVL sulla maglia esterna: $E = V_1 + V_3 + V_4 + V_5 = V_1 + V_{AB} + V_5$\\[2pt]
+  $E \approx \mis{Eg}{\volt}$
+  \criterio{a) 1 pt $I_3$ (e $I_4=I_3$, serie), 1 pt $V_4$;
+    b) 1 pt KVL $V_{AB}=V_3+V_4$ (oppure stessa tensione dei due rami), 1 pt $V_{AB}$,
+    1 pt $I_2$; c) 1 pt KCL nel nodo, 1 pt risultato; d) 1 pt per ciascuna tensione;
+    e) 1 pt equazione $E=V_1+V_3+V_4+V_5$, 1 pt segni coerenti; f) 2 pt somma, 1 pt risultato con unità.
+    Verifica possibile: $E/R_{eq}=I_1$. Unità mancanti: $-0{,}5$ pt una volta sola.}
+\end{solution}
+\end{esercizio}

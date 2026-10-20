@@ -1,0 +1,7 @@
+% Inizio di una lezione. Se la lezione è compilata da sola (Main document)
+% crea il documento; se è inclusa nel registro non fa nulla.
+\ifdefined\inregistro\expandafter\endinput\fi
+\documentclass[12pt,a4paper]{article}
+\usepackage{stili/appunti}
+\input{Lezioni/dati}
+\begin{document}

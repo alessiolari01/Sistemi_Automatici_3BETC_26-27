@@ -1,0 +1,53 @@
+% ---------------------------------------------------------------------
+% Argomento: resistenze serie/parallelo, legge di Ohm, potenza
+% Livello: base-intermedio   |   Tempo stimato: 12 min
+% ---------------------------------------------------------------------
+\begin{esercizio}
+\dato{V}{12}{15}{18}
+\dato{R1}{150}{180}{220}
+\dato{R2}{220}{270}{330}
+\dato{R3}{330}{560}{680}
+\calcola[R_{23}]{R23}{\x{R2}*\x{R3}/(\x{R2}+\x{R3})}
+\calcola[R_{eq}]{Req}{\x{R1}+\x{R23}}
+\calcola[I]{I}{\x{V}/\x{Req}}
+\calcola[P]{P}{\x{V}*\x{I}}
+
+Dato il circuito in figura:
+
+\begin{center}
+\begin{minipage}{0.48\linewidth}\centering
+  \begin{circuitikz}[scale=0.85, transform shape]
+    \draw (0,0) to[vsource, l=$V$, n=G] (0,3)
+          to[R, l=$R_1$, -*] (3,3) -- (5,3)
+          (3,3) to[R, l_=$R_2$, -*] (3,0)
+          (5,3) to[R, l=$R_3$] (5,0) -- (0,0);
+    \morsetti{G}
+  \end{circuitikz}
+\end{minipage}\hfill
+\begin{minipage}{0.4\linewidth}
+  \renewcommand{\arraystretch}{1.3}
+  \begin{tabular}{r@{${}={}$}l}
+    $V$   & \mis{V}{\volt}\\
+    $R_1$ & \mis{R1}{\ohm}\\
+    $R_2$ & \mis{R2}{\ohm}\\
+    $R_3$ & \mis{R3}{\ohm}
+  \end{tabular}
+\end{minipage}
+\end{center}
+
+\begin{parts}
+  \part[2] Calcola la resistenza equivalente $R_{eq}$ vista dal generatore.
+  \part[2] Calcola la corrente $I$ erogata dal generatore.
+  \part[2] Calcola la potenza $P$ erogata dal generatore.
+\end{parts}
+
+\begin{solution}
+  $R_{23} = \dfrac{R_2 R_3}{R_2+R_3} = \dfrac{\val{R2}\cdot\val{R3}}{\val{R2}+\val{R3}}
+    \approx \mis{R23}{\ohm}$,\qquad
+  $R_{eq} = R_1 + R_{23} \approx \mis{Req}{\ohm}$\\[4pt]
+  $I = V/R_{eq} \approx \mis{I}{\ampere}$\qquad
+  $P = V\cdot I \approx \mis{P}{\watt}$
+  \criterio{a) 1 pt riconoscere il parallelo $R_2\parallel R_3$, 1 pt calcolo;
+    b) e c) 1 pt formula, 1 pt risultato con unità.}
+\end{solution}
+\end{esercizio}

@@ -1,0 +1,166 @@
+% ---------------------------------------------------------------------
+% Argomento: linea di rame (resistenza con il fattore 2: andata e ritorno),
+%   fila A: R1 in serie, R2 // R3 // R4; nota I2 -> E
+%   fila B: stessa rete; noti E e la corrente I del generatore, R4 incognita
+%   fila C: R1 in serie, (R2 // R3) in serie con R4; noti E e tutte le R
+% Livello: avanzato   |   Tempo stimato: 30 min
+% Lezioni: 5/10 (Ohm, 2ª legge), 7/10 (serie e parallelo), 9/10 (KCL e KVL), 16/10 (linea)
+% ---------------------------------------------------------------------
+\begin{esercizio}[14]
+\dato{rho}{0.0178}{0.0178}{0.0178}   % resistività del rame [ohm mm2/m]
+\dato{L}{100}{110}{120}              % lunghezza della linea [m]
+\dato{S}{2.5}{2.5}{6}                % sezione [mm2]
+\dato{R1}{9}{4}{2}                   % [ohm]
+\dato{R2}{52}{103}{30}
+\dato{R3}{43}{110}{48}
+\dato{R4}{61}{0}{10}                 % fila B: incognita
+\dato{I2}{2.6}{0}{0}                 % fila A: corrente in R2 [A]
+\dato{I}{0}{8.6}{0}                  % fila B: corrente del generatore [A]
+\dato{E}{0}{230}{230}                % file B e C: tensione del generatore [V]
+\calcola[R_L]{Rl}{\x{rho}*2*\x{L}/\x{S}}
+\soloFila{A}{%
+  \calcola[V_{AB}]{Vp}{\x{R2}*\x{I2}}
+  \calcola[I_3]{I3}{\x{Vp}/\x{R3}}
+  \calcola[I_4]{I4}{\x{Vp}/\x{R4}}
+  \calcola[I]{I}{\x{I2}+\x{I3}+\x{I4}}
+  \calcola[V_L]{Vl}{\x{Rl}*\x{I}}
+  \calcola[V_1]{V1}{\x{R1}*\x{I}}
+  \calcola[E]{E}{\x{Vl}+\x{V1}+\x{Vp}}
+  \calcola[R_{eq}]{Req}{\x{E}/\x{I}}}
+\soloFila{B}{%
+  \calcola[V_L]{Vl}{\x{Rl}*\x{I}}
+  \calcola[V_1]{V1}{\x{R1}*\x{I}}
+  \calcola[V_{AB}]{Vp}{\x{E}-\x{Vl}-\x{V1}}
+  \calcola[I_2]{I2}{\x{Vp}/\x{R2}}
+  \calcola[I_3]{I3}{\x{Vp}/\x{R3}}
+  \calcola[I_4]{I4}{\x{I}-\x{I2}-\x{I3}}
+  \calcola[R_4]{R4}{\x{Vp}/\x{I4}}
+  \calcola[R_{eq}]{Req}{\x{E}/\x{I}}}
+\soloFila{C}{%
+  \calcola[R_{23}]{R23}{\x{R2}*\x{R3}/(\x{R2}+\x{R3})}
+  \calcola[R_{eq}]{Req}{\x{Rl}+\x{R1}+\x{R23}+\x{R4}}
+  \calcola[I]{I}{\x{E}/\x{Req}}
+  \calcola[V_L]{Vl}{\x{Rl}*\x{I}}
+  \calcola[V_1]{V1}{\x{R1}*\x{I}}
+  \calcola[V_4]{V4}{\x{R4}*\x{I}}
+  \calcola[V_{AB}]{V23}{\x{E}-\x{Vl}-\x{V1}-\x{V4}}
+  \calcola[I_2]{I2}{\x{V23}/\x{R2}}
+  \calcola[I_3]{I3}{\x{V23}/\x{R3}}}
+
+\smallskip
+{\raggedright\setlength{\parindent}{0pt}\settowidth{\dimen0}{\textbf{Dati:}\ }\hangindent=\dimen0 \hangafter=1
+\textbf{Dati:}\ \ABC{%
+$R_1 = \mis{R1}{\ohm}$;\hspace{0.6em}$R_2 = \mis{R2}{\ohm}$;\hspace{0.6em}$R_3 = \mis{R3}{\ohm}$;\hspace{0.6em}$R_4 = \mis{R4}{\ohm}$;\hspace{0.6em}$I_2 = \mis{I2}{\ampere}$;\hspace{0.6em}$S = \val{S}~\mathrm{mm}^2$;\hspace{0.6em}\mbox{$\rho = \val{rho}\ \si{\ohm\milli\metre\squared\per\metre}$}}{%
+$R_1 = \mis{R1}{\ohm}$;\hspace{0.6em}$R_2 = \mis{R2}{\ohm}$;\hspace{0.6em}$R_3 = \mis{R3}{\ohm}$;\hspace{0.6em}$E = \mis{E}{\volt}$;\hspace{0.6em}$I = \mis{I}{\ampere}$;\hspace{0.6em}$S = \val{S}~\mathrm{mm}^2$;\hspace{0.6em}\mbox{$\rho = \val{rho}\ \si{\ohm\milli\metre\squared\per\metre}$}}{%
+$R_1 = \mis{R1}{\ohm}$;\hspace{0.6em}$R_2 = \mis{R2}{\ohm}$;\hspace{0.6em}$R_3 = \mis{R3}{\ohm}$;\hspace{0.6em}$R_4 = \mis{R4}{\ohm}$;\hspace{0.6em}$E = \mis{E}{\volt}$;\hspace{0.6em}$S = \val{S}~\mathrm{mm}^2$;\hspace{0.6em}\mbox{$\rho = \val{rho}\ \si{\ohm\milli\metre\squared\per\metre}$}}\par}
+\vspace{-4pt}
+\begin{center}
+\begin{minipage}{\linewidth}\centering
+\ABC{%
+  \begin{circuitikz}[x=1.25cm, y=1cm]
+    \ctikzset{bipoles/length=0.9cm}
+    \draw (0,0) to[vsource, l=$E$, n=G] (0,2.7) -- (0.8,2.7) (0,0) -- (9.4,0);
+    \draw[line width=1.3pt] (0.8,2.7) to[short, o-o] (3.8,2.7);
+    \node[above] at (2.3,2.75) {$L = \mis{L}{\metre}$};
+    \draw[decorate, decoration={brace, amplitude=4pt, mirror}] (0.8,1.95) -- (3.8,1.95)
+      node[midway, below=5pt]{$R_L$};
+    \resH{3.8}{5.8}{2.7}{R_1}
+    \draw (5.8,2.7) -- (9.4,2.7);
+    \resV{5.8}{2.7}{0}{R_2}
+    \resV{7.6}{2.7}{0}{R_3}
+    \resV{9.4}{2.7}{0}{R_4}
+    \corV{0}{2.2}{u}{I} \corV{5.8}{2.25}{d}{I_2} 
+    
+    \nodo{5.8}{2.7}{A}{above} \nodo{5.8}{0}{B}{below} \nodo{7.6}{2.7}{}{above} \nodo{7.6}{0}{}{below}
+    \morsetti{G}
+  \end{circuitikz}}{%
+  \begin{circuitikz}[x=1.25cm, y=1cm]
+    \ctikzset{bipoles/length=0.9cm}
+    \draw (0,0) to[vsource, l=$E$, n=G] (0,2.7) -- (0.8,2.7) (0,0) -- (9.4,0);
+    \draw[line width=1.3pt] (0.8,2.7) to[short, o-o] (3.8,2.7);
+    \node[above] at (2.3,2.75) {$L = \mis{L}{\metre}$};
+    \draw[decorate, decoration={brace, amplitude=4pt, mirror}] (0.8,1.95) -- (3.8,1.95)
+      node[midway, below=5pt]{$R_L$};
+    \resH{3.8}{5.8}{2.7}{R_1}
+    \draw (5.8,2.7) -- (9.4,2.7);
+    \resV{5.8}{2.7}{0}{R_2}
+    \resV{7.6}{2.7}{0}{R_3}
+    \resV{9.4}{2.7}{0}{R_4}
+    \corV{0}{2.2}{u}{I} 
+    \segniV{9.4}{1.35}{V_{AB}}
+    \nodo{5.8}{2.7}{A}{above} \nodo{5.8}{0}{B}{below} \nodo{7.6}{2.7}{}{above} \nodo{7.6}{0}{}{below}
+    \morsetti{G}
+  \end{circuitikz}}{%
+  \begin{circuitikz}[x=1.25cm, y=1cm]
+    \ctikzset{bipoles/length=0.9cm}
+    \draw (0,0) to[vsource, l=$E$, n=G] (0,2.7) -- (0.8,2.7) (0,0) -- (1.8,0)
+          (3.8,0) -- (7.6,0);
+    \draw[line width=1.3pt] (0.8,2.7) to[short, o-o] (3.8,2.7);
+    \node[above] at (2.3,2.75) {$L = \mis{L}{\metre}$};
+    \draw[decorate, decoration={brace, amplitude=4pt, mirror}] (0.8,1.95) -- (3.8,1.95)
+      node[midway, below=5pt]{$R_L$};
+    \resH{3.8}{5.8}{2.7}{R_1}
+    \draw (5.8,2.7) -- (7.6,2.7);
+    \resV{5.8}{2.7}{0}{R_2}
+    \resV{7.6}{2.7}{0}{R_3}
+    \resH{1.8}{3.8}{0}{R_4}
+    \corV{0}{2.2}{u}{I} 
+    \segniV{7.6}{1.35}{V_{AB}}
+    \nodo{5.8}{2.7}{A}{above} \nodo{5.8}{0}{B}{below}
+    \morsetti{G}
+  \end{circuitikz}}
+\end{minipage}
+
+\end{center}
+\vspace{-12pt}
+\ABC{%
+Applica la seconda legge di Kirchhoff alla maglia $E$, linea, $R_1$, $R_2$\ptk{2}.
+\trovare{$R_L$, $I$, $E$, $R_{eq}$}}{%
+Applica la seconda legge di Kirchhoff alla maglia $E$, linea, $R_1$, $R_2$\ptk{2}.
+\trovare{$R_L$, $V_{AB}$, $R_4$, $R_{eq}$}}{%
+Applica la seconda legge di Kirchhoff alla maglia $E$, linea, $R_1$, $R_4$, $R_2$\ptk{1}.
+\trovare{$R_L$, $R_{eq}$, $I$, $V_{AB}$}}
+
+\begin{solution}
+  Il conduttore percorso dalla corrente è lungo $2L$ (andata e ritorno):\\[2pt]
+  $R_L = \rho\,\dfrac{2L}{S} = \val{rho}\cdot\dfrac{2\cdot\val{L}}{\val{S}} \approx \mis{Rl}{\ohm}$\\[4pt]
+  \ABC{%
+  $V_{AB} = R_2\,I_2 \approx \mis{Vp}{\volt}$\\[4pt]
+  $I_3 = V_{AB}/R_3 \approx \mis{I3}{\ampere}$,\qquad $I_4 = V_{AB}/R_4 \approx \mis{I4}{\ampere}$\\[4pt]
+  KCL: $I = I_2 + I_3 + I_4 \approx \mis{I}{\ampere}$\\[4pt]
+  $V_L = R_L\,I \approx \mis{Vl}{\volt}$,\qquad $V_1 = R_1\,I \approx \mis{V1}{\volt}$\\[4pt]
+  KVL: $E = V_L + V_1 + V_{AB}$\\[2pt]
+  $E \approx \mis{E}{\volt}$\\[4pt]
+  $R_{eq} = E/I \approx \mis{Req}{\ohm}$}{%
+  $V_L = R_L\,I \approx \mis{Vl}{\volt}$,\qquad $V_1 = R_1\,I \approx \mis{V1}{\volt}$\\[4pt]
+  KVL: $E = V_L + V_1 + V_{AB}$\\[2pt]
+  $V_{AB} = E - V_L - V_1 \approx \mis{Vp}{\volt}$\\[4pt]
+  $I_2 = V_{AB}/R_2 \approx \mis{I2}{\ampere}$,\qquad $I_3 = V_{AB}/R_3 \approx \mis{I3}{\ampere}$\\[4pt]
+  KCL: $I_4 = I - I_2 - I_3 \approx \mis{I4}{\ampere}$\\[4pt]
+  $R_4 = V_{AB}/I_4 \approx \mis{R4}{\ohm}$\\[4pt]
+  $R_{eq} = E/I \approx \mis{Req}{\ohm}$}{%
+  $R_{23} = \dfrac{R_2\,R_3}{R_2+R_3} \approx \mis{R23}{\ohm}$\\[6pt]
+  $R_{eq} = R_L + R_1 + R_{23} + R_4 \approx \mis{Req}{\ohm}$\\[4pt]
+  $I = E/R_{eq} \approx \mis{I}{\ampere}$\\[4pt]
+  $V_L = R_L\,I \approx \mis{Vl}{\volt}$,\quad $V_1 = R_1\,I \approx \mis{V1}{\volt}$,\quad
+  $V_4 = R_4\,I \approx \mis{V4}{\volt}$\\[4pt]
+  KVL: $E = V_L + V_1 + V_4 + V_{AB}$\\[2pt]
+  $V_{AB} = E - V_L - V_1 - V_4 \approx \mis{V23}{\volt}$\\[4pt]
+  $I_2 = V_{AB}/R_2 \approx \mis{I2}{\ampere}$,\qquad $I_3 = V_{AB}/R_3 \approx \mis{I3}{\ampere}$}
+  \criterioABC
+  {$R_L$: 1 pt lunghezza doppia $2L$ (andata e ritorno), 1 pt formula $\rho\,L/S$, 1 pt risultato
+    con unità; $V_{AB}$, $I_3$, $I_4$, $I$ (KCL), $V_L$, $V_1$: 1 pt ciascuno; KVL: 1 pt equazione
+    $E=V_L+V_1+V_{AB}$, 1 pt segni/maglia coerenti; $E$: 1 pt somma, 1 pt risultato con unità;
+    $R_{eq}$: 1 pt. Se usa $L$ invece di $2L$: $-1$ pt su $R_L$, risultati successivi coerenti accettati. Unità mancanti: $-0{,}5$ pt una volta sola.}
+  {$R_L$: 1 pt lunghezza doppia $2L$ (andata e ritorno), 1 pt formula $\rho\,L/S$, 1 pt risultato
+    con unità; $V_L$, $V_1$: 1 pt ciascuna ($R\,I$ con la corrente del generatore); KVL: 1 pt equazione
+    $E=V_L+V_1+V_{AB}$, 1 pt segni/maglia coerenti; $V_{AB}$: 1 pt; $I_2$, $I_3$: 1 pt ciascuna; $I_4$: 1 pt
+    KCL; $R_4$: 1 pt formula $V_{AB}/I_4$, 1 pt risultato; $R_{eq}$: 1 pt. Se usa $L$ invece di $2L$:
+    $-1$ pt su $R_L$, risultati successivi coerenti accettati. Unità mancanti: $-0{,}5$ pt una volta sola.}
+  {$R_L$: 1 pt lunghezza doppia $2L$ (andata e ritorno), 1 pt formula $\rho\,L/S$, 1 pt risultato
+    con unità; $R_{23}$: 1 pt formula parallelo, 1 pt risultato; $R_{eq}$: 1 pt somma delle quattro
+    resistenze in serie; $I$: 1 pt; $V_L$, $V_1$, $V_4$: 1 pt ciascuna; KVL: 1 pt equazione
+    $E=V_L+V_1+V_4+V_{AB}$ (segni coerenti); $V_{AB}$: 1 pt; $I_2$, $I_3$: 1 pt ciascuna.
+    Se usa $L$ invece di $2L$: $-1$ pt su $R_L$, risultati successivi coerenti accettati. Unità mancanti: $-0{,}5$ pt una volta sola.}
+\end{solution}
+\end{esercizio}

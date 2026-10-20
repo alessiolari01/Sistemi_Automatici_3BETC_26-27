@@ -1,0 +1,59 @@
+% ---------------------------------------------------------------------
+% Argomento: tre rami in parallelo, resistenza incognita nota la corrente
+%            totale (legge di Ohm e KCL)
+% Livello: base   |   Tempo stimato: 12 min
+% Lezioni: 7/10 (parallelo), 9/10 (KCL)
+% ---------------------------------------------------------------------
+\begin{esercizio}
+\dato{E}{230}{230}{230}              % generatore [V]
+\dato{I}{11.0}{11.2}{11.4}           % corrente erogata dal generatore [A]
+\dato{R1}{98}{116}{60}               % [ohm]
+\dato{R2}{108}{90}{116}
+\calcola[I_1]{I1}{\x{E}/\x{R1}}
+\calcola[I_2]{I2}{\x{E}/\x{R2}}
+\calcola[I_3]{I3}{\x{I}-\x{I1}-\x{I2}}
+\calcola[R_3]{R3}{\x{E}/\x{I3}}
+
+I tre resistori sono in parallelo al generatore, che eroga la corrente $I$.
+Sono note $R_1$ e $R_2$; $R_3$ non è nota.
+
+\begin{center}
+\begin{minipage}{0.52\linewidth}\centering
+  \begin{circuitikz}[x=0.85cm, y=0.5cm]
+    \ctikzset{bipoles/length=1cm}
+    \draw (0,0) to[vsource, l=$E$, n=G] (0,2.6) to[short, i=$I$] (1.3,2.6) -- (5.5,2.6)
+          (2,2.6) to[R, l=$R_1$] (2,0) node[circ]{}
+          (2,2.6) node[circ]{}
+          (3.75,2.6) node[circ]{} to[R, l=$R_2$] (3.75,0) node[circ]{}
+          (5.5,2.6) to[R, l=$R_3$] (5.5,0) -- (0,0);
+    \morsetti{G}
+  \end{circuitikz}
+\end{minipage}\hfill
+\begin{minipage}{0.4\linewidth}
+  \renewcommand{\arraystretch}{1.1}
+  \begin{tabular}{r@{${}={}$}l}
+    $E$   & \mis{E}{\volt}\\
+    $I$   & \mis{I}{\ampere}\\
+    $R_1$ & \mis{R1}{\ohm}\\
+    $R_2$ & \mis{R2}{\ohm}
+  \end{tabular}
+\end{minipage}
+\end{center}
+
+\vspace{-6pt}
+\begin{parts}
+  \part[1] Calcola la corrente $I_1$ in $R_1$.
+  \part[1] Calcola la corrente $I_2$ in $R_2$.
+  \part[2] Calcola la corrente $I_3$ in $R_3$.
+  \part[2] Calcola la resistenza $R_3$.
+\end{parts}
+
+\begin{solution}
+  Le tre resistenze hanno la stessa tensione $E$.\\[2pt]
+  $I_1 = E/R_1 \approx \mis{I1}{\ampere}$,\qquad $I_2 = E/R_2 \approx \mis{I2}{\ampere}$\\[4pt]
+  KCL nel nodo: $I = I_1 + I_2 + I_3 \;\Rightarrow\; I_3 = I - I_1 - I_2 \approx \mis{I3}{\ampere}$\\[4pt]
+  $R_3 = E/I_3 \approx \mis{R3}{\ohm}$
+  \criterio{a) 1 pt; b) 1 pt; c) 1 pt KCL, 1 pt risultato; d) 1 pt formula, 1 pt risultato.
+    Unità mancanti: $-0{,}5$ pt una volta sola.}
+\end{solution}
+\end{esercizio}
