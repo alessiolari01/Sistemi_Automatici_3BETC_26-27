@@ -71,7 +71,9 @@ repo. Il materiale lo prepara Claude; Alessio imposta un file come
   Testi brevi in contesto (forno, serbatoio, ...), senza suggerimenti sulla soluzione.
   **Niente vettori** (non li conoscono): nei cicli niente "leggi N valori"; un solo gruppo di
   dati letti e variabili aggiornate nel ciclo. **Nel testo si danno i nomi di tutte le variabili**
-  (dati, risultati, contatori: es. livello $L$, minuti $M$, contatore $i$).
+  (dati, risultati, contatori: es. livello $L$, secchi $N$, contatore $i$).
+  **Niente tempo** nei cicli ("ogni minuto"): il ciclo gira alla velocità del clock; il contatore
+  conta operazioni (secchi versati, spedizioni), non minuti.
 - Porte logiche: simboli americani (`american and port`, `or`, `nand`, `nor`) dentro
   `circuitikz` con `scale=1.25,transform shape`; ingressi $A$, $B$, $C$, uscita $Y$; l'uscita
   intermedia NON si segna (né in figura né in tabella). **Solo tabella di verità** (8 righe): le espressioni logiche non sono ancora state
