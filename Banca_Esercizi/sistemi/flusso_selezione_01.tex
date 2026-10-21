@@ -11,21 +11,22 @@ In un forno due sensori misurano la temperatura. Disegna il diagramma di flusso 
 che decide cosa fare in base alla temperatura media.\\
 \textbf{Dati da leggere:} $T_1$, $T_2$ = temperature misurate dai due sensori (in °C).\\
 \textbf{Altre variabili:} $T$ = media delle due temperature, cioè $T = (T_1+T_2)/2$.\\
-Prima controlla se $T < 180$: se sì visualizza ``Accendi la resistenza''. Se no, controlla se
-$T > 220$: se sì visualizza ``Accendi la ventola'', altrimenti visualizza ``Temperatura corretta''.}{%
+Prima controlla se $T < 180$: in questo caso visualizza ``Accendi la resistenza''. Altrimenti
+controlla se $T > 220$: in questo caso visualizza ``Accendi la ventola''; in caso contrario visualizza
+``Temperatura corretta''.}{%
 In un serbatoio un sensore misura il livello dell'acqua. Disegna il diagramma di flusso di un
 algoritmo che decide cosa fare in base alla percentuale di riempimento.\\
 \textbf{Dati da leggere:} $L$ = livello dell'acqua (in cm); $H$ = altezza del serbatoio (in cm).\\
 \textbf{Altre variabili:} $P$ = percentuale di riempimento, cioè $P = L/H \cdot 100$.\\
-Prima controlla se $P < 20$: se sì visualizza ``Apri il carico''. Se no, controlla se $P > 90$:
-se sì visualizza ``Apri lo scarico'', altrimenti visualizza ``Livello corretto''.}{%
+Prima controlla se $P < 20$: in questo caso visualizza ``Apri il carico''. Altrimenti controlla
+se $P > 90$: in questo caso visualizza ``Apri lo scarico''; in caso contrario visualizza ``Livello corretto''.}{%
 In un negozio lo sconto dipende dalla spesa. Disegna il diagramma di flusso di un algoritmo che
 calcola il totale da pagare.\\
 \textbf{Dati da leggere:} $P$ = prezzo di un prodotto (in euro); $Q$ = quantità acquistata.\\
 \textbf{Altre variabili:} $T$ = totale della spesa, cioè $T = P \cdot Q$.\\
-Prima controlla se $T > 100$: se sì applica lo sconto del \qty{20}{\percent} ($T$ diventa $T \cdot 0{,}8$).
-Se no, controlla se $T > 50$: se sì applica lo sconto del \qty{10}{\percent} ($T$ diventa $T \cdot 0{,}9$),
-altrimenti nessuno sconto. Alla fine visualizza $T$.}
+Prima controlla se $T > 100$: in questo caso applica lo sconto del \qty{20}{\percent}
+($T$ diventa $T \cdot 0{,}8$). Altrimenti controlla se $T > 50$: in questo caso applica lo sconto
+del \qty{10}{\percent} ($T$ diventa $T \cdot 0{,}9$); in caso contrario non c'è sconto. Alla fine visualizza $T$.}
 
 \begin{solution}
 \begin{center}
