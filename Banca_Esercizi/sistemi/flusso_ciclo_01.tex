@@ -4,7 +4,7 @@
 %   fila A: serbatoio riempito a secchi -> numero di secchi e livello finale
 %   fila B: magazzino svuotato a spedizioni -> numero di spedizioni e pezzi rimasti
 %   (niente tempo: il ciclo conta operazioni, non minuti)
-%   fila C: somma dei numeri da 1 a N e media
+%   fila C: scaffale riempito con una pila di scatole -> numero di scatole e altezza della pila
 % Livello: intermedio (nessun suggerimento: condizione e aggiornamenti da ricavare)   |   Tempo stimato: 15 min
 % ---------------------------------------------------------------------
 \begin{esercizio}[12]
@@ -20,12 +20,12 @@ algoritmo che conta quante spedizioni si possono fare.\\
 \textbf{Altre variabili:} $K$ = numero di spedizioni fatte.\\
 Si fanno spedizioni finché in magazzino ci sono abbastanza pezzi per una spedizione completa.
 Alla fine visualizza $K$ e i pezzi rimasti $Q$.}{%
-Disegna il diagramma di flusso di un algoritmo che calcola la somma dei numeri interi da 1 a $N$
-e la loro media.\\
-\textbf{Dati da leggere:} $N$ = ultimo numero da sommare.\\
-\textbf{Altre variabili:} $i$ = numero da aggiungere alla somma; $S$ = somma $1 + 2 + \ldots + N$;
-$A$ = media.\\
-Alla fine visualizza $S$ e $A$.}
+Su uno scaffale si impilano scatole tutte uguali, una sopra l'altra. Disegna il diagramma di
+flusso di un algoritmo che conta quante scatole ci stanno.\\
+\textbf{Dati da leggere:} $A$ = altezza dello scaffale (in cm); $H$ = altezza di una scatola (in cm).\\
+\textbf{Altre variabili:} $P$ = altezza della pila; $N$ = numero di scatole impilate.\\
+Si aggiungono scatole finché ce ne sta ancora una: la pila non deve mai superare l'altezza $A$.
+Alla fine visualizza $N$ e $P$.}
 
 \begin{solution}
 \begin{center}
@@ -68,22 +68,20 @@ Alla fine visualizza $S$ e $A$.}
 \end{tikzpicture}}{%
 \begin{tikzpicture}[x=1cm,y=1cm]
   \node[fcterm] (ini)  at (0,0) {Inizio};
-  \node[fcio]   (in)   at (0,-1.1) {Leggi $N$};
-  \node[fcinit] (ini0) at (0,-2.2) {$S \gets 0$, \ $i \gets 1$};
-  \node[fcdec]  (d1)   at (0,-3.75) {$i \leq N$};
-  \node[fcproc] (agg)  at (0,-5.3) {$S \gets S + i$};
-  \node[fcproc] (inc)  at (0,-6.4) {$i \gets i + 1$};
-  \node[fcproc] (med)  at (5.0,-3.75) {$A \gets S / N$};
-  \node[fcio]   (out)  at (5.0,-4.95) {Scrivi $S$, $A$};
-  \node[fcterm] (fin)  at (5.0,-6.1) {Fine};
+  \node[fcio]   (in)   at (0,-1.1) {Leggi $A$, $H$};
+  \node[fcinit] (ini0) at (0,-2.2) {$P \gets 0$, \ $N \gets 0$};
+  \node[fcdec]  (d1)   at (0,-3.75) {$P + H \leq A$};
+  \node[fcproc] (agg)  at (0,-5.3) {$P \gets P + H$};
+  \node[fcproc] (inc)  at (0,-6.4) {$N \gets N + 1$};
+  \node[fcio]   (out)  at (5.0,-3.75) {Scrivi $N$, $P$};
+  \node[fcterm] (fin)  at (5.0,-4.95) {Fine};
   \draw[fcfreccia] (ini) -- (in);
   \draw[fcfreccia] (in) -- (ini0);
   \draw[fcfreccia] (ini0) -- (d1);
   \draw[fcfreccia] (d1) -- node[fcsi,right] {Sì} (agg);
   \draw[fcfreccia] (agg) -- (inc);
   \draw[fcfreccia] (inc.south) -- ++(0,-0.5) -| (-2.4,-2.95) -- (0,-2.95);
-  \draw[fcfreccia] (d1) -- node[fcno,above] {No} (med);
-  \draw[fcfreccia] (med) -- (out);
+  \draw[fcfreccia] (d1) -- node[fcno,above] {No} (out);
   \draw[fcfreccia] (out) -- (fin);
 \end{tikzpicture}}
 \end{center}
@@ -92,8 +90,8 @@ Alla fine visualizza $S$ e $A$.}
   quando il ciclo finisce, $L$ può superare di poco $C$ perché aumenta di $S$ alla volta.}{%
   Ogni giro del ciclo è una spedizione: $K$ conta i giri. Quando il ciclo finisce, in magazzino
   restano meno di $S$ pezzi (possono essere anche 0).}{%
-  $S$ parte da 0 e $i$ da 1. Il ciclo si ripete finché $i \leq N$; la media si calcola una volta sola,
-  dopo il ciclo.}
+  Ogni giro del ciclo è una scatola aggiunta: $N$ conta i giri. Prima di aggiungere una scatola si
+  controlla che la pila con la scatola in più ($P+H$) non superi $A$; alla fine $P \leq A$.}
   \criterioABC
   {Inizio/Fine e simboli corretti (inizializzazione nell'esagono): 1 pt; lettura di $C$ e $S$: 1 pt;
     inizializzazione $L\gets 0$, $N\gets 0$: 2 pt; condizione del ciclo $L<C$ ricavata dal testo, con
@@ -106,10 +104,11 @@ Alla fine visualizza $S$ e $A$.}
     3 pt ($Q>S$, che perde la spedizione quando $Q=S$: 1 pt); aggiornamento $Q\gets Q-S$: 2 pt; contatore $K\gets K+1$: 1 pt; ritorno
     alla condizione: 1 pt; uscita di $K$ e $Q$ dopo il ciclo: 1 pt. Ciclo con condizione in fondo
     corretto se gestisce il caso $Q<S$ iniziale: stessi punti.}
-  {Inizio/Fine e simboli corretti (inizializzazione nell'esagono): 1 pt; lettura di $N$: 1 pt;
-    inizializzazione $S\gets 0$, $i\gets 1$: 2 pt; condizione del ciclo $i\leq N$ con rami Sì/No giusti:
-    3 pt ($i<N$: 1 pt); aggiornamento $S\gets S+i$: 2 pt; $i\gets i+1$ dopo la somma: 1 pt; ritorno alla
-    condizione: 1 pt; media $S/N$ dopo il ciclo e uscita di $S$ e $A$: 1 pt. Varianti corrette (es.
-    $i\gets 0$ con incremento prima della somma e condizione $i<N$): stessi punti.}
+  {Inizio/Fine e simboli corretti (inizializzazione nell'esagono): 1 pt; lettura di $A$ e $H$: 1 pt;
+    inizializzazione $P\gets 0$, $N\gets 0$: 2 pt; condizione del ciclo $P+H\leq A$ ricavata da ``ce ne
+    sta ancora una'', con rami Sì/No giusti: 3 pt ($P<A$ o $P\leq A$, che fanno superare $A$: 1 pt);
+    aggiornamento $P\gets P+H$: 2 pt; contatore $N\gets N+1$: 1 pt; ritorno alla condizione: 1 pt; uscita
+    di $N$ e $P$ dopo il ciclo: 1 pt. Ciclo con condizione in fondo corretto se gestisce il caso $H>A$:
+    stessi punti.}
 \end{solution}
 \end{esercizio}
