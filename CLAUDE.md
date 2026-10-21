@@ -66,6 +66,7 @@ repo. Il materiale lo prepara Claude; Alessio imposta un file come
 - Qui i risultati sono numeri interi o tabelle: niente `\calcola`/[!]; i risultati attesi
   delle tre file vanno scritti nei criteri (`\criterioABC`), così compaiono nella correzione.
 - Diagrammi di flusso: stili in `stili/comune.sty` (`fcterm` inizio/fine, `fcio` Leggi/Scrivi,
+  `fcinit` inizializzazione (esagono allungato: tutte le assegnazioni iniziali, es. $L \gets 0$),
   `fcproc` elaborazione, `fcdec` decisione, `fcfreccia`, etichette Sì/No); assegnazione con
   $\gets$; ramo Sì a destra, ramo No in basso; il ciclo torna sopra la decisione da sinistra.
   Testi brevi in contesto (forno, serbatoio, ...), senza suggerimenti sulla soluzione.

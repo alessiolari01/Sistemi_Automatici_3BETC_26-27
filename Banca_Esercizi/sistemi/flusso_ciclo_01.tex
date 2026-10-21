@@ -27,7 +27,7 @@ media $A = S/N$ e visualizza $S$ e $A$.}
 \begin{tikzpicture}[x=1cm,y=1cm]
   \node[fcterm] (ini)  at (0,0) {Inizio};
   \node[fcio]   (in)   at (0,-1.1) {Leggi $C$, $P$};
-  \node[fcproc] (ini0) at (0,-2.2) {$L \gets 0$, \ $N \gets 0$};
+  \node[fcinit] (ini0) at (0,-2.2) {$L \gets 0$, \ $N \gets 0$};
   \node[fcdec]  (d1)   at (0,-3.75) {$L < C$};
   \node[fcproc] (agg)  at (0,-5.3) {$L \gets L + P$};
   \node[fcproc] (inc)  at (0,-6.4) {$N \gets N + 1$};
@@ -45,7 +45,7 @@ media $A = S/N$ e visualizza $S$ e $A$.}
 \begin{tikzpicture}[x=1cm,y=1cm]
   \node[fcterm] (ini)  at (0,0) {Inizio};
   \node[fcio]   (in)   at (0,-1.1) {Leggi $Q$, $S$};
-  \node[fcproc] (ini0) at (0,-2.2) {$K \gets 0$};
+  \node[fcinit] (ini0) at (0,-2.2) {$K \gets 0$};
   \node[fcdec]  (d1)   at (0,-3.75) {$Q \geq S$};
   \node[fcproc] (agg)  at (0,-5.3) {$Q \gets Q - S$};
   \node[fcproc] (inc)  at (0,-6.4) {$K \gets K + 1$};
@@ -63,7 +63,7 @@ media $A = S/N$ e visualizza $S$ e $A$.}
 \begin{tikzpicture}[x=1cm,y=1cm]
   \node[fcterm] (ini)  at (0,0) {Inizio};
   \node[fcio]   (in)   at (0,-1.1) {Leggi $N$};
-  \node[fcproc] (ini0) at (0,-2.2) {$S \gets 0$, \ $i \gets 1$};
+  \node[fcinit] (ini0) at (0,-2.2) {$S \gets 0$, \ $i \gets 1$};
   \node[fcdec]  (d1)   at (0,-3.75) {$i \leq N$};
   \node[fcproc] (agg)  at (0,-5.3) {$S \gets S + i$};
   \node[fcproc] (inc)  at (0,-6.4) {$i \gets i + 1$};
@@ -89,17 +89,17 @@ media $A = S/N$ e visualizza $S$ e $A$.}
   $S$ parte da 0 e $i$ da 1. Il ciclo si ripete finché $i \leq N$; la media si calcola una volta sola,
   dopo il ciclo.}
   \criterioABC
-  {Inizio/Fine e simboli corretti: 1 pt; lettura di $C$ e $P$: 1 pt; inizializzazione $L\gets 0$,
+  {Inizio/Fine e simboli corretti (inizializzazione nell'esagono): 1 pt; lettura di $C$ e $P$: 1 pt; inizializzazione $L\gets 0$,
     $N\gets 0$: 2 pt; condizione del ciclo $L<C$ con rami Sì/No giusti: 2 pt; aggiornamenti
     $L\gets L+P$ e $N\gets N+1$ dentro il ciclo: 2 pt; ritorno alla condizione: 1 pt; uscita di $N$ e
     $L$ dopo il ciclo: 1 pt. Ciclo con condizione in fondo (ripeti\ldots finché $L \geq C$) corretto:
     stessi punti.}
-  {Inizio/Fine e simboli corretti: 1 pt; lettura di $Q$ e $S$: 1 pt; inizializzazione $K\gets 0$ (e
+  {Inizio/Fine e simboli corretti (inizializzazione nell'esagono): 1 pt; lettura di $Q$ e $S$: 1 pt; inizializzazione $K\gets 0$ (e
     nessuna inizializzazione di $Q$ dopo la lettura): 2 pt; condizione del ciclo $Q\geq S$ con rami
     Sì/No giusti: 2 pt; aggiornamenti $Q\gets Q-S$ e $K\gets K+1$ dentro il ciclo: 2 pt; ritorno alla
     condizione: 1 pt; uscita di $K$ e $Q$ dopo il ciclo: 1 pt. Ciclo con condizione in fondo
     corretto se gestisce il caso $Q<S$ iniziale: stessi punti.}
-  {Inizio/Fine e simboli corretti: 1 pt; lettura di $N$: 1 pt; inizializzazione $S\gets 0$, $i\gets 1$:
+  {Inizio/Fine e simboli corretti (inizializzazione nell'esagono): 1 pt; lettura di $N$: 1 pt; inizializzazione $S\gets 0$, $i\gets 1$:
     2 pt; condizione del ciclo $i\leq N$ con rami Sì/No giusti: 2 pt; aggiornamenti $S\gets S+i$ e
     $i\gets i+1$ dentro il ciclo (in quest'ordine): 2 pt; ritorno alla condizione e media $S/N$ dopo il
     ciclo: 1 pt; uscita di $S$ e $A$: 1 pt. Ciclo con condizione in fondo corretto: stessi punti.}

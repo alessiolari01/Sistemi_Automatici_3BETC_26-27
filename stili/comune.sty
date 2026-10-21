@@ -32,7 +32,7 @@
 % ---------- Disegni e circuiti -----------------------------------------
 \RequirePackage[gray]{xcolor}   % tutto convertito in scala di grigi
 \RequirePackage{tikz}
-\usetikzlibrary{arrows.meta,positioning,calc,patterns,shapes.geometric,
+\usetikzlibrary{arrows.meta,positioning,calc,patterns,shapes.geometric,shapes.symbols,
                 decorations.pathmorphing,decorations.pathreplacing}
 \RequirePackage[european]{circuitikz}   % simboli CEI (resistore rettangolare)
 \RequirePackage{pgfplots}
@@ -110,7 +110,8 @@
 % Dentro \begin{tikzpicture}[x=1cm,y=1cm]:
 %   \node[fcterm] (i) at (0,0) {Inizio};        inizio / fine (ovale)
 %   \node[fcio]   (l) at (0,-1) {Leggi $N$};    input / output (parallelogramma)
-%   \node[fcproc] (p) at (0,-2) {$S \gets 0$};  elaborazione (rettangolo)
+%   \node[fcinit] (z) at (0,-2) {$S \gets 0$};  inizializzazione (esagono allungato)
+%   \node[fcproc] (p) at (0,-2) {$S \gets S+1$}; elaborazione (rettangolo)
 %   \node[fcdec]  (d) at (0,-3) {$N>0$?};       decisione (rombo)
 %   \draw[fcfreccia] (i) -- (l);                freccia di collegamento
 %   \node[fcsi] at (...) {Sì};  \node[fcno] at (...) {No};  etichette dei rami
@@ -122,6 +123,8 @@
                     trapezium right angle=108, trapezium stretches body,
                     minimum width=24mm},
   fcproc/.style  = {fcbase, rectangle, minimum width=22mm},
+  fcinit/.style  = {fcbase, signal, signal to=east and west, signal pointer angle=120,
+                    minimum width=26mm, inner xsep=6pt},
   fcdec/.style   = {fcbase, diamond, aspect=2.2, inner sep=1pt},
   fcfreccia/.style = {thick, -{Stealth[length=2.2mm]}},
   fcsi/.style    = {font=\footnotesize, inner sep=1.5pt},
