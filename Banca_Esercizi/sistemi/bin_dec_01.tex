@@ -1,29 +1,47 @@
 % ---------------------------------------------------------------------
 % Argomento: conversione binario -> decimale (somma delle potenze di 2)
-%   fila A: 1010110101 = 693   fila B: 1101001011 = 843
-%   fila C: 1100101101 = 813   (tutti a 10 bit, 6 bit a 1)
-% Livello: base   |   Tempo stimato: 6 min
+%   4 numeri per fila (8, 8, 9 e 10 bit), un solo numero pari
+%   fila A: 10110111=183, 101100101=357, 11010110=214, 1011000101=709
+%   fila B: 110010011=403, 10100111=167, 1010100101=677, 11101100=236
+%   fila C: 11001101=205, 1010001101=653, 101001011=331, 10110010=178
+% Livello: base   |   Tempo stimato: 10 min
 % ---------------------------------------------------------------------
-\begin{esercizio}[5]
-Converti in decimale:\quad $\ABC{%
-1010110101}{%
-1101001011}{%
-1100101101}_{2} = \ldots\ldots\ldots_{10}$
+\begin{esercizio}[8]
+Converti in decimale:
+\ABC{%
+\par\smallskip\noindent\hspace*{1em}\begin{tabular}{@{}p{0.42\linewidth}p{0.42\linewidth}@{}}
+  \textbf{a)}~$10110111_{2} = \ldots\ldots\ldots_{10}$ & \textbf{b)}~$101100101_{2} = \ldots\ldots\ldots_{10}$\\[4pt]
+  \textbf{c)}~$11010110_{2} = \ldots\ldots\ldots_{10}$ & \textbf{d)}~$1011000101_{2} = \ldots\ldots\ldots_{10}$
+\end{tabular}}{%
+\par\smallskip\noindent\hspace*{1em}\begin{tabular}{@{}p{0.42\linewidth}p{0.42\linewidth}@{}}
+  \textbf{a)}~$110010011_{2} = \ldots\ldots\ldots_{10}$ & \textbf{b)}~$10100111_{2} = \ldots\ldots\ldots_{10}$\\[4pt]
+  \textbf{c)}~$1010100101_{2} = \ldots\ldots\ldots_{10}$ & \textbf{d)}~$11101100_{2} = \ldots\ldots\ldots_{10}$
+\end{tabular}}{%
+\par\smallskip\noindent\hspace*{1em}\begin{tabular}{@{}p{0.42\linewidth}p{0.42\linewidth}@{}}
+  \textbf{a)}~$11001101_{2} = \ldots\ldots\ldots_{10}$ & \textbf{b)}~$1010001101_{2} = \ldots\ldots\ldots_{10}$\\[4pt]
+  \textbf{c)}~$101001011_{2} = \ldots\ldots\ldots_{10}$ & \textbf{d)}~$10110010_{2} = \ldots\ldots\ldots_{10}$
+\end{tabular}}
 
 \begin{solution}
 \ABC{%
-  $1010110101_2 = 1\cdot 2^{9} + 0\cdot 2^{8} + 1\cdot 2^{7} + 0\cdot 2^{6} + 1\cdot 2^{5} + 1\cdot 2^{4} + 0\cdot 2^{3} + 1\cdot 2^{2} + 0\cdot 2^{1} + 1\cdot 2^{0} =$\\[4pt]
-  $\phantom{1010110101_2} = 512 + 128 + 32 + 16 + 4 + 1 = 693_{10}$}{%
-  $1101001011_2 = 1\cdot 2^{9} + 1\cdot 2^{8} + 0\cdot 2^{7} + 1\cdot 2^{6} + 0\cdot 2^{5} + 0\cdot 2^{4} + 1\cdot 2^{3} + 0\cdot 2^{2} + 1\cdot 2^{1} + 1\cdot 2^{0} =$\\[4pt]
-  $\phantom{1101001011_2} = 512 + 256 + 64 + 8 + 2 + 1 = 843_{10}$}{%
-  $1100101101_2 = 1\cdot 2^{9} + 1\cdot 2^{8} + 0\cdot 2^{7} + 0\cdot 2^{6} + 1\cdot 2^{5} + 0\cdot 2^{4} + 1\cdot 2^{3} + 1\cdot 2^{2} + 0\cdot 2^{1} + 1\cdot 2^{0} =$\\[4pt]
-  $\phantom{1100101101_2} = 512 + 256 + 32 + 8 + 4 + 1 = 813_{10}$}
+  \textbf{a)}~$10110111_2 = 128 + 32 + 16 + 4 + 2 + 1 = 183_{10}$\\[4pt]
+  \textbf{b)}~$101100101_2 = 256 + 64 + 32 + 4 + 1 = 357_{10}$\\[4pt]
+  \textbf{c)}~$11010110_2 = 128 + 64 + 16 + 4 + 2 = 214_{10}$\\[4pt]
+  \textbf{d)}~$1011000101_2 = 512 + 128 + 64 + 4 + 1 = 709_{10}$\\[4pt]
+  Si sommano i pesi $2^0, 2^1, 2^2, \ldots$ (da destra) dei soli bit a 1.}{%
+  \textbf{a)}~$110010011_2 = 256 + 128 + 16 + 2 + 1 = 403_{10}$\\[4pt]
+  \textbf{b)}~$10100111_2 = 128 + 32 + 4 + 2 + 1 = 167_{10}$\\[4pt]
+  \textbf{c)}~$1010100101_2 = 512 + 128 + 32 + 4 + 1 = 677_{10}$\\[4pt]
+  \textbf{d)}~$11101100_2 = 128 + 64 + 32 + 8 + 4 = 236_{10}$\\[4pt]
+  Si sommano i pesi $2^0, 2^1, 2^2, \ldots$ (da destra) dei soli bit a 1.}{%
+  \textbf{a)}~$11001101_2 = 128 + 64 + 8 + 4 + 1 = 205_{10}$\\[4pt]
+  \textbf{b)}~$1010001101_2 = 512 + 128 + 8 + 4 + 1 = 653_{10}$\\[4pt]
+  \textbf{c)}~$101001011_2 = 256 + 64 + 8 + 2 + 1 = 331_{10}$\\[4pt]
+  \textbf{d)}~$10110010_2 = 128 + 32 + 16 + 2 = 178_{10}$\\[4pt]
+  Si sommano i pesi $2^0, 2^1, 2^2, \ldots$ (da destra) dei soli bit a 1.}
   \criterioABC
-  {Pesi (potenze di 2) assegnati correttamente a partire da $2^0$ a destra: 2 pt; somma dei soli pesi
-    dei bit a 1: 2 pt; risultato $693_{10}$: 1 pt.}
-  {Pesi (potenze di 2) assegnati correttamente a partire da $2^0$ a destra: 2 pt; somma dei soli pesi
-    dei bit a 1: 2 pt; risultato $843_{10}$: 1 pt.}
-  {Pesi (potenze di 2) assegnati correttamente a partire da $2^0$ a destra: 2 pt; somma dei soli pesi
-    dei bit a 1: 2 pt; risultato $813_{10}$: 1 pt.}
+  {2 pt per ogni numero: 1 pt pesi (potenze di 2) corretti, 1 pt somma e risultato. Risultati: a) $183_{10}$; b) $357_{10}$; c) $214_{10}$; d) $709_{10}$.}
+  {2 pt per ogni numero: 1 pt pesi (potenze di 2) corretti, 1 pt somma e risultato. Risultati: a) $403_{10}$; b) $167_{10}$; c) $677_{10}$; d) $236_{10}$.}
+  {2 pt per ogni numero: 1 pt pesi (potenze di 2) corretti, 1 pt somma e risultato. Risultati: a) $205_{10}$; b) $653_{10}$; c) $331_{10}$; d) $178_{10}$.}
 \end{solution}
 \end{esercizio}

@@ -55,12 +55,13 @@ repo. Il materiale lo prepara Claude; Alessio imposta un file come
 ## Regole per Sistemi Automatici 3BETC
 - Argomenti finora: sistema binario (conversioni), diagrammi di flusso, porte logiche.
   Solo argomenti già fatti a lezione.
-- Struttura della verifica (appunti di Alessio del 20/10/2026), 40 pt:
-  1) decimale → binario (5 pt), 2) binario → decimale (5 pt), 3) diagramma di flusso con
+- Struttura della verifica (appunti di Alessio del 20/10/2026), 46 pt:
+  1) decimale → binario (4 numeri, 8 pt), 2) binario → decimale (4 numeri, 8 pt), 3) diagramma di flusso con
   due decisioni (8 pt), 4) diagramma di flusso con ciclo (10 pt), 5–6) 3 ingressi e 2 porte
   logiche in cascata (6+6 pt). Esempio: `Compiti/Verifica_2026_10_XX_Sistemi_3BETC/`.
-- Conversioni: testo come negli appunti, `$1373_{10} = \ldots_2$`; decimali a 4 cifre (11 bit),
-  binari a 10 bit; le tre file con lo stesso numero di bit e quasi lo stesso numero di 1.
+- Conversioni: più numeri per esercizio (4, disposti 2×2, `a)`–`d)`), testo come negli appunti
+  `$173_{10} = \ldots_2$`; decimali a **3 cifre** (8–10 bit), binari da 8 a 10 bit;
+  **un solo numero pari** per esercizio; le tre file con gli stessi numeri di bit. 2 pt per numero.
   Soluzione: tabella delle divisioni per 2 con i resti / somma delle potenze di 2.
 - Qui i risultati sono numeri interi o tabelle: niente `\calcola`/[!]; i risultati attesi
   delle tre file vanno scritti nei criteri (`\criterioABC`), così compaiono nella correzione.

@@ -1,89 +1,230 @@
 % ---------------------------------------------------------------------
 % Argomento: conversione decimale -> binario (divisioni successive per 2)
-%   fila A: 1373 = 10101011101   fila B: 1461 = 10110110101
-%   fila C: 1339 = 10100111011   (tutti a 11 bit, 7 bit a 1)
-% Livello: base   |   Tempo stimato: 8 min
+%   4 numeri a 3 cifre per fila (8, 9, 9 e 10 bit), un solo numero pari
+%   fila A: 173=10101101, 461=111001101, 358=101100110, 829=1100111101
+%   fila B: 394=110001010, 211=11010011, 917=1110010101, 437=110110101
+%   fila C: 489=111101001, 157=10011101, 763=1011111011, 326=101000110
+% Livello: base   |   Tempo stimato: 12 min
 % ---------------------------------------------------------------------
-\begin{esercizio}[5]
-Converti in binario:\quad $\ABC{%
-1373}{%
-1461}{%
-1339}_{10} = \ldots\ldots\ldots_{2}$
+\begin{esercizio}[8]
+Converti in binario:
+\ABC{%
+\par\smallskip\noindent\hspace*{1em}\begin{tabular}{@{}p{0.42\linewidth}p{0.42\linewidth}@{}}
+  \textbf{a)}~$173_{10} = \ldots\ldots\ldots_2$ & \textbf{b)}~$461_{10} = \ldots\ldots\ldots_2$\\[4pt]
+  \textbf{c)}~$358_{10} = \ldots\ldots\ldots_2$ & \textbf{d)}~$829_{10} = \ldots\ldots\ldots_2$
+\end{tabular}}{%
+\par\smallskip\noindent\hspace*{1em}\begin{tabular}{@{}p{0.42\linewidth}p{0.42\linewidth}@{}}
+  \textbf{a)}~$394_{10} = \ldots\ldots\ldots_2$ & \textbf{b)}~$211_{10} = \ldots\ldots\ldots_2$\\[4pt]
+  \textbf{c)}~$917_{10} = \ldots\ldots\ldots_2$ & \textbf{d)}~$437_{10} = \ldots\ldots\ldots_2$
+\end{tabular}}{%
+\par\smallskip\noindent\hspace*{1em}\begin{tabular}{@{}p{0.42\linewidth}p{0.42\linewidth}@{}}
+  \textbf{a)}~$489_{10} = \ldots\ldots\ldots_2$ & \textbf{b)}~$157_{10} = \ldots\ldots\ldots_2$\\[4pt]
+  \textbf{c)}~$763_{10} = \ldots\ldots\ldots_2$ & \textbf{d)}~$326_{10} = \ldots\ldots\ldots_2$
+\end{tabular}}
 
 \begin{solution}
 \ABC{%
-  \begin{minipage}[t]{0.3\linewidth}
-  \renewcommand{\arraystretch}{1.05}
-  \begin{tabular}{r|l}
-    1373 & 1\\
-    686 & 0\\
-    343 & 1\\
-    171 & 1\\
-    85 & 1\\
-    42 & 0\\
+\noindent
+  \begin{minipage}[t]{0.24\linewidth}
+  \textbf{a)}\\[2pt]
+  {\small\renewcommand{\arraystretch}{1.0}\begin{tabular}{r|l}
+    173 & 1\\
+    86 & 0\\
+    43 & 1\\
     21 & 1\\
     10 & 0\\
     5 & 1\\
     2 & 0\\
     1 & 1\\
     0 & \\
-  \end{tabular}
+  \end{tabular}}
   \end{minipage}\hfill
-  \begin{minipage}[t]{0.66\linewidth}
-  Si divide per 2 fino ad arrivare a 0; a destra i resti.\\[3pt]
-  Si leggono i resti dal basso verso l'alto:\\[6pt]
-  $$1373_{10} = 10101011101_2$$
-  \end{minipage}}{%
-  \begin{minipage}[t]{0.3\linewidth}
-  \renewcommand{\arraystretch}{1.05}
-  \begin{tabular}{r|l}
-    1461 & 1\\
-    730 & 0\\
-    365 & 1\\
-    182 & 0\\
-    91 & 1\\
-    45 & 1\\
+  \begin{minipage}[t]{0.24\linewidth}
+  \textbf{b)}\\[2pt]
+  {\small\renewcommand{\arraystretch}{1.0}\begin{tabular}{r|l}
+    461 & 1\\
+    230 & 0\\
+    115 & 1\\
+    57 & 1\\
+    28 & 0\\
+    14 & 0\\
+    7 & 1\\
+    3 & 1\\
+    1 & 1\\
+    0 & \\
+  \end{tabular}}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.24\linewidth}
+  \textbf{c)}\\[2pt]
+  {\small\renewcommand{\arraystretch}{1.0}\begin{tabular}{r|l}
+    358 & 0\\
+    179 & 1\\
+    89 & 1\\
+    44 & 0\\
     22 & 0\\
     11 & 1\\
     5 & 1\\
     2 & 0\\
     1 & 1\\
     0 & \\
-  \end{tabular}
+  \end{tabular}}
   \end{minipage}\hfill
-  \begin{minipage}[t]{0.66\linewidth}
-  Si divide per 2 fino ad arrivare a 0; a destra i resti.\\[3pt]
-  Si leggono i resti dal basso verso l'alto:\\[6pt]
-  $$1461_{10} = 10110110101_2$$
-  \end{minipage}}{%
-  \begin{minipage}[t]{0.3\linewidth}
-  \renewcommand{\arraystretch}{1.05}
-  \begin{tabular}{r|l}
-    1339 & 1\\
-    669 & 1\\
-    334 & 0\\
-    167 & 1\\
-    83 & 1\\
-    41 & 1\\
+  \begin{minipage}[t]{0.24\linewidth}
+  \textbf{d)}\\[2pt]
+  {\small\renewcommand{\arraystretch}{1.0}\begin{tabular}{r|l}
+    829 & 1\\
+    414 & 0\\
+    207 & 1\\
+    103 & 1\\
+    51 & 1\\
+    25 & 1\\
+    12 & 0\\
+    6 & 0\\
+    3 & 1\\
+    1 & 1\\
+    0 & \\
+  \end{tabular}}
+  \end{minipage}\\[6pt]
+\par\smallskip\noindent\hspace*{1em}\begin{tabular}{@{}p{0.42\linewidth}p{0.42\linewidth}@{}}
+  \textbf{a)}~$173_{10} = 10101101_2$ & \textbf{b)}~$461_{10} = 111001101_2$\\[4pt]
+  \textbf{c)}~$358_{10} = 101100110_2$ & \textbf{d)}~$829_{10} = 1100111101_2$
+\end{tabular}\par\smallskip
+  Si divide per 2 fino ad arrivare a 0 e si leggono i resti dal basso verso l'alto.}{%
+\noindent
+  \begin{minipage}[t]{0.24\linewidth}
+  \textbf{a)}\\[2pt]
+  {\small\renewcommand{\arraystretch}{1.0}\begin{tabular}{r|l}
+    394 & 0\\
+    197 & 1\\
+    98 & 0\\
+    49 & 1\\
+    24 & 0\\
+    12 & 0\\
+    6 & 0\\
+    3 & 1\\
+    1 & 1\\
+    0 & \\
+  \end{tabular}}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.24\linewidth}
+  \textbf{b)}\\[2pt]
+  {\small\renewcommand{\arraystretch}{1.0}\begin{tabular}{r|l}
+    211 & 1\\
+    105 & 1\\
+    52 & 0\\
+    26 & 0\\
+    13 & 1\\
+    6 & 0\\
+    3 & 1\\
+    1 & 1\\
+    0 & \\
+  \end{tabular}}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.24\linewidth}
+  \textbf{c)}\\[2pt]
+  {\small\renewcommand{\arraystretch}{1.0}\begin{tabular}{r|l}
+    917 & 1\\
+    458 & 0\\
+    229 & 1\\
+    114 & 0\\
+    57 & 1\\
+    28 & 0\\
+    14 & 0\\
+    7 & 1\\
+    3 & 1\\
+    1 & 1\\
+    0 & \\
+  \end{tabular}}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.24\linewidth}
+  \textbf{d)}\\[2pt]
+  {\small\renewcommand{\arraystretch}{1.0}\begin{tabular}{r|l}
+    437 & 1\\
+    218 & 0\\
+    109 & 1\\
+    54 & 0\\
+    27 & 1\\
+    13 & 1\\
+    6 & 0\\
+    3 & 1\\
+    1 & 1\\
+    0 & \\
+  \end{tabular}}
+  \end{minipage}\\[6pt]
+\par\smallskip\noindent\hspace*{1em}\begin{tabular}{@{}p{0.42\linewidth}p{0.42\linewidth}@{}}
+  \textbf{a)}~$394_{10} = 110001010_2$ & \textbf{b)}~$211_{10} = 11010011_2$\\[4pt]
+  \textbf{c)}~$917_{10} = 1110010101_2$ & \textbf{d)}~$437_{10} = 110110101_2$
+\end{tabular}\par\smallskip
+  Si divide per 2 fino ad arrivare a 0 e si leggono i resti dal basso verso l'alto.}{%
+\noindent
+  \begin{minipage}[t]{0.24\linewidth}
+  \textbf{a)}\\[2pt]
+  {\small\renewcommand{\arraystretch}{1.0}\begin{tabular}{r|l}
+    489 & 1\\
+    244 & 0\\
+    122 & 0\\
+    61 & 1\\
+    30 & 0\\
+    15 & 1\\
+    7 & 1\\
+    3 & 1\\
+    1 & 1\\
+    0 & \\
+  \end{tabular}}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.24\linewidth}
+  \textbf{b)}\\[2pt]
+  {\small\renewcommand{\arraystretch}{1.0}\begin{tabular}{r|l}
+    157 & 1\\
+    78 & 0\\
+    39 & 1\\
+    19 & 1\\
+    9 & 1\\
+    4 & 0\\
+    2 & 0\\
+    1 & 1\\
+    0 & \\
+  \end{tabular}}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.24\linewidth}
+  \textbf{c)}\\[2pt]
+  {\small\renewcommand{\arraystretch}{1.0}\begin{tabular}{r|l}
+    763 & 1\\
+    381 & 1\\
+    190 & 0\\
+    95 & 1\\
+    47 & 1\\
+    23 & 1\\
+    11 & 1\\
+    5 & 1\\
+    2 & 0\\
+    1 & 1\\
+    0 & \\
+  \end{tabular}}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.24\linewidth}
+  \textbf{d)}\\[2pt]
+  {\small\renewcommand{\arraystretch}{1.0}\begin{tabular}{r|l}
+    326 & 0\\
+    163 & 1\\
+    81 & 1\\
+    40 & 0\\
     20 & 0\\
     10 & 0\\
     5 & 1\\
     2 & 0\\
     1 & 1\\
     0 & \\
-  \end{tabular}
-  \end{minipage}\hfill
-  \begin{minipage}[t]{0.66\linewidth}
-  Si divide per 2 fino ad arrivare a 0; a destra i resti.\\[3pt]
-  Si leggono i resti dal basso verso l'alto:\\[6pt]
-  $$1339_{10} = 10100111011_2$$
-  \end{minipage}}
+  \end{tabular}}
+  \end{minipage}\\[6pt]
+\par\smallskip\noindent\hspace*{1em}\begin{tabular}{@{}p{0.42\linewidth}p{0.42\linewidth}@{}}
+  \textbf{a)}~$489_{10} = 111101001_2$ & \textbf{b)}~$157_{10} = 10011101_2$\\[4pt]
+  \textbf{c)}~$763_{10} = 1011111011_2$ & \textbf{d)}~$326_{10} = 101000110_2$
+\end{tabular}\par\smallskip
+  Si divide per 2 fino ad arrivare a 0 e si leggono i resti dal basso verso l'alto.}
   \criterioABC
-  {Divisioni successive per 2 corrette: 3 pt ($-0{,}5$ per ogni divisione sbagliata); resti letti dal basso
-    verso l'alto: 1 pt; risultato $10101011101_2$: 1 pt.}
-  {Divisioni successive per 2 corrette: 3 pt ($-0{,}5$ per ogni divisione sbagliata); resti letti dal basso
-    verso l'alto: 1 pt; risultato $10110110101_2$: 1 pt.}
-  {Divisioni successive per 2 corrette: 3 pt ($-0{,}5$ per ogni divisione sbagliata); resti letti dal basso
-    verso l'alto: 1 pt; risultato $10100111011_2$: 1 pt.}
+  {2 pt per ogni numero: 1 pt divisioni per 2 corrette, 1 pt resti letti dal basso e risultato. Risultati: a) $10101101_2$; b) $111001101_2$; c) $101100110_2$; d) $1100111101_2$.}
+  {2 pt per ogni numero: 1 pt divisioni per 2 corrette, 1 pt resti letti dal basso e risultato. Risultati: a) $110001010_2$; b) $11010011_2$; c) $1110010101_2$; d) $110110101_2$.}
+  {2 pt per ogni numero: 1 pt divisioni per 2 corrette, 1 pt resti letti dal basso e risultato. Risultati: a) $111101001_2$; b) $10011101_2$; c) $1011111011_2$; d) $101000110_2$.}
 \end{solution}
 \end{esercizio}
