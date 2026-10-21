@@ -82,9 +82,14 @@ media $A = S/N$ e visualizza $S$ e $A$.}
 \end{tikzpicture}}
 \end{center}
 \ABC{%
-  Il livello parte da 0 (serbatoio vuoto). Il ciclo si ripete finché $L < C$; quando esce, $L$ può
-  superare di poco $C$ perché aumenta di $P$ alla volta.}{%
-  Il ciclo si ripete finché $T \geq 50$; quando esce, $T$ è appena sotto i \qty{50}{\degreeCelsius}.}{%
+  Il tempo nel diagramma: \textbf{ogni giro del ciclo rappresenta un minuto}. In ogni giro il
+  livello sale di $P$ litri e $M$ aumenta di 1, quindi alla fine $M$ è il numero di minuti
+  trascorsi. Il livello parte da 0 (serbatoio vuoto) e il ciclo si ripete finché $L < C$; quando
+  esce, $L$ può superare di poco $C$ perché aumenta di $P$ alla volta.}{%
+  Il tempo nel diagramma: \textbf{ogni giro del ciclo rappresenta un minuto}. In ogni giro la
+  temperatura scende di $D$ gradi e $M$ aumenta di 1, quindi alla fine $M$ è il numero di minuti
+  trascorsi. Il ciclo si ripete finché $T \geq 50$; quando esce, $T$ è appena sotto i
+  \qty{50}{\degreeCelsius}.}{%
   $S$ parte da 0 e $i$ da 1. Il ciclo si ripete finché $i \leq N$; la media si calcola una volta sola,
   dopo il ciclo.}
   \criterioABC
