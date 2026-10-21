@@ -5,9 +5,9 @@
 %   fila B: magazzino svuotato a spedizioni -> numero di spedizioni e pezzi rimasti
 %   (niente tempo: il ciclo conta operazioni, non minuti)
 %   fila C: somma dei numeri da 1 a N e media
-% Livello: intermedio   |   Tempo stimato: 15 min
+% Livello: intermedio (nessun suggerimento: condizione e aggiornamenti da ricavare)   |   Tempo stimato: 15 min
 % ---------------------------------------------------------------------
-\begin{esercizio}[10]
+\begin{esercizio}[12]
 \ABC{%
 Un serbatoio, inizialmente vuoto, si riempie versando un secchio d'acqua alla volta.
 Disegna il diagramma di flusso di un algoritmo che conta quanti secchi servono per riempirlo.\\
@@ -23,9 +23,9 @@ Alla fine visualizza $K$ e i pezzi rimasti $Q$.}{%
 Disegna il diagramma di flusso di un algoritmo che calcola la somma dei numeri interi da 1 a $N$
 e la loro media.\\
 \textbf{Dati da leggere:} $N$ = ultimo numero da sommare.\\
-\textbf{Altre variabili:} $i$ = contatore che parte da 1 e aumenta di 1 a ogni giro;
-$S$ = somma $1 + 2 + \ldots + N$; $A$ = media.\\
-Si continua finché $i$ non supera $N$. Dopo il ciclo calcola $A = S/N$ e visualizza $S$ e $A$.}
+\textbf{Altre variabili:} $i$ = numero da aggiungere alla somma; $S$ = somma $1 + 2 + \ldots + N$;
+$A$ = media.\\
+Alla fine visualizza $S$ e $A$.}
 
 \begin{solution}
 \begin{center}
@@ -95,19 +95,21 @@ Si continua finché $i$ non supera $N$. Dopo il ciclo calcola $A = S/N$ e visual
   $S$ parte da 0 e $i$ da 1. Il ciclo si ripete finché $i \leq N$; la media si calcola una volta sola,
   dopo il ciclo.}
   \criterioABC
-  {Inizio/Fine e simboli corretti (inizializzazione nell'esagono): 1 pt; lettura di $C$ e $S$: 1 pt; inizializzazione $L\gets 0$,
-    $N\gets 0$: 2 pt; condizione del ciclo $L<C$ con rami Sì/No giusti: 2 pt; aggiornamenti
-    $L\gets L+S$ e $N\gets N+1$ dentro il ciclo: 2 pt; ritorno alla condizione: 1 pt; uscita di $N$ e
-    $L$ dopo il ciclo: 1 pt. Ciclo con condizione in fondo (ripeti\ldots finché $L \geq C$) corretto:
-    stessi punti.}
-  {Inizio/Fine e simboli corretti (inizializzazione nell'esagono): 1 pt; lettura di $Q$ e $S$: 1 pt; inizializzazione $K\gets 0$ (e
-    nessuna inizializzazione di $Q$ dopo la lettura): 2 pt; condizione del ciclo $Q\geq S$ con rami
-    Sì/No giusti: 2 pt; aggiornamenti $Q\gets Q-S$ e $K\gets K+1$ dentro il ciclo: 2 pt; ritorno alla
-    condizione: 1 pt; uscita di $K$ e $Q$ dopo il ciclo: 1 pt. Ciclo con condizione in fondo
+  {Inizio/Fine e simboli corretti (inizializzazione nell'esagono): 1 pt; lettura di $C$ e $S$: 1 pt;
+    inizializzazione $L\gets 0$, $N\gets 0$: 2 pt; condizione del ciclo $L<C$ ricavata dal testo, con
+    rami Sì/No giusti: 3 pt; aggiornamento $L\gets L+S$: 2 pt; contatore $N\gets N+1$: 1 pt; ritorno alla
+    condizione: 1 pt; uscita di $N$ e $L$ dopo il ciclo: 1 pt. Ciclo con condizione in fondo
+    (ripeti\ldots finché $L \geq C$) corretto: stessi punti.}
+  {Inizio/Fine e simboli corretti (inizializzazione nell'esagono): 1 pt; lettura di $Q$ e $S$: 1 pt;
+    inizializzazione $K\gets 0$ (e nessuna inizializzazione di $Q$ dopo la lettura): 2 pt; condizione del
+    ciclo $Q\geq S$ ricavata da ``abbastanza pezzi per una spedizione completa'', con rami Sì/No giusti:
+    3 pt ($Q>0$ o $Q>S$: 1 pt); aggiornamento $Q\gets Q-S$: 2 pt; contatore $K\gets K+1$: 1 pt; ritorno
+    alla condizione: 1 pt; uscita di $K$ e $Q$ dopo il ciclo: 1 pt. Ciclo con condizione in fondo
     corretto se gestisce il caso $Q<S$ iniziale: stessi punti.}
-  {Inizio/Fine e simboli corretti (inizializzazione nell'esagono): 1 pt; lettura di $N$: 1 pt; inizializzazione $S\gets 0$, $i\gets 1$:
-    2 pt; condizione del ciclo $i\leq N$ con rami Sì/No giusti: 2 pt; aggiornamenti $S\gets S+i$ e
-    $i\gets i+1$ dentro il ciclo (in quest'ordine): 2 pt; ritorno alla condizione e media $S/N$ dopo il
-    ciclo: 1 pt; uscita di $S$ e $A$: 1 pt. Ciclo con condizione in fondo corretto: stessi punti.}
+  {Inizio/Fine e simboli corretti (inizializzazione nell'esagono): 1 pt; lettura di $N$: 1 pt;
+    inizializzazione $S\gets 0$, $i\gets 1$: 2 pt; condizione del ciclo $i\leq N$ con rami Sì/No giusti:
+    3 pt ($i<N$: 1 pt); aggiornamento $S\gets S+i$: 2 pt; $i\gets i+1$ dopo la somma: 1 pt; ritorno alla
+    condizione: 1 pt; media $S/N$ dopo il ciclo e uscita di $S$ e $A$: 1 pt. Varianti corrette (es.
+    $i\gets 0$ con incremento prima della somma e condizione $i<N$): stessi punti.}
 \end{solution}
 \end{esercizio}

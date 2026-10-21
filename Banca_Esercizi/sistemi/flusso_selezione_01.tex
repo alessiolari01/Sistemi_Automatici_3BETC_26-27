@@ -3,29 +3,29 @@
 %   fila A: forno, media di due temperature -> resistenza / ventola / ok
 %   fila B: serbatoio, percentuale di riempimento -> carico / scarico / ok
 %   fila C: totale di un acquisto con sconto del 20 % o del 10 %
-% Livello: intermedio   |   Tempo stimato: 15 min
+% Livello: base (con suggerimenti nel testo)   |   Tempo stimato: 15 min
 % ---------------------------------------------------------------------
-\begin{esercizio}[8]
+\begin{esercizio}[6]
 \ABC{%
 In un forno due sensori misurano la temperatura. Disegna il diagramma di flusso di un algoritmo
 che decide cosa fare in base alla temperatura media.\\
 \textbf{Dati da leggere:} $T_1$, $T_2$ = temperature misurate dai due sensori (in °C).\\
-\textbf{Altre variabili:} $T$ = media delle due temperature.\\
-Se $T$ è minore di \qty{180}{\degreeCelsius} visualizza ``Accendi la resistenza'', se è maggiore di
-\qty{220}{\degreeCelsius} visualizza ``Accendi la ventola'', altrimenti visualizza ``Temperatura corretta''.}{%
+\textbf{Altre variabili:} $T$ = media delle due temperature, cioè $T = (T_1+T_2)/2$.\\
+Prima controlla se $T < 180$: se sì visualizza ``Accendi la resistenza''. Se no, controlla se
+$T > 220$: se sì visualizza ``Accendi la ventola'', altrimenti visualizza ``Temperatura corretta''.}{%
 In un serbatoio un sensore misura il livello dell'acqua. Disegna il diagramma di flusso di un
 algoritmo che decide cosa fare in base alla percentuale di riempimento.\\
 \textbf{Dati da leggere:} $L$ = livello dell'acqua (in cm); $H$ = altezza del serbatoio (in cm).\\
-\textbf{Altre variabili:} $P$ = percentuale di riempimento del serbatoio.\\
-Se $P$ è minore del \qty{20}{\percent} visualizza ``Apri il carico'', se è maggiore del
-\qty{90}{\percent} visualizza ``Apri lo scarico'', altrimenti visualizza ``Livello corretto''.}{%
+\textbf{Altre variabili:} $P$ = percentuale di riempimento, cioè $P = L/H \cdot 100$.\\
+Prima controlla se $P < 20$: se sì visualizza ``Apri il carico''. Se no, controlla se $P > 90$:
+se sì visualizza ``Apri lo scarico'', altrimenti visualizza ``Livello corretto''.}{%
 In un negozio lo sconto dipende dalla spesa. Disegna il diagramma di flusso di un algoritmo che
 calcola il totale da pagare.\\
 \textbf{Dati da leggere:} $P$ = prezzo di un prodotto (in euro); $Q$ = quantità acquistata.\\
-\textbf{Altre variabili:} $T$ = totale della spesa.\\
-Se $T$ supera \qty{100}{\eur} si applica uno sconto del \qty{20}{\percent}, se supera \qty{50}{\eur}
-(ma non \qty{100}{\eur}) uno sconto del \qty{10}{\percent}, altrimenti nessuno sconto. Alla fine
-visualizza $T$.}
+\textbf{Altre variabili:} $T$ = totale della spesa, cioè $T = P \cdot Q$.\\
+Prima controlla se $T > 100$: se sì applica lo sconto del \qty{20}{\percent} ($T$ diventa $T \cdot 0{,}8$).
+Se no, controlla se $T > 50$: se sì applica lo sconto del \qty{10}{\percent} ($T$ diventa $T \cdot 0{,}9$),
+altrimenti nessuno sconto. Alla fine visualizza $T$.}
 
 \begin{solution}
 \begin{center}
@@ -103,17 +103,14 @@ visualizza $T$.}
   Sconto del \qty{20}{\percent}: si paga l'\qty{80}{\percent}, cioè $T \cdot 0{,}8$
   (oppure $T \gets T - T\cdot 20/100$).}
   \criterioABC
-  {Inizio/Fine e simboli corretti (ovale, parallelogramma, rettangolo, rombo): 1 pt; lettura di $T_1$ e
-    $T_2$: 1 pt; calcolo della media $(T_1+T_2)/2$: 1 pt (senza parentesi: 0 pt); prima decisione
-    $T<180$ con i rami Sì/No: 2 pt; seconda decisione $T>220$ nel ramo No: 2 pt; tre messaggi
-    nei rami giusti e rami che si ricongiungono prima di Fine: 1 pt.}
-  {Inizio/Fine e simboli corretti (ovale, parallelogramma, rettangolo, rombo): 1 pt; lettura di $L$ e
-    $H$: 1 pt; calcolo $P = L/H\cdot 100$: 1 pt; prima decisione $P<20$ con i rami Sì/No: 2 pt;
-    seconda decisione $P>90$ nel ramo No: 2 pt; tre messaggi nei rami giusti e rami che si
-    ricongiungono prima di Fine: 1 pt.}
-  {Inizio/Fine e simboli corretti (ovale, parallelogramma, rettangolo, rombo): 1 pt; lettura di $P$ e
-    $Q$: 1 pt; calcolo $T = P\cdot Q$: 1 pt; prima decisione $T>100$ con sconto del 20\,\%: 2 pt;
-    seconda decisione $T>50$ nel ramo No con sconto del 10\,\%: 2 pt; rami che si ricongiungono e
-    una sola uscita ``Scrivi $T$'' (o una per ramo): 1 pt.}
+  {Inizio/Fine e simboli corretti (ovale, parallelogramma, rettangolo, rombo): 1 pt; lettura di $T_1$,
+    $T_2$ e calcolo di $T$: 1 pt; decisione $T<180$ con i rami Sì/No: 2 pt; decisione $T>220$ nel ramo
+    No: 1 pt; tre messaggi nei rami giusti e rami che si ricongiungono prima di Fine: 1 pt.}
+  {Inizio/Fine e simboli corretti (ovale, parallelogramma, rettangolo, rombo): 1 pt; lettura di $L$, $H$
+    e calcolo di $P$: 1 pt; decisione $P<20$ con i rami Sì/No: 2 pt; decisione $P>90$ nel ramo No:
+    1 pt; tre messaggi nei rami giusti e rami che si ricongiungono prima di Fine: 1 pt.}
+  {Inizio/Fine e simboli corretti (ovale, parallelogramma, rettangolo, rombo): 1 pt; lettura di $P$, $Q$
+    e calcolo di $T$: 1 pt; decisione $T>100$ con sconto del 20\,\%: 2 pt; decisione $T>50$ nel ramo
+    No con sconto del 10\,\%: 1 pt; rami che si ricongiungono e uscita di $T$: 1 pt.}
 \end{solution}
 \end{esercizio}
