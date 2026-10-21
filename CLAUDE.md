@@ -74,8 +74,9 @@ repo. Il materiale lo prepara Claude; Alessio imposta un file come
   (dati, risultati, contatori: es. livello $L$, minuti $M$, contatore $i$).
 - Porte logiche: simboli americani (`american and port`, `or`, `nand`, `nor`) dentro
   `circuitikz` con `scale=1.25,transform shape`; ingressi $A$, $B$, $C$, uscita intermedia $X$,
-  uscita $Y$. AND = $\cdot$, OR = $+$, negazione con la barra sopra.
-  Si chiedono espressione di $X$ e $Y$ e tabella di verità (8 righe).
+  uscita $Y$. **Solo tabella di verità** (8 righe): le espressioni logiche non sono ancora state
+  spiegate. Per renderla meno meccanica: pallini di negazione sugli ingressi (`circle` su
+  `g.bin k`) e/o in uscita (NAND, NOR); nelle soluzioni colonne "NOT $B$" per gli ingressi negati.
 - Le file A, B, C hanno esercizi diversi ma di pari difficoltà (`\ABC{...}{...}{...}`).
 
 ## Nuova verifica

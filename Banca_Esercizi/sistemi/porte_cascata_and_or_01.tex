@@ -1,13 +1,13 @@
 % ---------------------------------------------------------------------
-% Argomento: 3 ingressi, 2 porte AND/OR in cascata: espressione e tabella di verita'
-%   fila A: X = AND(A,B),  Y = OR(X,C)
-%   fila B: X = OR(A,B),  Y = AND(X,C)
-%   fila C: X = OR(B,C),  Y = AND(X,A)
-% Livello: base-intermedio   |   Tempo stimato: 8 min
+% Argomento: 3 ingressi, 2 porte AND/OR in cascata, un ingresso negato (pallino) sulla prima porta
+%   fila A: X = AND(A, NOT B),  Y = OR(X, C)
+%   fila B: X = OR(NOT A, B),  Y = AND(X, C)
+%   fila C: X = OR(B, NOT C),  Y = AND(X, A)
+% Solo tabella di verita' (le espressioni logiche non sono ancora state spiegate)
+% Livello: intermedio   |   Tempo stimato: 8 min
 % ---------------------------------------------------------------------
 \begin{esercizio}[6]
-Per il circuito in figura scrivi l'espressione logica di $X$ e di $Y$ e la tabella di verità
-(colonne $A$, $B$, $C$, $X$, $Y$).
+Scrivi la tabella di verità del circuito in figura (colonne $A$, $B$, $C$, $X$, $Y$).
 
 \begin{center}
 \ABC{%
@@ -19,6 +19,7 @@ Per il circuito in figura scrivi l'espressione logica di $X$ e di $Y$ e la tabel
     \draw (g2.in 2) -- (g1.in 2 |- g2.in 2) -- ++(-0.9,0) node[left] {$C$};
     \draw (g1.out) -- ++(0.45,0) node[above] {$X$} |- (g2.in 1);
     \draw (g2.out) -- ++(0.7,0) node[right] {$Y$};
+    \node[circle,draw,fill=white,inner sep=0pt,minimum size=1.6mm,anchor=east] at (g1.bin 2) {};
   \end{circuitikz}}{%
   \begin{circuitikz}[x=1cm,y=1cm,scale=1.25,transform shape]
     \node[american or port] (g1) at (0,0.3) {};
@@ -28,62 +29,63 @@ Per il circuito in figura scrivi l'espressione logica di $X$ e di $Y$ e la tabel
     \draw (g2.in 2) -- (g1.in 2 |- g2.in 2) -- ++(-0.9,0) node[left] {$C$};
     \draw (g1.out) -- ++(0.45,0) node[above] {$X$} |- (g2.in 1);
     \draw (g2.out) -- ++(0.7,0) node[right] {$Y$};
+    \node[circle,draw,fill=white,inner sep=0pt,minimum size=1.6mm,anchor=east] at (g1.bin 1) {};
   \end{circuitikz}}{%
   \begin{circuitikz}[x=1cm,y=1cm,scale=1.25,transform shape]
     \node[american or port] (g1) at (0,-0.3) {};
     \node[american and port] (g2) at (3,0.25) {};
-    \draw (g2.in 1) -- (g1.in 1 |- g2.in 1) -- ++(-0.9,0) node[left] {$A$};
     \draw (g1.in 1) -- ++(-0.9,0) node[left] {$B$};
     \draw (g1.in 2) -- ++(-0.9,0) node[left] {$C$};
+    \draw (g2.in 1) -- (g1.in 1 |- g2.in 1) -- ++(-0.9,0) node[left] {$A$};
     \draw (g1.out) -- ++(0.45,0) node[below] {$X$} |- (g2.in 2);
     \draw (g2.out) -- ++(0.7,0) node[right] {$Y$};
+    \node[circle,draw,fill=white,inner sep=0pt,minimum size=1.6mm,anchor=east] at (g1.bin 2) {};
   \end{circuitikz}}
 \end{center}
 
 \begin{solution}
 \ABC{%
-  $X = A\cdot B$\qquad $Y = A\cdot B+C$\\[4pt]
   {\renewcommand{\arraystretch}{1.05}\small
-  \begin{tabular}{ccc|c|c}
-    $A$ & $B$ & $C$ & $X$ & $Y$\\\hline
-    0 & 0 & 0 & 0 & 0\\
-    0 & 0 & 1 & 0 & 1\\
-    0 & 1 & 0 & 0 & 0\\
-    0 & 1 & 1 & 0 & 1\\
-    1 & 0 & 0 & 0 & 0\\
-    1 & 0 & 1 & 0 & 1\\
-    1 & 1 & 0 & 1 & 1\\
-    1 & 1 & 1 & 1 & 1\\
+  \begin{tabular}{ccc|c|c|c}
+    $A$ & $B$ & $C$ & NOT $B$ & $X$ & $Y$\\\hline
+    0 & 0 & 0 & 1 & 0 & 0\\
+    0 & 0 & 1 & 1 & 0 & 1\\
+    0 & 1 & 0 & 0 & 0 & 0\\
+    0 & 1 & 1 & 0 & 0 & 1\\
+    1 & 0 & 0 & 1 & 1 & 1\\
+    1 & 0 & 1 & 1 & 1 & 1\\
+    1 & 1 & 0 & 0 & 0 & 0\\
+    1 & 1 & 1 & 0 & 0 & 1\\
   \end{tabular}}}{%
-  $X = A+B$\qquad $Y = (A+B)\cdot C$\\[4pt]
   {\renewcommand{\arraystretch}{1.05}\small
-  \begin{tabular}{ccc|c|c}
-    $A$ & $B$ & $C$ & $X$ & $Y$\\\hline
-    0 & 0 & 0 & 0 & 0\\
-    0 & 0 & 1 & 0 & 0\\
-    0 & 1 & 0 & 1 & 0\\
-    0 & 1 & 1 & 1 & 1\\
-    1 & 0 & 0 & 1 & 0\\
-    1 & 0 & 1 & 1 & 1\\
-    1 & 1 & 0 & 1 & 0\\
-    1 & 1 & 1 & 1 & 1\\
+  \begin{tabular}{ccc|c|c|c}
+    $A$ & $B$ & $C$ & NOT $A$ & $X$ & $Y$\\\hline
+    0 & 0 & 0 & 1 & 1 & 0\\
+    0 & 0 & 1 & 1 & 1 & 1\\
+    0 & 1 & 0 & 1 & 1 & 0\\
+    0 & 1 & 1 & 1 & 1 & 1\\
+    1 & 0 & 0 & 0 & 0 & 0\\
+    1 & 0 & 1 & 0 & 0 & 0\\
+    1 & 1 & 0 & 0 & 1 & 0\\
+    1 & 1 & 1 & 0 & 1 & 1\\
   \end{tabular}}}{%
-  $X = B+C$\qquad $Y = A\cdot (B+C)$\\[4pt]
   {\renewcommand{\arraystretch}{1.05}\small
-  \begin{tabular}{ccc|c|c}
-    $A$ & $B$ & $C$ & $X$ & $Y$\\\hline
-    0 & 0 & 0 & 0 & 0\\
-    0 & 0 & 1 & 1 & 0\\
-    0 & 1 & 0 & 1 & 0\\
-    0 & 1 & 1 & 1 & 0\\
-    1 & 0 & 0 & 0 & 0\\
-    1 & 0 & 1 & 1 & 1\\
-    1 & 1 & 0 & 1 & 1\\
-    1 & 1 & 1 & 1 & 1\\
-  \end{tabular}}}
+  \begin{tabular}{ccc|c|c|c}
+    $A$ & $B$ & $C$ & NOT $C$ & $X$ & $Y$\\\hline
+    0 & 0 & 0 & 1 & 1 & 0\\
+    0 & 0 & 1 & 0 & 0 & 0\\
+    0 & 1 & 0 & 1 & 1 & 0\\
+    0 & 1 & 1 & 0 & 1 & 0\\
+    1 & 0 & 0 & 1 & 1 & 1\\
+    1 & 0 & 1 & 0 & 0 & 0\\
+    1 & 1 & 0 & 1 & 1 & 1\\
+    1 & 1 & 1 & 0 & 1 & 1\\
+  \end{tabular}}}\\[4pt]
+  Il pallino all'ingresso di una porta nega quel segnale prima della porta; il pallino all'uscita
+  (NAND, NOR) nega il risultato della porta.
   \criterioABC
-  {Espressione $Y = A\cdot B+C$: 2 pt (1 pt se manca la sola parentesi o la negazione); colonna $X$ (AND): 2 pt; colonna $Y$ (OR): 2 pt ($-0{,}5$ per ogni riga sbagliata, senza ripenalizzare un errore già fatto su $X$). Tabella con meno di 8 combinazioni: massimo 2 pt in tutto.}
-  {Espressione $Y = (A+B)\cdot C$: 2 pt (1 pt se manca la sola parentesi o la negazione); colonna $X$ (OR): 2 pt; colonna $Y$ (AND): 2 pt ($-0{,}5$ per ogni riga sbagliata, senza ripenalizzare un errore già fatto su $X$). Tabella con meno di 8 combinazioni: massimo 2 pt in tutto.}
-  {Espressione $Y = A\cdot (B+C)$: 2 pt (1 pt se manca la sola parentesi o la negazione); colonna $X$ (OR): 2 pt; colonna $Y$ (AND): 2 pt ($-0{,}5$ per ogni riga sbagliata, senza ripenalizzare un errore già fatto su $X$). Tabella con meno di 8 combinazioni: massimo 2 pt in tutto.}
+  {Le 8 combinazioni di $A$, $B$, $C$ tutte presenti: 1 pt; colonna $X$ (attenzione a NOT $B$): 2 pt; colonna $Y$: 3 pt ($-0{,}5$ per ogni riga sbagliata; un errore su $X$ non si ripenalizza su $Y$ se $Y$ è coerente). Colonne attese da 000 a 111: $X$ = 00001100, $Y$ = 01011101.}
+  {Le 8 combinazioni di $A$, $B$, $C$ tutte presenti: 1 pt; colonna $X$ (attenzione a NOT $A$): 2 pt; colonna $Y$: 3 pt ($-0{,}5$ per ogni riga sbagliata; un errore su $X$ non si ripenalizza su $Y$ se $Y$ è coerente). Colonne attese da 000 a 111: $X$ = 11110011, $Y$ = 01010001.}
+  {Le 8 combinazioni di $A$, $B$, $C$ tutte presenti: 1 pt; colonna $X$ (attenzione a NOT $C$): 2 pt; colonna $Y$: 3 pt ($-0{,}5$ per ogni riga sbagliata; un errore su $X$ non si ripenalizza su $Y$ se $Y$ è coerente). Colonne attese da 000 a 111: $X$ = 10111011, $Y$ = 00001011.}
 \end{solution}
 \end{esercizio}
