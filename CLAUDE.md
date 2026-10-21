@@ -57,7 +57,7 @@ repo. Il materiale lo prepara Claude; Alessio imposta un file come
   Solo argomenti già fatti a lezione.
 - Struttura della verifica (appunti di Alessio del 20/10/2026), 46 pt:
   1) decimale → binario (4 numeri, 8 pt), 2) binario → decimale (4 numeri, 8 pt), 3) diagramma di flusso con
-  due decisioni (8 pt), 4) diagramma di flusso con ciclo (10 pt), 5–6) 3 ingressi e 2 porte
+  due decisioni (8 pt), 4) diagramma di flusso con ciclo senza vettori (10 pt), 5–6) 3 ingressi e 2 porte
   logiche in cascata (6+6 pt). Esempio: `Compiti/Verifica_2026_10_XX_Sistemi_3BETC/`.
 - Conversioni: più numeri per esercizio (4, disposti 2×2, `a)`–`d)`), testo come negli appunti
   `$173_{10} = \ldots_2$`; decimali a **3 cifre** (8–10 bit), binari da 8 a 10 bit;
@@ -68,7 +68,10 @@ repo. Il materiale lo prepara Claude; Alessio imposta un file come
 - Diagrammi di flusso: stili in `stili/comune.sty` (`fcterm` inizio/fine, `fcio` Leggi/Scrivi,
   `fcproc` elaborazione, `fcdec` decisione, `fcfreccia`, etichette Sì/No); assegnazione con
   $\gets$; ramo Sì a destra, ramo No in basso; il ciclo torna sopra la decisione da sinistra.
-  Testi brevi in contesto (forno, serbatoio, pacchi, voti), senza suggerimenti sulla soluzione.
+  Testi brevi in contesto (forno, serbatoio, ...), senza suggerimenti sulla soluzione.
+  **Niente vettori** (non li conoscono): nei cicli niente "leggi N valori"; un solo gruppo di
+  dati letti e variabili aggiornate nel ciclo. **Nel testo si danno i nomi di tutte le variabili**
+  (dati, risultati, contatori: es. livello $L$, minuti $M$, contatore $i$).
 - Porte logiche: simboli americani (`american and port`, `or`, `nand`, `nor`) dentro
   `circuitikz` con `scale=1.25,transform shape`; ingressi $A$, $B$, $C$, uscita intermedia $X$,
   uscita $Y$. AND = $\cdot$, OR = $+$, negazione con la barra sopra.
