@@ -8,16 +8,18 @@
 % Livello: intermedio   |   Tempo stimato: 15 min
 % ---------------------------------------------------------------------
 \begin{esercizio}[10]
-Disegna il diagramma di flusso di un algoritmo che
 \ABC{%
-riempie un serbatoio vuoto versando secchi d'acqua. Legge la capacità $C$ del serbatoio e i litri
-$P$ contenuti in un secchio. Finché il livello $L$ è minore di $C$ si versa un secchio: il livello
-aumenta di $P$ e il contatore dei secchi $N$ aumenta di 1. Alla fine visualizza $N$ e $L$.}{%
+Un serbatoio, inizialmente vuoto, si riempie versando un secchio d'acqua alla volta.
+Disegna il diagramma di flusso di un algoritmo che conta quanti secchi servono per riempirlo.\\
+\textbf{Dati da leggere:} $C$ = capacità del serbatoio (in litri); $S$ = litri contenuti in un secchio.\\
+\textbf{Altre variabili:} $L$ = litri già presenti nel serbatoio; $N$ = numero di secchi versati.\\
+Si versa un secchio dopo l'altro finché $L$ è minore di $C$. Alla fine visualizza $N$ e $L$.}{%
+Disegna il diagramma di flusso di un algoritmo che
 svuota un magazzino con delle spedizioni. Legge il numero $Q$ di pezzi presenti in magazzino e il
 numero $S$ di pezzi che partono con ogni spedizione. Finché $Q$ è maggiore o uguale a $S$ si fa una
 spedizione: $Q$ diminuisce di $S$ e il contatore delle spedizioni $K$ aumenta di 1. Alla fine
 visualizza $K$ e $Q$.}{%
-legge un numero intero $N$ e calcola la somma $S = 1 + 2 + 3 + \ldots + N$ usando un contatore $i$
+Disegna il diagramma di flusso di un algoritmo che legge un numero intero $N$ e calcola la somma $S = 1 + 2 + 3 + \ldots + N$ usando un contatore $i$
 che parte da 1 e aumenta di 1 a ogni giro, finché $i$ non supera $N$. Dopo il ciclo calcola la
 media $A = S/N$ e visualizza $S$ e $A$.}
 
@@ -26,10 +28,10 @@ media $A = S/N$ e visualizza $S$ e $A$.}
 \ABC{%
 \begin{tikzpicture}[x=1cm,y=1cm]
   \node[fcterm] (ini)  at (0,0) {Inizio};
-  \node[fcio]   (in)   at (0,-1.1) {Leggi $C$, $P$};
+  \node[fcio]   (in)   at (0,-1.1) {Leggi $C$, $S$};
   \node[fcinit] (ini0) at (0,-2.2) {$L \gets 0$, \ $N \gets 0$};
   \node[fcdec]  (d1)   at (0,-3.75) {$L < C$};
-  \node[fcproc] (agg)  at (0,-5.3) {$L \gets L + P$};
+  \node[fcproc] (agg)  at (0,-5.3) {$L \gets L + S$};
   \node[fcproc] (inc)  at (0,-6.4) {$N \gets N + 1$};
   \node[fcio]   (out)  at (5.0,-3.75) {Scrivi $N$, $L$};
   \node[fcterm] (fin)  at (5.0,-4.95) {Fine};
@@ -82,16 +84,16 @@ media $A = S/N$ e visualizza $S$ e $A$.}
 \end{tikzpicture}}
 \end{center}
 \ABC{%
-  Ogni giro del ciclo è un secchio versato: $N$ conta i giri. Il livello parte da 0 (serbatoio
-  vuoto); quando il ciclo finisce, $L$ può superare di poco $C$ perché aumenta di $P$ alla volta.}{%
+  Ogni giro del ciclo è un secchio versato: $N$ conta i giri. $L$ parte da 0 (serbatoio vuoto);
+  quando il ciclo finisce, $L$ può superare di poco $C$ perché aumenta di $S$ alla volta.}{%
   Ogni giro del ciclo è una spedizione: $K$ conta i giri. Quando il ciclo finisce, in magazzino
   restano meno di $S$ pezzi (possono essere anche 0).}{%
   $S$ parte da 0 e $i$ da 1. Il ciclo si ripete finché $i \leq N$; la media si calcola una volta sola,
   dopo il ciclo.}
   \criterioABC
-  {Inizio/Fine e simboli corretti (inizializzazione nell'esagono): 1 pt; lettura di $C$ e $P$: 1 pt; inizializzazione $L\gets 0$,
+  {Inizio/Fine e simboli corretti (inizializzazione nell'esagono): 1 pt; lettura di $C$ e $S$: 1 pt; inizializzazione $L\gets 0$,
     $N\gets 0$: 2 pt; condizione del ciclo $L<C$ con rami Sì/No giusti: 2 pt; aggiornamenti
-    $L\gets L+P$ e $N\gets N+1$ dentro il ciclo: 2 pt; ritorno alla condizione: 1 pt; uscita di $N$ e
+    $L\gets L+S$ e $N\gets N+1$ dentro il ciclo: 2 pt; ritorno alla condizione: 1 pt; uscita di $N$ e
     $L$ dopo il ciclo: 1 pt. Ciclo con condizione in fondo (ripeti\ldots finché $L \geq C$) corretto:
     stessi punti.}
   {Inizio/Fine e simboli corretti (inizializzazione nell'esagono): 1 pt; lettura di $Q$ e $S$: 1 pt; inizializzazione $K\gets 0$ (e
