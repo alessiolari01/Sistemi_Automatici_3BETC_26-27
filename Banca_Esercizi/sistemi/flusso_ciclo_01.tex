@@ -14,14 +14,18 @@ Disegna il diagramma di flusso di un algoritmo che conta quanti secchi servono p
 \textbf{Dati da leggere:} $C$ = capacità del serbatoio (in litri); $S$ = litri contenuti in un secchio.\\
 \textbf{Altre variabili:} $L$ = litri già presenti nel serbatoio; $N$ = numero di secchi versati.\\
 Si versa un secchio dopo l'altro finché $L$ non raggiunge la capacità $C$. Alla fine visualizza $N$ e $L$.}{%
-Disegna il diagramma di flusso di un algoritmo che
-svuota un magazzino con delle spedizioni. Legge il numero $Q$ di pezzi presenti in magazzino e il
-numero $S$ di pezzi che partono con ogni spedizione. Finché $Q$ è maggiore o uguale a $S$ si fa una
-spedizione: $Q$ diminuisce di $S$ e il contatore delle spedizioni $K$ aumenta di 1. Alla fine
-visualizza $K$ e $Q$.}{%
-Disegna il diagramma di flusso di un algoritmo che legge un numero intero $N$ e calcola la somma $S = 1 + 2 + 3 + \ldots + N$ usando un contatore $i$
-che parte da 1 e aumenta di 1 a ogni giro, finché $i$ non supera $N$. Dopo il ciclo calcola la
-media $A = S/N$ e visualizza $S$ e $A$.}
+Un magazzino si svuota con una spedizione dopo l'altra. Disegna il diagramma di flusso di un
+algoritmo che conta quante spedizioni si possono fare.\\
+\textbf{Dati da leggere:} $Q$ = pezzi presenti in magazzino; $S$ = pezzi che partono con ogni spedizione.\\
+\textbf{Altre variabili:} $K$ = numero di spedizioni fatte.\\
+A ogni spedizione $Q$ diminuisce di $S$; si continua finché in magazzino restano almeno $S$ pezzi.
+Alla fine visualizza $K$ e $Q$.}{%
+Disegna il diagramma di flusso di un algoritmo che calcola la somma dei numeri interi da 1 a $N$
+e la loro media.\\
+\textbf{Dati da leggere:} $N$ = ultimo numero da sommare.\\
+\textbf{Altre variabili:} $i$ = contatore che parte da 1 e aumenta di 1 a ogni giro;
+$S$ = somma $1 + 2 + \ldots + N$; $A$ = media.\\
+Si continua finché $i$ non supera $N$. Dopo il ciclo calcola $A = S/N$ e visualizza $S$ e $A$.}
 
 \begin{solution}
 \begin{center}

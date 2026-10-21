@@ -69,7 +69,7 @@ repo. Il materiale lo prepara Claude; Alessio imposta un file come
   `fcinit` inizializzazione (esagono allungato: tutte le assegnazioni iniziali, es. $L \gets 0$),
   `fcproc` elaborazione, `fcdec` decisione, `fcfreccia`, etichette Sì/No); assegnazione con
   $\gets$; ramo Sì a destra, ramo No in basso; il ciclo torna sopra la decisione da sinistra.
-  Testi brevi in contesto (forno, serbatoio, ...), senza suggerimenti sulla soluzione.
+  Consegna come il 4.A: frase di contesto + "Disegna il diagramma di flusso di un algoritmo che ..."; righe **Dati da leggere:** e **Altre variabili:** (nome = significato); poi la regola e cosa visualizzare. Senza suggerimenti sulla soluzione.
   **Niente vettori** (non li conoscono): nei cicli niente "leggi N valori"; un solo gruppo di
   dati letti e variabili aggiornate nel ciclo. **Nel testo si danno i nomi di tutte le variabili**
   (dati, risultati, contatori: es. livello $L$, secchi $N$, contatore $i$).
