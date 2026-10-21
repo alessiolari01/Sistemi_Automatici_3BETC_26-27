@@ -58,9 +58,9 @@ repo. Il materiale lo prepara Claude; Alessio imposta un file come
 - Struttura della verifica (appunti di Alessio del 20/10/2026), 46 pt:
   1) decimale → binario (4 numeri, 8 pt), 2) binario → decimale (4 numeri, 8 pt), 3) diagramma di flusso con
   due decisioni (8 pt), 4) diagramma di flusso con ciclo senza vettori (10 pt), 5–6) 3 ingressi e 2 porte
-  logiche in cascata (6+6 pt). Esempio: `Compiti/Verifica_2026_10_XX_Sistemi_3BETC/`.
+  logiche in cascata (6+6 pt). Esempio: `Compiti/Verifica_2026_10_24_Sistemi_3BETC/`.
 - Conversioni: più numeri per esercizio (4, disposti 2×2, `a)`–`d)`), testo come negli appunti
-  `$173_{10} = \ldots_2$`; decimali a **3 cifre** (8–10 bit), binari da 8 a 10 bit;
+  `$173_{10} = \ldots_2$`; decimali a **3 cifre** (8–10 bit), binari da 8 a 10 bit (risultato decimale < 1024);
   **un solo numero pari** per esercizio; le tre file con gli stessi numeri di bit. 2 pt per numero.
   Soluzione: tabella delle divisioni per 2 con i resti / somma delle potenze di 2.
 - Qui i risultati sono numeri interi o tabelle: niente `\calcola`/[!]; i risultati attesi
@@ -73,10 +73,12 @@ repo. Il materiale lo prepara Claude; Alessio imposta un file come
   dati letti e variabili aggiornate nel ciclo. **Nel testo si danno i nomi di tutte le variabili**
   (dati, risultati, contatori: es. livello $L$, minuti $M$, contatore $i$).
 - Porte logiche: simboli americani (`american and port`, `or`, `nand`, `nor`) dentro
-  `circuitikz` con `scale=1.25,transform shape`; ingressi $A$, $B$, $C$, uscita intermedia $X$,
-  uscita $Y$. **Solo tabella di verità** (8 righe): le espressioni logiche non sono ancora state
+  `circuitikz` con `scale=1.25,transform shape`; ingressi $A$, $B$, $C$, uscita $Y$; l'uscita
+  intermedia NON si segna (né in figura né in tabella). **Solo tabella di verità** (8 righe): le espressioni logiche non sono ancora state
   spiegate. Per renderla meno meccanica: pallini di negazione sugli ingressi (`circle` su
-  `g.bin k`) e/o in uscita (NAND, NOR); nelle soluzioni colonne "NOT $B$" per gli ingressi negati.
+  `g.bin k`) e/o in uscita (NAND, NOR); nelle soluzioni si ridisegna il circuito sopra
+  la tabella ($A$, $B$, $C$, $Y$); l'uscita della prima porta solo nei criteri, per il docente.
+- Soluzioni: niente note che rimandano al testo o a figure che nelle soluzioni non compaiono.
 - Le file A, B, C hanno esercizi diversi ma di pari difficoltà (`\ABC{...}{...}{...}`).
 
 ## Nuova verifica

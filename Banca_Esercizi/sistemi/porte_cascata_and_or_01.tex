@@ -7,7 +7,7 @@
 % Livello: intermedio   |   Tempo stimato: 8 min
 % ---------------------------------------------------------------------
 \begin{esercizio}[6]
-Scrivi la tabella di verità del circuito in figura (colonne $A$, $B$, $C$, $X$, $Y$).
+Scrivi la tabella di verità del circuito in figura.
 
 \begin{center}
 \ABC{%
@@ -17,7 +17,7 @@ Scrivi la tabella di verità del circuito in figura (colonne $A$, $B$, $C$, $X$,
     \draw (g1.in 1) -- ++(-0.9,0) node[left] {$A$};
     \draw (g1.in 2) -- ++(-0.9,0) node[left] {$B$};
     \draw (g2.in 2) -- (g1.in 2 |- g2.in 2) -- ++(-0.9,0) node[left] {$C$};
-    \draw (g1.out) -- ++(0.45,0) node[above] {$X$} |- (g2.in 1);
+    \draw (g1.out) -- ++(0.45,0) |- (g2.in 1);
     \draw (g2.out) -- ++(0.7,0) node[right] {$Y$};
     \node[circle,draw,fill=white,inner sep=0pt,minimum size=1.6mm,anchor=east] at (g1.bin 2) {};
   \end{circuitikz}}{%
@@ -27,7 +27,7 @@ Scrivi la tabella di verità del circuito in figura (colonne $A$, $B$, $C$, $X$,
     \draw (g1.in 1) -- ++(-0.9,0) node[left] {$A$};
     \draw (g1.in 2) -- ++(-0.9,0) node[left] {$B$};
     \draw (g2.in 2) -- (g1.in 2 |- g2.in 2) -- ++(-0.9,0) node[left] {$C$};
-    \draw (g1.out) -- ++(0.45,0) node[above] {$X$} |- (g2.in 1);
+    \draw (g1.out) -- ++(0.45,0) |- (g2.in 1);
     \draw (g2.out) -- ++(0.7,0) node[right] {$Y$};
     \node[circle,draw,fill=white,inner sep=0pt,minimum size=1.6mm,anchor=east] at (g1.bin 1) {};
   \end{circuitikz}}{%
@@ -37,7 +37,7 @@ Scrivi la tabella di verità del circuito in figura (colonne $A$, $B$, $C$, $X$,
     \draw (g1.in 1) -- ++(-0.9,0) node[left] {$B$};
     \draw (g1.in 2) -- ++(-0.9,0) node[left] {$C$};
     \draw (g2.in 1) -- (g1.in 1 |- g2.in 1) -- ++(-0.9,0) node[left] {$A$};
-    \draw (g1.out) -- ++(0.45,0) node[below] {$X$} |- (g2.in 2);
+    \draw (g1.out) -- ++(0.45,0) |- (g2.in 2);
     \draw (g2.out) -- ++(0.7,0) node[right] {$Y$};
     \node[circle,draw,fill=white,inner sep=0pt,minimum size=1.6mm,anchor=east] at (g1.bin 2) {};
   \end{circuitikz}}
@@ -45,47 +45,81 @@ Scrivi la tabella di verità del circuito in figura (colonne $A$, $B$, $C$, $X$,
 
 \begin{solution}
 \ABC{%
+\begin{center}
+  \begin{circuitikz}[x=1cm,y=1cm,scale=1.25,transform shape]
+    \node[american and port] (g1) at (0,0.3) {};
+    \node[american or port] (g2) at (3,-0.25) {};
+    \draw (g1.in 1) -- ++(-0.9,0) node[left] {$A$};
+    \draw (g1.in 2) -- ++(-0.9,0) node[left] {$B$};
+    \draw (g2.in 2) -- (g1.in 2 |- g2.in 2) -- ++(-0.9,0) node[left] {$C$};
+    \draw (g1.out) -- ++(0.45,0) |- (g2.in 1);
+    \draw (g2.out) -- ++(0.7,0) node[right] {$Y$};
+    \node[circle,draw,fill=white,inner sep=0pt,minimum size=1.6mm,anchor=east] at (g1.bin 2) {};
+  \end{circuitikz}
+\end{center}
   {\renewcommand{\arraystretch}{1.05}\small
-  \begin{tabular}{ccc|c|c|c}
-    $A$ & $B$ & $C$ & NOT $B$ & $X$ & $Y$\\\hline
-    0 & 0 & 0 & 1 & 0 & 0\\
-    0 & 0 & 1 & 1 & 0 & 1\\
-    0 & 1 & 0 & 0 & 0 & 0\\
-    0 & 1 & 1 & 0 & 0 & 1\\
-    1 & 0 & 0 & 1 & 1 & 1\\
-    1 & 0 & 1 & 1 & 1 & 1\\
-    1 & 1 & 0 & 0 & 0 & 0\\
-    1 & 1 & 1 & 0 & 0 & 1\\
+  \begin{tabular}{ccc|c}
+    $A$ & $B$ & $C$ & $Y$\\\hline
+    0 & 0 & 0 & 0\\
+    0 & 0 & 1 & 1\\
+    0 & 1 & 0 & 0\\
+    0 & 1 & 1 & 1\\
+    1 & 0 & 0 & 1\\
+    1 & 0 & 1 & 1\\
+    1 & 1 & 0 & 0\\
+    1 & 1 & 1 & 1\\
   \end{tabular}}}{%
+\begin{center}
+  \begin{circuitikz}[x=1cm,y=1cm,scale=1.25,transform shape]
+    \node[american or port] (g1) at (0,0.3) {};
+    \node[american and port] (g2) at (3,-0.25) {};
+    \draw (g1.in 1) -- ++(-0.9,0) node[left] {$A$};
+    \draw (g1.in 2) -- ++(-0.9,0) node[left] {$B$};
+    \draw (g2.in 2) -- (g1.in 2 |- g2.in 2) -- ++(-0.9,0) node[left] {$C$};
+    \draw (g1.out) -- ++(0.45,0) |- (g2.in 1);
+    \draw (g2.out) -- ++(0.7,0) node[right] {$Y$};
+    \node[circle,draw,fill=white,inner sep=0pt,minimum size=1.6mm,anchor=east] at (g1.bin 1) {};
+  \end{circuitikz}
+\end{center}
   {\renewcommand{\arraystretch}{1.05}\small
-  \begin{tabular}{ccc|c|c|c}
-    $A$ & $B$ & $C$ & NOT $A$ & $X$ & $Y$\\\hline
-    0 & 0 & 0 & 1 & 1 & 0\\
-    0 & 0 & 1 & 1 & 1 & 1\\
-    0 & 1 & 0 & 1 & 1 & 0\\
-    0 & 1 & 1 & 1 & 1 & 1\\
-    1 & 0 & 0 & 0 & 0 & 0\\
-    1 & 0 & 1 & 0 & 0 & 0\\
-    1 & 1 & 0 & 0 & 1 & 0\\
-    1 & 1 & 1 & 0 & 1 & 1\\
+  \begin{tabular}{ccc|c}
+    $A$ & $B$ & $C$ & $Y$\\\hline
+    0 & 0 & 0 & 0\\
+    0 & 0 & 1 & 1\\
+    0 & 1 & 0 & 0\\
+    0 & 1 & 1 & 1\\
+    1 & 0 & 0 & 0\\
+    1 & 0 & 1 & 0\\
+    1 & 1 & 0 & 0\\
+    1 & 1 & 1 & 1\\
   \end{tabular}}}{%
+\begin{center}
+  \begin{circuitikz}[x=1cm,y=1cm,scale=1.25,transform shape]
+    \node[american or port] (g1) at (0,-0.3) {};
+    \node[american and port] (g2) at (3,0.25) {};
+    \draw (g1.in 1) -- ++(-0.9,0) node[left] {$B$};
+    \draw (g1.in 2) -- ++(-0.9,0) node[left] {$C$};
+    \draw (g2.in 1) -- (g1.in 1 |- g2.in 1) -- ++(-0.9,0) node[left] {$A$};
+    \draw (g1.out) -- ++(0.45,0) |- (g2.in 2);
+    \draw (g2.out) -- ++(0.7,0) node[right] {$Y$};
+    \node[circle,draw,fill=white,inner sep=0pt,minimum size=1.6mm,anchor=east] at (g1.bin 2) {};
+  \end{circuitikz}
+\end{center}
   {\renewcommand{\arraystretch}{1.05}\small
-  \begin{tabular}{ccc|c|c|c}
-    $A$ & $B$ & $C$ & NOT $C$ & $X$ & $Y$\\\hline
-    0 & 0 & 0 & 1 & 1 & 0\\
-    0 & 0 & 1 & 0 & 0 & 0\\
-    0 & 1 & 0 & 1 & 1 & 0\\
-    0 & 1 & 1 & 0 & 1 & 0\\
-    1 & 0 & 0 & 1 & 1 & 1\\
-    1 & 0 & 1 & 0 & 0 & 0\\
-    1 & 1 & 0 & 1 & 1 & 1\\
-    1 & 1 & 1 & 0 & 1 & 1\\
-  \end{tabular}}}\\[4pt]
-  Il pallino all'ingresso di una porta nega quel segnale prima della porta; il pallino all'uscita
-  (NAND, NOR) nega il risultato della porta.
+  \begin{tabular}{ccc|c}
+    $A$ & $B$ & $C$ & $Y$\\\hline
+    0 & 0 & 0 & 0\\
+    0 & 0 & 1 & 0\\
+    0 & 1 & 0 & 0\\
+    0 & 1 & 1 & 0\\
+    1 & 0 & 0 & 1\\
+    1 & 0 & 1 & 0\\
+    1 & 1 & 0 & 1\\
+    1 & 1 & 1 & 1\\
+  \end{tabular}}}
   \criterioABC
-  {Le 8 combinazioni di $A$, $B$, $C$ tutte presenti: 1 pt; colonna $X$ (attenzione a NOT $B$): 2 pt; colonna $Y$: 3 pt ($-0{,}5$ per ogni riga sbagliata; un errore su $X$ non si ripenalizza su $Y$ se $Y$ è coerente). Colonne attese da 000 a 111: $X$ = 00001100, $Y$ = 01011101.}
-  {Le 8 combinazioni di $A$, $B$, $C$ tutte presenti: 1 pt; colonna $X$ (attenzione a NOT $A$): 2 pt; colonna $Y$: 3 pt ($-0{,}5$ per ogni riga sbagliata; un errore su $X$ non si ripenalizza su $Y$ se $Y$ è coerente). Colonne attese da 000 a 111: $X$ = 11110011, $Y$ = 01010001.}
-  {Le 8 combinazioni di $A$, $B$, $C$ tutte presenti: 1 pt; colonna $X$ (attenzione a NOT $C$): 2 pt; colonna $Y$: 3 pt ($-0{,}5$ per ogni riga sbagliata; un errore su $X$ non si ripenalizza su $Y$ se $Y$ è coerente). Colonne attese da 000 a 111: $X$ = 10111011, $Y$ = 00001011.}
+  {Le 8 combinazioni di $A$, $B$, $C$ tutte presenti: 1 pt; colonna $Y$ corretta: 5 pt ($-1$ per ogni riga sbagliata, minimo 0; attenzione a NOT $B$). Colonna $Y$ attesa da 000 a 111: 01011101 (uscita della prima porta, per controllare i passaggi: 00001100).}
+  {Le 8 combinazioni di $A$, $B$, $C$ tutte presenti: 1 pt; colonna $Y$ corretta: 5 pt ($-1$ per ogni riga sbagliata, minimo 0; attenzione a NOT $A$). Colonna $Y$ attesa da 000 a 111: 01010001 (uscita della prima porta, per controllare i passaggi: 11110011).}
+  {Le 8 combinazioni di $A$, $B$, $C$ tutte presenti: 1 pt; colonna $Y$ corretta: 5 pt ($-1$ per ogni riga sbagliata, minimo 0; attenzione a NOT $C$). Colonna $Y$ attesa da 000 a 111: 00001011 (uscita della prima porta, per controllare i passaggi: 10111011).}
 \end{solution}
 \end{esercizio}
