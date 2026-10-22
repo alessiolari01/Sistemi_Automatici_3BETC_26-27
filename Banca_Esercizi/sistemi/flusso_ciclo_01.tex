@@ -7,25 +7,61 @@
 %   fila C: scaffale riempito con una pila di scatole -> numero di scatole e altezza della pila
 % Livello: intermedio (nessun suggerimento: condizione e aggiornamenti da ricavare)   |   Tempo stimato: 15 min
 % ---------------------------------------------------------------------
-\begin{esercizio}[12]
+\begin{esercizio}[14]
 \ABC{%
 Un serbatoio, inizialmente vuoto, si riempie versando un secchio d'acqua alla volta.
 Disegna il diagramma di flusso di un algoritmo che conta quanti secchi servono per riempirlo.\\
 \textbf{Dati da leggere:} $C$ = capacità del serbatoio (in litri); $S$ = litri contenuti in un secchio.\\
 \textbf{Altre variabili:} $L$ = litri già presenti nel serbatoio; $N$ = numero di secchi versati.\\
-Si versa un secchio dopo l'altro finché $L$ non raggiunge la capacità $C$. Alla fine visualizza $N$ e $L$.}{%
+Si versa un secchio dopo l'altro finché $L$ non raggiunge la capacità $C$. Alla fine visualizza $N$ e $L$.\\
+\textbf{Prova:} con $C = 100$ e $S = 30$ completa la tabella con i valori dopo ogni iterazione del ciclo.
+\begin{center}\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|c|p{3cm}|p{3cm}|}\hline
+  Iterazione & $L$ & $N$\\\hline
+  Inizio & &\\\hline
+  1 & &\\\hline
+  2 & &\\\hline
+  3 & &\\\hline
+  4 & &\\\hline
+  5 & &\\\hline
+  6 & &\\\hline
+\end{tabular}\end{center}}{%
 Un magazzino si svuota con una spedizione dopo l'altra. Disegna il diagramma di flusso di un
 algoritmo che conta quante spedizioni si possono fare.\\
 \textbf{Dati da leggere:} $Q$ = pezzi presenti in magazzino; $S$ = pezzi che partono con ogni spedizione.\\
 \textbf{Altre variabili:} $K$ = numero di spedizioni fatte.\\
 Si fanno spedizioni finché in magazzino ci sono abbastanza pezzi per una spedizione completa.
-Alla fine visualizza $K$ e i pezzi rimasti $Q$.}{%
+Alla fine visualizza $K$ e i pezzi rimasti $Q$.\\
+\textbf{Prova:} con $Q = 50$ e $S = 12$ completa la tabella con i valori dopo ogni iterazione del ciclo.
+\begin{center}\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|c|p{3cm}|p{3cm}|}\hline
+  Iterazione & $Q$ & $K$\\\hline
+  Inizio & &\\\hline
+  1 & &\\\hline
+  2 & &\\\hline
+  3 & &\\\hline
+  4 & &\\\hline
+  5 & &\\\hline
+  6 & &\\\hline
+\end{tabular}\end{center}}{%
 Su uno scaffale si impilano scatole tutte uguali, una sopra l'altra. Disegna il diagramma di
 flusso di un algoritmo che conta quante scatole ci stanno.\\
 \textbf{Dati da leggere:} $A$ = altezza dello scaffale (in cm); $H$ = altezza di una scatola (in cm).\\
 \textbf{Altre variabili:} $P$ = altezza della pila; $N$ = numero di scatole impilate.\\
 Si aggiungono scatole finché ce ne sta ancora una: la pila non deve mai superare l'altezza $A$.
-Alla fine visualizza $N$ e $P$.}
+Alla fine visualizza $N$ e $P$.\\
+\textbf{Prova:} con $A = 100$ e $H = 23$ completa la tabella con i valori dopo ogni iterazione del ciclo.
+\begin{center}\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|c|p{3cm}|p{3cm}|}\hline
+  Iterazione & $P$ & $N$\\\hline
+  Inizio & &\\\hline
+  1 & &\\\hline
+  2 & &\\\hline
+  3 & &\\\hline
+  4 & &\\\hline
+  5 & &\\\hline
+  6 & &\\\hline
+\end{tabular}\end{center}}
 
 \begin{solution}
 \begin{center}
@@ -87,28 +123,58 @@ Alla fine visualizza $N$ e $P$.}
 \end{center}
 \ABC{%
   Ogni giro del ciclo è un secchio versato: $N$ conta i giri. $L$ parte da 0 (serbatoio vuoto);
-  quando il ciclo finisce, $L$ può superare di poco $C$ perché aumenta di $S$ alla volta.}{%
+  quando il ciclo finisce, $L$ può superare di poco $C$ perché aumenta di $S$ alla volta.\\[4pt]
+  \textbf{Prova} ($C = 100$, $S = 30$):
+\begin{center}\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{|c|>{\centering\arraybackslash}p{2.5cm}|>{\centering\arraybackslash}p{2.5cm}|}\hline
+  Iterazione & $L$ & $N$\\\hline
+  Inizio & 0 & 0\\\hline
+  1 & 30 & 1\\\hline
+  2 & 60 & 2\\\hline
+  3 & 90 & 3\\\hline
+  4 & 120 & 4\\\hline
+\end{tabular}\end{center}  Dopo la 4ª iterazione $L = 120$ e $120 < 100$ è falso: il ciclo finisce. Si visualizza $N = 4$ e $L = 120$.}{%
   Ogni giro del ciclo è una spedizione: $K$ conta i giri. Quando il ciclo finisce, in magazzino
-  restano meno di $S$ pezzi (possono essere anche 0).}{%
+  restano meno di $S$ pezzi (possono essere anche 0).\\[4pt]
+  \textbf{Prova} ($Q = 50$, $S = 12$):
+\begin{center}\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{|c|>{\centering\arraybackslash}p{2.5cm}|>{\centering\arraybackslash}p{2.5cm}|}\hline
+  Iterazione & $Q$ & $K$\\\hline
+  Inizio & 50 & 0\\\hline
+  1 & 38 & 1\\\hline
+  2 & 26 & 2\\\hline
+  3 & 14 & 3\\\hline
+  4 & 2 & 4\\\hline
+\end{tabular}\end{center}  Dopo la 4ª iterazione $Q = 2$ e $2 \geq 12$ è falso: il ciclo finisce. Si visualizza $K = 4$ e $Q = 2$.}{%
   Ogni giro del ciclo è una scatola aggiunta: $N$ conta i giri. Prima di aggiungere una scatola si
-  controlla che la pila con la scatola in più ($P+H$) non superi $A$; alla fine $P \leq A$.}
+  controlla che la pila con la scatola in più ($P+H$) non superi $A$; alla fine $P \leq A$.\\[4pt]
+  \textbf{Prova} ($A = 100$, $H = 23$):
+\begin{center}\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{|c|>{\centering\arraybackslash}p{2.5cm}|>{\centering\arraybackslash}p{2.5cm}|}\hline
+  Iterazione & $P$ & $N$\\\hline
+  Inizio & 0 & 0\\\hline
+  1 & 23 & 1\\\hline
+  2 & 46 & 2\\\hline
+  3 & 69 & 3\\\hline
+  4 & 92 & 4\\\hline
+\end{tabular}\end{center}  Dopo la 4ª iterazione $P = 92$ e $92 + 23 = 115 \leq 100$ è falso: il ciclo finisce. Si visualizza $N = 4$ e $P = 92$.}
   \criterioABC
   {Inizio/Fine e simboli corretti (inizializzazione nell'esagono): 1 pt; lettura di $C$ e $S$: 1 pt;
     inizializzazione $L\gets 0$, $N\gets 0$: 2 pt; condizione del ciclo $L<C$ ricavata dal testo, con
     rami Sì/No giusti: 3 pt; aggiornamento $L\gets L+S$: 2 pt; contatore $N\gets N+1$: 1 pt; ritorno alla
     condizione: 1 pt; uscita di $N$ e $L$ dopo il ciclo: 1 pt. Ciclo con condizione in fondo
-    (ripeti\ldots finché $L \geq C$) corretto: stessi punti.}
+    (ripeti\ldots finché $L \geq C$) corretto: stessi punti. Tabella della prova: 2 pt ($-0{,}5$ per ogni riga sbagliata; se il diagramma è sbagliato, vale la tabella coerente con il diagramma disegnato). Valori attesi: $L$ = 0, 30, 60, 90, 120; $N$ = 0, 1, 2, 3, 4.}
   {Inizio/Fine e simboli corretti (inizializzazione nell'esagono): 1 pt; lettura di $Q$ e $S$: 1 pt;
     inizializzazione $K\gets 0$ (e nessuna inizializzazione di $Q$ dopo la lettura): 2 pt; condizione del
     ciclo $Q\geq S$ ricavata da ``abbastanza pezzi per una spedizione completa'', con rami Sì/No giusti:
     3 pt ($Q>S$, che perde la spedizione quando $Q=S$: 1 pt); aggiornamento $Q\gets Q-S$: 2 pt; contatore $K\gets K+1$: 1 pt; ritorno
     alla condizione: 1 pt; uscita di $K$ e $Q$ dopo il ciclo: 1 pt. Ciclo con condizione in fondo
-    corretto se gestisce il caso $Q<S$ iniziale: stessi punti.}
+    corretto se gestisce il caso $Q<S$ iniziale: stessi punti. Tabella della prova: 2 pt ($-0{,}5$ per ogni riga sbagliata; se il diagramma è sbagliato, vale la tabella coerente con il diagramma disegnato). Valori attesi: $Q$ = 50, 38, 26, 14, 2; $K$ = 0, 1, 2, 3, 4.}
   {Inizio/Fine e simboli corretti (inizializzazione nell'esagono): 1 pt; lettura di $A$ e $H$: 1 pt;
     inizializzazione $P\gets 0$, $N\gets 0$: 2 pt; condizione del ciclo $P+H\leq A$ ricavata da ``ce ne
     sta ancora una'', con rami Sì/No giusti: 3 pt ($P<A$ o $P\leq A$, che fanno superare $A$: 1 pt);
     aggiornamento $P\gets P+H$: 2 pt; contatore $N\gets N+1$: 1 pt; ritorno alla condizione: 1 pt; uscita
     di $N$ e $P$ dopo il ciclo: 1 pt. Ciclo con condizione in fondo corretto se gestisce il caso $H>A$:
-    stessi punti.}
+    stessi punti. Tabella della prova: 2 pt ($-0{,}5$ per ogni riga sbagliata; se il diagramma è sbagliato, vale la tabella coerente con il diagramma disegnato). Valori attesi: $P$ = 0, 23, 46, 69, 92; $N$ = 0, 1, 2, 3, 4.}
 \end{solution}
 \end{esercizio}

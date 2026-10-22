@@ -55,10 +55,10 @@ repo. Il materiale lo prepara Claude; Alessio imposta un file come
 ## Regole per Sistemi Automatici 3BETC
 - Argomenti finora: sistema binario (conversioni), diagrammi di flusso, porte logiche.
   Solo argomenti già fatti a lezione.
-- Struttura della verifica (appunti di Alessio del 20/10/2026), 46 pt:
+- Struttura della verifica (appunti di Alessio del 20/10/2026), 48 pt:
   1) decimale → binario (4 numeri, 8 pt), 2) binario → decimale (4 numeri, 8 pt), 3) diagramma di flusso con
   due decisioni, **con suggerimenti** (formule, ordine dei controlli) (6 pt), 4) diagramma di flusso con ciclo senza vettori,
-  **senza suggerimenti** (condizione e aggiornamenti da ricavare) (12 pt), 5–6) 3 ingressi e 2 porte
+  **senza suggerimenti** (condizione e aggiornamenti da ricavare) + tabella delle variabili a ogni iterazione con valori dati (3-4 iterazioni) (14 pt), 5–6) 3 ingressi e 2 porte
   logiche in cascata (6+6 pt). Esempio: `Compiti/Verifica_2026_10_23_Sistemi_3BETC/`.
 - Conversioni: più numeri per esercizio (4, disposti 2×2, `a)`–`d)`), testo come negli appunti
   `$173_{10} = \ldots_2$`; decimali a **3 cifre** (8–10 bit), binari da 8 a 10 bit (risultato decimale < 1024);
