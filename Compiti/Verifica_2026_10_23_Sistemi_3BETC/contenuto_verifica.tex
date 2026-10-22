@@ -7,8 +7,8 @@
 %     7_Correzione                                            (griglia per il docente)
 %  Struttura (dagli appunti di Alessio del 20/10/2026):
 %     1) decimale -> binario   2) binario -> decimale
-%     3-4) due diagrammi di flusso di difficoltà media
-%     5-6) 3 ingressi, 2 porte logiche in cascata
+%     3-4) 3 ingressi, 2 porte logiche in cascata
+%     5-6) diagrammi di flusso A SCELTA: 5 facile (6 pt) oppure 6 difficile (14 pt)
 % =====================================================================
 % valori predefiniti se compili direttamente questo file
 \providecommand{\fila}{A}          % A | B | C
@@ -29,10 +29,21 @@
 \votominimo{2}          % voto con 0 punti
 \sogliasufficienza{60}  % % del punteggio per il 6
 \criterigenerali{Conversioni: errore di calcolo isolato con procedimento corretto: metà dei punti.
-  Diagrammi di flusso: si valuta la logica dell'algoritmo; simboli sbagliati o frecce mancanti
-  $-0{,}5$ pt (una sola volta per esercizio); soluzioni diverse ma corrette prendono tutti i punti.
-  Porte logiche: un errore su $X$ non viene penalizzato di nuovo nella colonna $Y$ se $Y$ è
-  coerente con la $X$ scritta.}
+  Porte logiche: $-0{,}5$ pt per ogni riga sbagliata della colonna $Y$.
+  Diagrammi di flusso: lo studente svolge \textbf{uno solo} tra l'esercizio 5 (più semplice, max 6 pt)
+  e l'esercizio 6 (più difficile, max 14 pt). Punteggio massimo della prova: 42 pt con l'esercizio 6,
+  34 pt con l'esercizio 5 (voto massimo circa 8). Se li svolge entrambi si conta quello con il
+  punteggio più alto. Si valuta la logica dell'algoritmo; simboli sbagliati o frecce mancanti
+  $-0{,}5$ pt (una sola volta); soluzioni diverse ma corrette prendono tutti i punti.}
+\puntimassimi{42}       % 8+8+6+6 + max(6, 14): es. 5 e 6 a scelta
+% tabella punti: es. 5 e 6 a scelta, nel totale conta solo uno dei due
+\renewcommand{\tabellapunteggi}{%
+  \begin{center}\small\renewcommand{\arraystretch}{1.5}%
+  \begin{tabular}{|l|c|c|c|c|c|c|}\hline
+    Esercizio & 1 & 2 & 3 & 4 & 5 \emph{oppure} 6 & Totale\\\hline
+    Punti     & 8 & 8 & 6 & 6 & 6 \emph{oppure} 14 & 42\\\hline
+    Ottenuti  &   &   &   &   &                   & \\\hline
+  \end{tabular}\end{center}}
 
 \begin{document}
 
@@ -42,10 +53,13 @@
 
 \input{Banca_Esercizi/sistemi/dec_bin_01}
 \input{Banca_Esercizi/sistemi/bin_dec_01}
-\input{Banca_Esercizi/sistemi/flusso_selezione_01}
-\input{Banca_Esercizi/sistemi/flusso_ciclo_01}
 \input{Banca_Esercizi/sistemi/porte_cascata_and_or_01}
 \input{Banca_Esercizi/sistemi/porte_cascata_nand_nor_01}
+\sceltaesercizi{Diagrammi di flusso: svolgi a scelta UNO SOLO tra l'esercizio 5 e l'esercizio 6.
+  Con l'esercizio 5 (più semplice) il punteggio massimo della verifica è 34 punti, con
+  l'esercizio 6 è 42 punti.}
+\input{Banca_Esercizi/sistemi/flusso_selezione_01}
+\input{Banca_Esercizi/sistemi/flusso_ciclo_01}
 
 \end{questions}
 

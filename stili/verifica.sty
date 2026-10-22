@@ -49,6 +49,7 @@
 \def\v@criteri{}
 \def\v@votomin{2}
 \def\v@soglia{60}
+\def\v@pmax{}
 
 \newcommand{\scuola}[1]{\def\v@scuola{#1}}
 \newcommand{\annoscolastico}[1]{\def\v@as{#1}}
@@ -62,6 +63,14 @@
 \newcommand{\criterigenerali}[1]{\def\v@criteri{#1}}
 \newcommand{\votominimo}[1]{\def\v@votomin{#1}}
 \newcommand{\sogliasufficienza}[1]{\def\v@soglia{#1}}
+% \puntimassimi{42}: punteggio massimo diverso dalla somma degli esercizi
+% (es. esercizi a scelta). Vale per intestazione e griglia voti.
+\newcommand{\puntimassimi}[1]{\def\v@pmax{#1}}
+\newcommand{\v@totpunti}{\ifdefempty{\v@pmax}{\numpoints}{\v@pmax}}
+% \sceltaesercizi{testo}: riga a tutta larghezza prima di esercizi a scelta
+% (solo nel testo e nella versione completa)
+\newcommand{\sceltaesercizi}[1]{\ifv@nascosto\else
+  \par\needspace{4\baselineskip}\fullwidth{\textbf{#1}}\fi}
 
 % ---------- Modalità "esercizi a casa" -----------------------------------
 % \compitoacasa nel preambolo: niente fila, punteggi, griglia voti.
@@ -158,7 +167,7 @@
     \begin{tikzpicture}
       \node[draw,line width=0.9pt,rounded corners=4pt,
             inner sep=8pt,text width=0.85\linewidth,align=left]
-      {Punteggio \linea{1.3cm}\,/\,\textbf{\numpoints}\\[10pt]
+      {Punteggio \linea{1.3cm}\,/\,\textbf{\v@totpunti}\\[10pt]
        Voto \hspace{1.05cm}\linea{1.9cm}};
     \end{tikzpicture}
   \end{minipage}
@@ -467,7 +476,7 @@
     {\par\noindent\textit{(Griglia voti: compila due volte.)}\par}%
     {\begingroup
      \def\v@rigaV{\textbf{Voto}}\def\v@rigaP{\textbf{Punti} $\geq$}%
-     \pgfmathsetmacro\v@max{\exam@numpoints}%
+     \ifdefempty{\v@pmax}{\pgfmathsetmacro\v@max{\exam@numpoints}}{\pgfmathsetmacro\v@max{\v@pmax}}%
      \pgfmathsetmacro\v@s{\v@soglia/100}%
      \foreach \v in {\v@votomin,...,10}{%
        \pgfmathsetmacro\v@p{\v<=6 ? \v@s*\v@max*(\v-\v@votomin)/(6-\v@votomin)
