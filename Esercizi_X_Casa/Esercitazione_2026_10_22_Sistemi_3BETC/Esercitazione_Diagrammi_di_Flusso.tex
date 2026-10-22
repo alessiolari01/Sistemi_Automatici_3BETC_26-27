@@ -1,0 +1,178 @@
+% =====================================================================
+%  ESERCITAZIONE DIAGRAMMI DI FLUSSO — Sistemi Automatici 3BETC
+%  In preparazione alla verifica del 24/10/2026 (esercizio 4: ciclo).
+%  Imposta questo file come Main document e compila: un solo PDF con
+%     pag. 1 Esercizio 1 (più facile della verifica, con suggerimenti)
+%     pag. 2 Soluzione dell'esercizio 1
+%     pag. 3 Esercizio 2 (un po' più difficile della verifica)
+%     pag. 4 Soluzione dell'esercizio 2
+% =====================================================================
+\documentclass[a4paper,11pt]{article}
+\usepackage{stili/comune}
+\usepackage[scaled=0.92]{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage[a4paper,top=2.3cm,bottom=2.2cm,left=2cm,right=2.2cm]{geometry}
+\pagestyle{plain}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+
+\newcommand{\titolo}[1]{%
+  \begin{center}
+    {\small Sistemi Automatici -- 3BETC -- Esercitazione sui diagrammi di flusso\par}
+    \vspace{4pt}{\Large\bfseries #1\par}
+  \end{center}\vspace{6pt}}
+
+\begin{document}
+
+% ======================= ESERCIZIO 1 (facile) =========================
+\titolo{Esercizio 1 \textmd{(più facile della verifica)}}
+
+In una cisterna ci sono dei litri d'acqua. Con quest'acqua si riempiono bottiglie tutte uguali,
+una alla volta. Disegna il diagramma di flusso di un algoritmo che conta quante bottiglie si
+possono riempire completamente.
+
+\textbf{Dati da leggere:} $Q$ = litri d'acqua nella cisterna; $B$ = litri contenuti in una bottiglia.\\
+\textbf{Altre variabili:} $N$ = numero di bottiglie riempite.
+
+\textbf{Suggerimenti:}
+\begin{itemize}[nosep]
+  \item all'inizio nessuna bottiglia è stata riempita, quindi $N$ parte da 0;
+  \item si continua a riempire bottiglie finché nella cisterna ci sono \emph{almeno} $B$ litri
+        (cioè finché $Q \geq B$);
+  \item ogni volta che si riempie una bottiglia, nella cisterna ci sono $B$ litri in meno
+        ($Q$ diventa $Q - B$) e il numero di bottiglie aumenta di 1;
+  \item alla fine visualizza $N$ e i litri rimasti $Q$.
+\end{itemize}
+
+\vfill
+{\small\itshape Prova a risolverlo da solo prima di guardare la soluzione alla pagina successiva.}
+
+\newpage
+% ======================= SOLUZIONE 1 ==================================
+\titolo{Soluzione dell'esercizio 1}
+
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \node[fcterm] (ini)  at (0,0) {Inizio};
+  \node[fcio]   (in)   at (0,-1.1) {Leggi $Q$, $B$};
+  \node[fcinit] (ini0) at (0,-2.2) {$N \gets 0$};
+  \node[fcdec]  (d1)   at (0,-3.75) {$Q \geq B$};
+  \node[fcproc] (agg)  at (0,-5.3) {$Q \gets Q - B$};
+  \node[fcproc] (inc)  at (0,-6.4) {$N \gets N + 1$};
+  \node[fcio]   (out)  at (5.0,-3.75) {Scrivi $N$, $Q$};
+  \node[fcterm] (fin)  at (5.0,-4.95) {Fine};
+  \draw[fcfreccia] (ini) -- (in);
+  \draw[fcfreccia] (in) -- (ini0);
+  \draw[fcfreccia] (ini0) -- (d1);
+  \draw[fcfreccia] (d1) -- node[fcsi,right] {Sì} (agg);
+  \draw[fcfreccia] (agg) -- (inc);
+  \draw[fcfreccia] (inc.south) -- ++(0,-0.5) -| (-2.4,-2.95) -- (0,-2.95);
+  \draw[fcfreccia] (d1) -- node[fcno,above] {No} (out);
+  \draw[fcfreccia] (out) -- (fin);
+\end{tikzpicture}
+\end{center}
+
+\textbf{Come funziona.}
+\begin{itemize}[nosep]
+  \item $N \gets 0$ è l'inizializzazione (esagono): va fatta una volta sola, \emph{prima} del ciclo.
+  \item Il rombo $Q \geq B$ è la condizione del ciclo: se è vera si riempie un'altra bottiglia,
+        se è falsa il ciclo finisce.
+  \item Ogni giro del ciclo è una bottiglia riempita: $Q$ cala di $B$, $N$ aumenta di 1, poi si
+        torna al rombo.
+  \item Si usa $\geq$ e non $>$: se nella cisterna restano esattamente $B$ litri, si riempie
+        ancora una bottiglia.
+\end{itemize}
+
+\textbf{Prova con i numeri} ($Q = 10$, $B = 3$):
+
+\begin{center}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{c|c|c|c}
+  Giro & $Q \geq B$? & $Q$ dopo il giro & $N$ dopo il giro\\\hline
+  --  & --  & 10 & 0\\
+  1   & $10 \geq 3$: Sì & 7 & 1\\
+  2   & $7 \geq 3$: Sì  & 4 & 2\\
+  3   & $4 \geq 3$: Sì  & 1 & 3\\
+  --  & $1 \geq 3$: No  & \multicolumn{2}{c}{fine del ciclo}\\
+\end{tabular}
+\end{center}
+Si visualizza $N = 3$ bottiglie e $Q = 1$ litro rimasto.
+
+\newpage
+% ======================= ESERCIZIO 2 (difficile) ======================
+\titolo{Esercizio 2 \textmd{(un po' più difficile della verifica)}}
+
+Un serbatoio, inizialmente vuoto, si riempie versando un secchio d'acqua alla volta. Il serbatoio
+però ha una piccola perdita: dopo ogni secchio versato escono $D$ litri. Disegna il diagramma di
+flusso di un algoritmo che conta quanti secchi servono per riempirlo.
+
+\textbf{Dati da leggere:} $C$ = capacità del serbatoio (in litri); $S$ = litri contenuti in un
+secchio; $D$ = litri persi dopo ogni secchio.\\
+\textbf{Altre variabili:} $L$ = litri presenti nel serbatoio; $N$ = numero di secchi versati.
+
+Si versano secchi finché il serbatoio non è pieno. Se però sono già stati versati 50 secchi e il
+serbatoio non è ancora pieno, l'algoritmo si ferma e visualizza ``Perdita troppo grande''.
+Se il serbatoio si riempie, alla fine visualizza $N$ e $L$.
+
+\vfill
+{\small\itshape Prova a risolverlo da solo prima di guardare la soluzione alla pagina successiva.}
+
+\newpage
+% ======================= SOLUZIONE 2 ==================================
+\titolo{Soluzione dell'esercizio 2}
+
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \node[fcterm] (ini)  at (0,0) {Inizio};
+  \node[fcio]   (in)   at (0,-1.1) {Leggi $C$, $S$, $D$};
+  \node[fcinit] (ini0) at (0,-2.2) {$L \gets 0$, \ $N \gets 0$};
+  \node[fcdec]  (d1)   at (0,-3.75) {$L < C$};
+  \node[fcdec]  (d2)   at (0,-5.45) {$N < 50$};
+  \node[fcproc] (agg)  at (0,-7.0) {$L \gets L + S - D$};
+  \node[fcproc] (inc)  at (0,-8.1) {$N \gets N + 1$};
+  \node[fcio]   (out1) at (4.9,-3.75) {Scrivi $N$, $L$};
+  \node[fcio]   (out2) at (4.9,-5.45) {Scrivi ``Perdita troppo grande''};
+  \node[fcterm] (fin)  at (4.9,-7.0) {Fine};
+  \draw[fcfreccia] (ini) -- (in);
+  \draw[fcfreccia] (in) -- (ini0);
+  \draw[fcfreccia] (ini0) -- (d1);
+  \draw[fcfreccia] (d1) -- node[fcsi,right] {Sì} (d2);
+  \draw[fcfreccia] (d2) -- node[fcsi,right] {Sì} (agg);
+  \draw[fcfreccia] (agg) -- (inc);
+  \draw[fcfreccia] (inc.south) -- ++(0,-0.5) -| (-2.5,-2.95) -- (0,-2.95);
+  \draw[fcfreccia] (d1) -- node[fcno,above] {No} (out1);
+  \draw[fcfreccia] (d2) -- node[fcno,above] {No} (out2);
+  \draw[fcfreccia] (out2) -- (fin);
+  \draw[fcfreccia] (out1.east) -- (7.9,-3.75) |- (fin.east);
+\end{tikzpicture}
+\end{center}
+
+\textbf{Come funziona.}
+\begin{itemize}[nosep]
+  \item Rispetto alla verifica ci sono \emph{due} controlli nel ciclo: prima si guarda se il
+        serbatoio è pieno ($L < C$?), poi se si è arrivati al limite di 50 secchi ($N < 50$?).
+        Si versa un altro secchio solo se tutte e due le risposte sono Sì.
+  \item In ogni giro il livello aumenta di $S$ (il secchio) e diminuisce di $D$ (la perdita):
+        $L \gets L + S - D$.
+  \item Le due uscite dal ciclo portano a messaggi diversi, ma finiscono entrambe in Fine.
+  \item Il limite di 50 secchi serve perché, se $D \geq S$, il serbatoio non si riempirebbe mai e
+        il ciclo non finirebbe più.
+\end{itemize}
+
+\textbf{Prova con i numeri} ($C = 20$, $S = 8$, $D = 1$): a ogni secchio il livello sale di 7 litri.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{c|c|c|c|c}
+  Giro & $L < C$? & $N < 50$? & $L$ dopo il giro & $N$ dopo il giro\\\hline
+  --  & --  & --  & 0  & 0\\
+  1   & $0 < 20$: Sì  & $0 < 50$: Sì & 7  & 1\\
+  2   & $7 < 20$: Sì  & $1 < 50$: Sì & 14 & 2\\
+  3   & $14 < 20$: Sì & $2 < 50$: Sì & 21 & 3\\
+  --  & $21 < 20$: No & & \multicolumn{2}{c}{fine del ciclo}\\
+\end{tabular}
+\end{center}
+Si visualizza $N = 3$ secchi e $L = 21$ litri. Con $S = 5$ e $D = 5$, invece, il livello resta
+sempre 0: dopo 50 secchi si visualizza ``Perdita troppo grande''.
+
+\end{document}
