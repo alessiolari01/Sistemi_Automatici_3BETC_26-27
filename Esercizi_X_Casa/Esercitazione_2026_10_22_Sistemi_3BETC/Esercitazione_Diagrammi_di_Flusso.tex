@@ -2,10 +2,9 @@
 %  ESERCITAZIONE DIAGRAMMI DI FLUSSO — Sistemi Automatici 3BETC
 %  In preparazione alla verifica del 24/10/2026 (esercizio 4: ciclo).
 %  Imposta questo file come Main document e compila: un solo PDF con
-%     pag. 1 Esercizio 1 (più facile della verifica, con suggerimenti)
+%     pag. 1 testi: Esercizio 1 (più semplice), Esercizio 2 (più impegnativo)
 %     pag. 2 Soluzione dell'esercizio 1
-%     pag. 3 Esercizio 2 (un po' più difficile della verifica)
-%     pag. 4 Soluzione dell'esercizio 2
+%     pag. 3 Soluzione dell'esercizio 2
 % =====================================================================
 \documentclass[a4paper,11pt]{article}
 \usepackage{stili/comune}
@@ -24,8 +23,10 @@
 
 \begin{document}
 
-% ======================= ESERCIZIO 1 (facile) =========================
-\titolo{Esercizio 1 \textmd{(più facile della verifica)}}
+% ======================= TESTI ========================================
+\titolo{Esercitazione sui diagrammi di flusso}
+
+\textbf{Esercizio 1}
 
 In una cisterna ci sono dei litri d'acqua. Con quest'acqua si riempiono bottiglie tutte uguali,
 una alla volta. Disegna il diagramma di flusso di un algoritmo che conta quante bottiglie si
@@ -34,18 +35,23 @@ possono riempire completamente.
 \textbf{Dati da leggere:} $Q$ = litri d'acqua nella cisterna; $B$ = litri contenuti in una bottiglia.\\
 \textbf{Altre variabili:} $N$ = numero di bottiglie riempite.
 
-\textbf{Suggerimenti:}
-\begin{itemize}[nosep]
-  \item all'inizio nessuna bottiglia è stata riempita, quindi $N$ parte da 0;
-  \item si continua a riempire bottiglie finché nella cisterna ci sono \emph{almeno} $B$ litri
-        (cioè finché $Q \geq B$);
-  \item ogni volta che si riempie una bottiglia, nella cisterna ci sono $B$ litri in meno
-        ($Q$ diventa $Q - B$) e il numero di bottiglie aumenta di 1;
-  \item alla fine visualizza $N$ e i litri rimasti $Q$.
-\end{itemize}
+Si continua finché nella cisterna ci sono almeno $B$ litri. Alla fine visualizza $N$ e i litri
+rimasti $Q$.
 
-\vfill
-{\small\itshape Prova a risolverlo da solo prima di guardare la soluzione alla pagina successiva.}
+\bigskip
+\textbf{Esercizio 2}
+
+Un serbatoio, inizialmente vuoto, si riempie versando un secchio d'acqua alla volta. Il serbatoio
+però ha una piccola perdita: dopo ogni secchio versato escono $D$ litri. Disegna il diagramma di
+flusso di un algoritmo che conta quanti secchi servono per riempirlo.
+
+\textbf{Dati da leggere:} $C$ = capacità del serbatoio (in litri); $S$ = litri contenuti in un
+secchio; $D$ = litri persi dopo ogni secchio.\\
+\textbf{Altre variabili:} $L$ = litri presenti nel serbatoio; $N$ = numero di secchi versati.
+
+Si versano secchi finché il serbatoio non è pieno. Se però sono già stati versati 50 secchi e il
+serbatoio non è ancora pieno, l'algoritmo si ferma e visualizza ``Perdita troppo grande''.
+Se il serbatoio si riempie, alla fine visualizza $N$ e $L$.
 
 \newpage
 % ======================= SOLUZIONE 1 ==================================
@@ -99,25 +105,8 @@ possono riempire completamente.
 Si visualizza $N = 3$ bottiglie e $Q = 1$ litro rimasto.
 
 \newpage
-% ======================= ESERCIZIO 2 (difficile) ======================
-\titolo{Esercizio 2 \textmd{(un po' più difficile della verifica)}}
 
-Un serbatoio, inizialmente vuoto, si riempie versando un secchio d'acqua alla volta. Il serbatoio
-però ha una piccola perdita: dopo ogni secchio versato escono $D$ litri. Disegna il diagramma di
-flusso di un algoritmo che conta quanti secchi servono per riempirlo.
 
-\textbf{Dati da leggere:} $C$ = capacità del serbatoio (in litri); $S$ = litri contenuti in un
-secchio; $D$ = litri persi dopo ogni secchio.\\
-\textbf{Altre variabili:} $L$ = litri presenti nel serbatoio; $N$ = numero di secchi versati.
-
-Si versano secchi finché il serbatoio non è pieno. Se però sono già stati versati 50 secchi e il
-serbatoio non è ancora pieno, l'algoritmo si ferma e visualizza ``Perdita troppo grande''.
-Se il serbatoio si riempie, alla fine visualizza $N$ e $L$.
-
-\vfill
-{\small\itshape Prova a risolverlo da solo prima di guardare la soluzione alla pagina successiva.}
-
-\newpage
 % ======================= SOLUZIONE 2 ==================================
 \titolo{Soluzione dell'esercizio 2}
 
@@ -149,7 +138,7 @@ Se il serbatoio si riempie, alla fine visualizza $N$ e $L$.
 
 \textbf{Come funziona.}
 \begin{itemize}[nosep]
-  \item Rispetto alla verifica ci sono \emph{due} controlli nel ciclo: prima si guarda se il
+  \item Nel ciclo ci sono \emph{due} controlli: prima si guarda se il
         serbatoio è pieno ($L < C$?), poi se si è arrivati al limite di 50 secchi ($N < 50$?).
         Si versa un altro secchio solo se tutte e due le risposte sono Sì.
   \item In ogni giro il livello aumenta di $S$ (il secchio) e diminuisce di $D$ (la perdita):
