@@ -39,17 +39,17 @@ Si riempiono bottiglie finché nella cisterna c'è abbastanza acqua per riempirn
 Alla fine visualizza $N$ e i litri rimasti $Q$.
 
 \textbf{Prova:} con $Q = 17$ e $B = 4$ segui il diagramma e completa la tabella con i valori dopo
-ogni giro del ciclo, fino a quando il ciclo finisce.
+ogni iterazione del ciclo, fino a quando il ciclo finisce.
 \begin{center}\renewcommand{\arraystretch}{1.35}
-\begin{tabular}{|c|p{4.2cm}|p{2.6cm}|p{2.6cm}|}\hline
-  Giro & Condizione: vera o falsa? & $Q$ & $N$\\\hline
-  Inizio & & &\\\hline
-  1 & & &\\\hline
-  2 & & &\\\hline
-  3 & & &\\\hline
-  4 & & &\\\hline
-  5 & & &\\\hline
-  6 & & &\\\hline
+\begin{tabular}{|c|p{3cm}|p{3cm}|}\hline
+  Iterazione & $Q$ & $N$\\\hline
+  Inizio & &\\\hline
+  1 & &\\\hline
+  2 & &\\\hline
+  3 & &\\\hline
+  4 & &\\\hline
+  5 & &\\\hline
+  6 & &\\\hline
 \end{tabular}\end{center}
 
 \newpage
@@ -68,17 +68,17 @@ serbatoio non è ancora pieno, l'algoritmo si ferma e visualizza ``Perdita tropp
 Se il serbatoio si riempie, alla fine visualizza $N$ e $L$.
 
 \textbf{Prova:} con $C = 100$, $S = 30$ e $D = 5$ segui il diagramma e completa la tabella con i
-valori dopo ogni giro del ciclo, fino a quando il ciclo finisce. Che cosa visualizza l'algoritmo?
+valori dopo ogni iterazione del ciclo, fino a quando il ciclo finisce. Che cosa visualizza l'algoritmo?
 \begin{center}\renewcommand{\arraystretch}{1.35}
-\begin{tabular}{|c|p{3.2cm}|p{3.2cm}|p{2.2cm}|p{2.2cm}|}\hline
-  Giro & Prima condizione & Seconda condizione & $L$ & $N$\\\hline
-  Inizio & & & &\\\hline
-  1 & & & &\\\hline
-  2 & & & &\\\hline
-  3 & & & &\\\hline
-  4 & & & &\\\hline
-  5 & & & &\\\hline
-  6 & & & &\\\hline
+\begin{tabular}{|c|p{3cm}|p{3cm}|}\hline
+  Iterazione & $L$ & $N$\\\hline
+  Inizio & &\\\hline
+  1 & &\\\hline
+  2 & &\\\hline
+  3 & &\\\hline
+  4 & &\\\hline
+  5 & &\\\hline
+  6 & &\\\hline
 \end{tabular}\end{center}
 
 \newpage
@@ -111,7 +111,7 @@ valori dopo ogni giro del ciclo, fino a quando il ciclo finisce. Che cosa visual
   \item $N \gets 0$ è l'inizializzazione (esagono): va fatta una volta sola, \emph{prima} del ciclo.
   \item Il rombo $Q \geq B$ è la condizione del ciclo: se è vera si riempie un'altra bottiglia,
         se è falsa il ciclo finisce.
-  \item Ogni giro del ciclo è una bottiglia riempita: $Q$ cala di $B$, $N$ aumenta di 1, poi si
+  \item Ogni iterazione del ciclo è una bottiglia riempita: $Q$ cala di $B$, $N$ aumenta di 1, poi si
         torna al rombo.
   \item Si usa $\geq$ e non $>$: se nella cisterna restano esattamente $B$ litri, si riempie
         ancora una bottiglia.
@@ -121,16 +121,16 @@ valori dopo ogni giro del ciclo, fino a quando il ciclo finisce. Che cosa visual
 
 \begin{center}
 \renewcommand{\arraystretch}{1.15}
-\begin{tabular}{|c|c|c|c|}\hline
-  Giro & Condizione $Q \geq B$ & $Q$ & $N$\\\hline
-  Inizio & --  & 17 & 0\\\hline
-  1   & $17 \geq 4$: vera & 13 & 1\\\hline
-  2   & $13 \geq 4$: vera & 9  & 2\\\hline
-  3   & $9 \geq 4$: vera  & 5  & 3\\\hline
-  4   & $5 \geq 4$: vera  & 1  & 4\\\hline
-  --  & $1 \geq 4$: falsa & \multicolumn{2}{c|}{fine del ciclo}\\\hline
+\begin{tabular}{|c|>{\centering\arraybackslash}p{3cm}|>{\centering\arraybackslash}p{3cm}|}\hline
+  Iterazione & $Q$ & $N$\\\hline
+  Inizio & 17 & 0\\\hline
+  1 & 13 & 1\\\hline
+  2 & 9  & 2\\\hline
+  3 & 5  & 3\\\hline
+  4 & 1  & 4\\\hline
 \end{tabular}
 \end{center}
+Dopo la 4ª iterazione $Q = 1$ e la condizione $1 \geq 4$ è falsa: il ciclo finisce.
 Si visualizza $N = 4$ bottiglie e $Q = 1$ litro rimasto.
 
 \newpage
@@ -170,7 +170,7 @@ Si visualizza $N = 4$ bottiglie e $Q = 1$ litro rimasto.
   \item Nel ciclo ci sono \emph{due} controlli: prima si guarda se il
         serbatoio è pieno ($L < C$?), poi se si è arrivati al limite di 50 secchi ($N < 50$?).
         Si versa un altro secchio solo se tutte e due le risposte sono Sì.
-  \item In ogni giro il livello aumenta di $S$ (il secchio) e diminuisce di $D$ (la perdita):
+  \item In ogni iterazione il livello aumenta di $S$ (il secchio) e diminuisce di $D$ (la perdita):
         $L \gets L + S - D$.
   \item Le due uscite dal ciclo portano a messaggi diversi, ma finiscono entrambe in Fine.
   \item Il limite di 50 secchi serve perché, se $D \geq S$, il serbatoio non si riempirebbe mai e
@@ -181,16 +181,16 @@ Si visualizza $N = 4$ bottiglie e $Q = 1$ litro rimasto.
 
 \begin{center}
 \renewcommand{\arraystretch}{1.15}
-\begin{tabular}{|c|c|c|c|c|}\hline
-  Giro & Condizione $L < C$ & Condizione $N < 50$ & $L$ & $N$\\\hline
-  Inizio & --  & --  & 0  & 0\\\hline
-  1   & $0 < 100$: vera  & $0 < 50$: vera & 25  & 1\\\hline
-  2   & $25 < 100$: vera & $1 < 50$: vera & 50  & 2\\\hline
-  3   & $50 < 100$: vera & $2 < 50$: vera & 75  & 3\\\hline
-  4   & $75 < 100$: vera & $3 < 50$: vera & 100 & 4\\\hline
-  --  & $100 < 100$: falsa & & \multicolumn{2}{c|}{fine del ciclo}\\\hline
+\begin{tabular}{|c|>{\centering\arraybackslash}p{3cm}|>{\centering\arraybackslash}p{3cm}|}\hline
+  Iterazione & $L$ & $N$\\\hline
+  Inizio & 0   & 0\\\hline
+  1 & 25  & 1\\\hline
+  2 & 50  & 2\\\hline
+  3 & 75  & 3\\\hline
+  4 & 100 & 4\\\hline
 \end{tabular}
 \end{center}
+Dopo la 4ª iterazione $L = 100$ e la condizione $100 < 100$ è falsa: il ciclo finisce.
 Si visualizza $N = 4$ secchi e $L = 100$ litri (il serbatoio è pieno esattamente). Con $S = 5$ e
 $D = 5$, invece, il livello resta sempre 0: dopo 50 secchi si visualizza ``Perdita troppo grande''.
 
