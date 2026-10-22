@@ -2,9 +2,9 @@
 %  ESERCITAZIONE DIAGRAMMI DI FLUSSO — Sistemi Automatici 3BETC
 %  In preparazione alla verifica del 24/10/2026 (esercizio 4: ciclo).
 %  Imposta questo file come Main document e compila: un solo PDF con
-%     pag. 1 testi: Esercizio 1 (più semplice), Esercizio 2 (più impegnativo)
-%     pag. 2 Soluzione dell'esercizio 1
-%     pag. 3 Soluzione dell'esercizio 2
+%     pag. 1 Esercizio 1 (più semplice)   pag. 2 Esercizio 2 (più impegnativo)
+%     pag. 3 Soluzione dell'esercizio 1   pag. 4 Soluzione dell'esercizio 2
+%     ogni esercizio ha una tabella di traccia da completare (prova con valori dati)
 % =====================================================================
 \documentclass[a4paper,11pt]{article}
 \usepackage{stili/comune}
@@ -35,10 +35,24 @@ possono riempire completamente.
 \textbf{Dati da leggere:} $Q$ = litri d'acqua nella cisterna; $B$ = litri contenuti in una bottiglia.\\
 \textbf{Altre variabili:} $N$ = numero di bottiglie riempite.
 
-Si continua finché nella cisterna ci sono almeno $B$ litri. Alla fine visualizza $N$ e i litri
-rimasti $Q$.
+Si riempiono bottiglie finché nella cisterna c'è abbastanza acqua per riempirne una intera.
+Alla fine visualizza $N$ e i litri rimasti $Q$.
 
-\bigskip
+\textbf{Prova:} con $Q = 17$ e $B = 4$ segui il diagramma e completa la tabella con i valori dopo
+ogni giro del ciclo, fino a quando il ciclo finisce.
+\begin{center}\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{|c|p{4.2cm}|p{2.6cm}|p{2.6cm}|}\hline
+  Giro & Condizione: vera o falsa? & $Q$ & $N$\\\hline
+  Inizio & & &\\\hline
+  1 & & &\\\hline
+  2 & & &\\\hline
+  3 & & &\\\hline
+  4 & & &\\\hline
+  5 & & &\\\hline
+  6 & & &\\\hline
+\end{tabular}\end{center}
+
+\newpage
 \textbf{Esercizio 2}
 
 Un serbatoio, inizialmente vuoto, si riempie versando un secchio d'acqua alla volta. Il serbatoio
@@ -52,6 +66,20 @@ secchio; $D$ = litri persi dopo ogni secchio.\\
 Si versano secchi finché il serbatoio non è pieno. Se però sono già stati versati 50 secchi e il
 serbatoio non è ancora pieno, l'algoritmo si ferma e visualizza ``Perdita troppo grande''.
 Se il serbatoio si riempie, alla fine visualizza $N$ e $L$.
+
+\textbf{Prova:} con $C = 100$, $S = 30$ e $D = 5$ segui il diagramma e completa la tabella con i
+valori dopo ogni giro del ciclo, fino a quando il ciclo finisce. Che cosa visualizza l'algoritmo?
+\begin{center}\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{|c|p{3.2cm}|p{3.2cm}|p{2.2cm}|p{2.2cm}|}\hline
+  Giro & Prima condizione & Seconda condizione & $L$ & $N$\\\hline
+  Inizio & & & &\\\hline
+  1 & & & &\\\hline
+  2 & & & &\\\hline
+  3 & & & &\\\hline
+  4 & & & &\\\hline
+  5 & & & &\\\hline
+  6 & & & &\\\hline
+\end{tabular}\end{center}
 
 \newpage
 % ======================= SOLUZIONE 1 ==================================
@@ -89,20 +117,21 @@ Se il serbatoio si riempie, alla fine visualizza $N$ e $L$.
         ancora una bottiglia.
 \end{itemize}
 
-\textbf{Prova con i numeri} ($Q = 10$, $B = 3$):
+\textbf{Prova} ($Q = 17$, $B = 4$):
 
 \begin{center}
 \renewcommand{\arraystretch}{1.15}
-\begin{tabular}{c|c|c|c}
-  Giro & $Q \geq B$? & $Q$ dopo il giro & $N$ dopo il giro\\\hline
-  --  & --  & 10 & 0\\
-  1   & $10 \geq 3$: Sì & 7 & 1\\
-  2   & $7 \geq 3$: Sì  & 4 & 2\\
-  3   & $4 \geq 3$: Sì  & 1 & 3\\
-  --  & $1 \geq 3$: No  & \multicolumn{2}{c}{fine del ciclo}\\
+\begin{tabular}{|c|c|c|c|}\hline
+  Giro & Condizione $Q \geq B$ & $Q$ & $N$\\\hline
+  Inizio & --  & 17 & 0\\\hline
+  1   & $17 \geq 4$: vera & 13 & 1\\\hline
+  2   & $13 \geq 4$: vera & 9  & 2\\\hline
+  3   & $9 \geq 4$: vera  & 5  & 3\\\hline
+  4   & $5 \geq 4$: vera  & 1  & 4\\\hline
+  --  & $1 \geq 4$: falsa & \multicolumn{2}{c|}{fine del ciclo}\\\hline
 \end{tabular}
 \end{center}
-Si visualizza $N = 3$ bottiglie e $Q = 1$ litro rimasto.
+Si visualizza $N = 4$ bottiglie e $Q = 1$ litro rimasto.
 
 \newpage
 
@@ -148,20 +177,21 @@ Si visualizza $N = 3$ bottiglie e $Q = 1$ litro rimasto.
         il ciclo non finirebbe più.
 \end{itemize}
 
-\textbf{Prova con i numeri} ($C = 20$, $S = 8$, $D = 1$): a ogni secchio il livello sale di 7 litri.
+\textbf{Prova} ($C = 100$, $S = 30$, $D = 5$): a ogni secchio il livello sale di $30 - 5 = 25$ litri.
 
 \begin{center}
 \renewcommand{\arraystretch}{1.15}
-\begin{tabular}{c|c|c|c|c}
-  Giro & $L < C$? & $N < 50$? & $L$ dopo il giro & $N$ dopo il giro\\\hline
-  --  & --  & --  & 0  & 0\\
-  1   & $0 < 20$: Sì  & $0 < 50$: Sì & 7  & 1\\
-  2   & $7 < 20$: Sì  & $1 < 50$: Sì & 14 & 2\\
-  3   & $14 < 20$: Sì & $2 < 50$: Sì & 21 & 3\\
-  --  & $21 < 20$: No & & \multicolumn{2}{c}{fine del ciclo}\\
+\begin{tabular}{|c|c|c|c|c|}\hline
+  Giro & Condizione $L < C$ & Condizione $N < 50$ & $L$ & $N$\\\hline
+  Inizio & --  & --  & 0  & 0\\\hline
+  1   & $0 < 100$: vera  & $0 < 50$: vera & 25  & 1\\\hline
+  2   & $25 < 100$: vera & $1 < 50$: vera & 50  & 2\\\hline
+  3   & $50 < 100$: vera & $2 < 50$: vera & 75  & 3\\\hline
+  4   & $75 < 100$: vera & $3 < 50$: vera & 100 & 4\\\hline
+  --  & $100 < 100$: falsa & & \multicolumn{2}{c|}{fine del ciclo}\\\hline
 \end{tabular}
 \end{center}
-Si visualizza $N = 3$ secchi e $L = 21$ litri. Con $S = 5$ e $D = 5$, invece, il livello resta
-sempre 0: dopo 50 secchi si visualizza ``Perdita troppo grande''.
+Si visualizza $N = 4$ secchi e $L = 100$ litri (il serbatoio è pieno esattamente). Con $S = 5$ e
+$D = 5$, invece, il livello resta sempre 0: dopo 50 secchi si visualizza ``Perdita troppo grande''.
 
 \end{document}
