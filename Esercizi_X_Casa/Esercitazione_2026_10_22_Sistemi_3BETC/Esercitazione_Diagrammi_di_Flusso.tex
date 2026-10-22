@@ -2,9 +2,9 @@
 %  ESERCITAZIONE DIAGRAMMI DI FLUSSO — Sistemi Automatici 3BETC
 %  In preparazione alla verifica del 24/10/2026 (esercizio 4: ciclo).
 %  Imposta questo file come Main document e compila: un solo PDF con
-%     pag. 1 Esercizio 1 (più semplice)   pag. 2 Esercizio 2 (più impegnativo)
-%     pag. 3 Soluzione dell'esercizio 1   pag. 4 Soluzione dell'esercizio 2
-%     ogni esercizio ha una tabella di traccia da completare (prova con valori dati)
+%     pag. 1 Esercizio 1 (una decisione, senza ciclo) ed Esercizio 2 (ciclo + tabella
+%            delle variabili a ogni iterazione da completare)
+%     pag. 2 Soluzione dell'esercizio 1   pag. 3 Soluzione dell'esercizio 2
 % =====================================================================
 \documentclass[a4paper,11pt]{article}
 \usepackage{stili/comune}
@@ -28,31 +28,16 @@
 
 \textbf{Esercizio 1}
 
-In una cisterna ci sono dei litri d'acqua. Con quest'acqua si riempiono bottiglie tutte uguali,
-una alla volta. Disegna il diagramma di flusso di un algoritmo che conta quante bottiglie si
-possono riempire completamente.
+Un ascensore può portare al massimo un certo peso. Disegna il diagramma di flusso di un algoritmo
+che controlla se due persone possono salire insieme.
 
-\textbf{Dati da leggere:} $Q$ = litri d'acqua nella cisterna; $B$ = litri contenuti in una bottiglia.\\
-\textbf{Altre variabili:} $N$ = numero di bottiglie riempite.
+\textbf{Dati da leggere:} $M$ = peso massimo che l'ascensore può portare (in kg);
+$P_1$, $P_2$ = pesi delle due persone (in kg).\\
+\textbf{Altre variabili:} $T$ = peso totale delle due persone, cioè $T = P_1 + P_2$.
 
-Si riempiono bottiglie finché nella cisterna c'è abbastanza acqua per riempirne una intera.
-Alla fine visualizza $N$ e i litri rimasti $Q$.
+Se $T$ è maggiore di $M$ visualizza ``Troppo peso'', altrimenti visualizza ``Si può salire''.
 
-\textbf{Prova:} con $Q = 17$ e $B = 4$ segui il diagramma e completa la tabella con i valori dopo
-ogni iterazione del ciclo, fino a quando il ciclo finisce.
-\begin{center}\renewcommand{\arraystretch}{1.35}
-\begin{tabular}{|c|p{3cm}|p{3cm}|}\hline
-  Iterazione & $Q$ & $N$\\\hline
-  Inizio & &\\\hline
-  1 & &\\\hline
-  2 & &\\\hline
-  3 & &\\\hline
-  4 & &\\\hline
-  5 & &\\\hline
-  6 & &\\\hline
-\end{tabular}\end{center}
-
-\newpage
+\bigskip
 \textbf{Esercizio 2}
 
 Un serbatoio, inizialmente vuoto, si riempie versando un secchio d'acqua alla volta. Il serbatoio
@@ -87,54 +72,35 @@ valori dopo ogni iterazione del ciclo, fino a quando il ciclo finisce. Che cosa 
 
 \begin{center}
 \begin{tikzpicture}[x=1cm,y=1cm]
-  \node[fcterm] (ini)  at (0,0) {Inizio};
-  \node[fcio]   (in)   at (0,-1.1) {Leggi $Q$, $B$};
-  \node[fcinit] (ini0) at (0,-2.2) {$N \gets 0$};
-  \node[fcdec]  (d1)   at (0,-3.75) {$Q \geq B$};
-  \node[fcproc] (agg)  at (0,-5.3) {$Q \gets Q - B$};
-  \node[fcproc] (inc)  at (0,-6.4) {$N \gets N + 1$};
-  \node[fcio]   (out)  at (5.0,-3.75) {Scrivi $N$, $Q$};
-  \node[fcterm] (fin)  at (5.0,-4.95) {Fine};
+  \node[fcterm] (ini) at (0,0) {Inizio};
+  \node[fcio]   (in)  at (0,-1.1) {Leggi $M$, $P_1$, $P_2$};
+  \node[fcproc] (tot) at (0,-2.2) {$T \gets P_1 + P_2$};
+  \node[fcdec]  (d1)  at (0,-3.55) {$T > M$};
+  \node[fcio]   (o1)  at (4.2,-3.55) {Scrivi ``Troppo peso''};
+  \node[fcio]   (o2)  at (0,-5.05) {Scrivi ``Si può salire''};
+  \node[fcterm] (fin) at (0,-6.6) {Fine};
   \draw[fcfreccia] (ini) -- (in);
-  \draw[fcfreccia] (in) -- (ini0);
-  \draw[fcfreccia] (ini0) -- (d1);
-  \draw[fcfreccia] (d1) -- node[fcsi,right] {Sì} (agg);
-  \draw[fcfreccia] (agg) -- (inc);
-  \draw[fcfreccia] (inc.south) -- ++(0,-0.5) -| (-2.4,-2.95) -- (0,-2.95);
-  \draw[fcfreccia] (d1) -- node[fcno,above] {No} (out);
-  \draw[fcfreccia] (out) -- (fin);
+  \draw[fcfreccia] (in) -- (tot);
+  \draw[fcfreccia] (tot) -- (d1);
+  \draw[fcfreccia] (d1) -- node[fcsi,above] {Sì} (o1);
+  \draw[fcfreccia] (d1) -- node[fcno,right] {No} (o2);
+  \draw[thick] (o1.east) -- (6.4,-3.55) |- (0,-5.85);
+  \draw[fcfreccia] (o2) -- (fin);
 \end{tikzpicture}
 \end{center}
 
 \textbf{Come funziona.}
 \begin{itemize}[nosep]
-  \item $N \gets 0$ è l'inizializzazione (esagono): va fatta una volta sola, \emph{prima} del ciclo.
-  \item Il rombo $Q \geq B$ è la condizione del ciclo: se è vera si riempie un'altra bottiglia,
-        se è falsa il ciclo finisce.
-  \item Ogni iterazione del ciclo è una bottiglia riempita: $Q$ cala di $B$, $N$ aumenta di 1, poi si
-        torna al rombo.
-  \item Si usa $\geq$ e non $>$: se nella cisterna restano esattamente $B$ litri, si riempie
-        ancora una bottiglia.
+  \item Prima si leggono i dati, poi si calcola $T$: il controllo si fa sul peso totale.
+  \item Il rombo ha due uscite: Sì se $T > M$, No altrimenti. Ogni ramo visualizza il suo messaggio.
+  \item I due rami si ricongiungono prima di Fine: un diagramma ha una sola Fine.
 \end{itemize}
 
-\textbf{Prova} ($Q = 17$, $B = 4$):
-
-\begin{center}
-\renewcommand{\arraystretch}{1.15}
-\begin{tabular}{|c|>{\centering\arraybackslash}p{3cm}|>{\centering\arraybackslash}p{3cm}|}\hline
-  Iterazione & $Q$ & $N$\\\hline
-  Inizio & 17 & 0\\\hline
-  1 & 13 & 1\\\hline
-  2 & 9  & 2\\\hline
-  3 & 5  & 3\\\hline
-  4 & 1  & 4\\\hline
-\end{tabular}
-\end{center}
-Dopo la 4ª iterazione $Q = 1$ e la condizione $1 \geq 4$ è falsa: il ciclo finisce.
-Si visualizza $N = 4$ bottiglie e $Q = 1$ litro rimasto.
+\textbf{Esempio:} con $M = 150$, $P_1 = 70$ e $P_2 = 85$ si ha $T = 155$; $155 > 150$ è vero,
+quindi si visualizza ``Troppo peso''. Con $P_2 = 75$, invece, $T = 145$ e si visualizza
+``Si può salire''.
 
 \newpage
-
 
 % ======================= SOLUZIONE 2 ==================================
 \titolo{Soluzione dell'esercizio 2}
