@@ -1,0 +1,88 @@
+% ---------------------------------------------------------------------
+% RECUPERO (file R1, R2) - 3 ingressi, 2 porte AND/OR in cascata, un ingresso negato sulla prima porta
+%   fila R1: X = AND(B, NOT C),  Y = OR(X, A)
+%   fila R2: X = OR(A, NOT B),  Y = AND(X, C)
+% Solo tabella di verita' (le espressioni logiche non sono ancora state spiegate)
+% ---------------------------------------------------------------------
+\begin{esercizio}[6]
+Scrivi la tabella di verità del circuito in figura.
+
+\begin{center}
+\RR{%
+  \begin{circuitikz}[x=1cm,y=1cm,scale=1.25,transform shape]
+    \node[american and port] (g1) at (0,-0.3) {};
+    \node[american or port] (g2) at (3,0.25) {};
+    \draw (g1.in 1) -- ++(-0.9,0) node[left] {$B$};
+    \draw (g1.in 2) -- ++(-0.9,0) node[left] {$C$};
+    \draw (g2.in 1) -- (g1.in 1 |- g2.in 1) -- ++(-0.9,0) node[left] {$A$};
+    \draw (g1.out) -- ++(0.45,0) |- (g2.in 2);
+    \draw (g2.out) -- ++(0.7,0) node[right] {$Y$};
+    \node[circle,draw,fill=white,inner sep=0pt,minimum size=1.6mm,anchor=east] at (g1.bin 2) {};
+  \end{circuitikz}}{%
+  \begin{circuitikz}[x=1cm,y=1cm,scale=1.25,transform shape]
+    \node[american or port] (g1) at (0,0.3) {};
+    \node[american and port] (g2) at (3,-0.25) {};
+    \draw (g1.in 1) -- ++(-0.9,0) node[left] {$A$};
+    \draw (g1.in 2) -- ++(-0.9,0) node[left] {$B$};
+    \draw (g2.in 2) -- (g1.in 2 |- g2.in 2) -- ++(-0.9,0) node[left] {$C$};
+    \draw (g1.out) -- ++(0.45,0) |- (g2.in 1);
+    \draw (g2.out) -- ++(0.7,0) node[right] {$Y$};
+    \node[circle,draw,fill=white,inner sep=0pt,minimum size=1.6mm,anchor=east] at (g1.bin 2) {};
+  \end{circuitikz}}
+\end{center}
+
+\begin{solution}
+\RR{%
+\begin{center}
+  \begin{circuitikz}[x=1cm,y=1cm,scale=1.25,transform shape]
+    \node[american and port] (g1) at (0,-0.3) {};
+    \node[american or port] (g2) at (3,0.25) {};
+    \draw (g1.in 1) -- ++(-0.9,0) node[left] {$B$};
+    \draw (g1.in 2) -- ++(-0.9,0) node[left] {$C$};
+    \draw (g2.in 1) -- (g1.in 1 |- g2.in 1) -- ++(-0.9,0) node[left] {$A$};
+    \draw (g1.out) -- ++(0.45,0) |- (g2.in 2);
+    \draw (g2.out) -- ++(0.7,0) node[right] {$Y$};
+    \node[circle,draw,fill=white,inner sep=0pt,minimum size=1.6mm,anchor=east] at (g1.bin 2) {};
+  \end{circuitikz}
+\end{center}
+  {\renewcommand{\arraystretch}{1.05}\small
+  \begin{tabular}{ccc|c}
+    $A$ & $B$ & $C$ & $Y$\\\hline
+    0 & 0 & 0 & 0\\
+    0 & 0 & 1 & 0\\
+    0 & 1 & 0 & 1\\
+    0 & 1 & 1 & 0\\
+    1 & 0 & 0 & 1\\
+    1 & 0 & 1 & 1\\
+    1 & 1 & 0 & 1\\
+    1 & 1 & 1 & 1\\
+  \end{tabular}}}{%
+\begin{center}
+  \begin{circuitikz}[x=1cm,y=1cm,scale=1.25,transform shape]
+    \node[american or port] (g1) at (0,0.3) {};
+    \node[american and port] (g2) at (3,-0.25) {};
+    \draw (g1.in 1) -- ++(-0.9,0) node[left] {$A$};
+    \draw (g1.in 2) -- ++(-0.9,0) node[left] {$B$};
+    \draw (g2.in 2) -- (g1.in 2 |- g2.in 2) -- ++(-0.9,0) node[left] {$C$};
+    \draw (g1.out) -- ++(0.45,0) |- (g2.in 1);
+    \draw (g2.out) -- ++(0.7,0) node[right] {$Y$};
+    \node[circle,draw,fill=white,inner sep=0pt,minimum size=1.6mm,anchor=east] at (g1.bin 2) {};
+  \end{circuitikz}
+\end{center}
+  {\renewcommand{\arraystretch}{1.05}\small
+  \begin{tabular}{ccc|c}
+    $A$ & $B$ & $C$ & $Y$\\\hline
+    0 & 0 & 0 & 0\\
+    0 & 0 & 1 & 1\\
+    0 & 1 & 0 & 0\\
+    0 & 1 & 1 & 0\\
+    1 & 0 & 0 & 0\\
+    1 & 0 & 1 & 1\\
+    1 & 1 & 0 & 0\\
+    1 & 1 & 1 & 1\\
+  \end{tabular}}}
+  \criterioRR
+  {Le 8 combinazioni di $A$, $B$, $C$ tutte presenti: 1 pt; colonna $Y$ corretta: 5 pt ($-1$ per ogni riga sbagliata, minimo 0; attenzione a NOT $C$). Colonna $Y$ attesa da 000 a 111: 00101111 (uscita della prima porta, per controllare i passaggi: 00100010).}
+  {Le 8 combinazioni di $A$, $B$, $C$ tutte presenti: 1 pt; colonna $Y$ corretta: 5 pt ($-1$ per ogni riga sbagliata, minimo 0; attenzione a NOT $B$). Colonna $Y$ attesa da 000 a 111: 01000101 (uscita della prima porta, per controllare i passaggi: 11001111).}
+\end{solution}
+\end{esercizio}

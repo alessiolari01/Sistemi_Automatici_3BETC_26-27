@@ -33,6 +33,11 @@
 
 % \ABC{testo fila A}{testo fila B}{testo fila C}
 \newcommand{\ABC}[3]{\ifdefstring{\fila}{A}{#1}{\ifdefstring{\fila}{B}{#2}{#3}}}
+% File di recupero (\fila = R1 o R2): \RR{testo fila R1}{testo fila R2}
+\newcommand{\RR}[2]{\ifdefstring{\fila}{R1}{#1}{#2}}
+% Elenco delle file nel riquadro della griglia di correzione
+\def\v@elencofile{A, B e C}
+\newcommand{\elencofile}[1]{\def\v@elencofile{#1}}
 
 % =====================================================================
 %  DATI DELLA VERIFICA  (tutti facoltativi: se vuoti non si stampano)
@@ -91,7 +96,7 @@
   \tikz[baseline=(b.base)]\node[draw,line width=1pt,rounded corners=2pt,
      inner xsep=7pt,inner ysep=4pt,font=\bfseries](b){#1};}
 \newcommand{\v@badge}{%
-  \ifv@corr \v@riquadro{CORREZIONE \textperiodcentered\ FILE A, B e C}%
+  \ifv@corr \v@riquadro{CORREZIONE \textperiodcentered\ FILE \v@elencofile}%
   \else\ifv@casa
     \ifv@sol\v@riquadro{SOLUZIONI}\else\ifv@completa\v@riquadro{SOLUZIONI}\fi\fi
   \else
@@ -268,6 +273,11 @@
     \textbf{Fila C.} #3\par}\fi
   \ifv@completa\par\smallskip{\small\itshape Criterio: \ABC{#1}{#2}{#3}}\par\fi}
 
+% Criteri diversi per le file di recupero: \criterioRR{fila R1}{fila R2}
+\newcommand{\criterioRR}[2]{%
+  \ifv@corr\gappto\v@critE{\textbf{Fila R1.} #1\par\textbf{Fila R2.} #2\par}\fi
+  \ifv@completa\par\smallskip{\small\itshape Criterio: \RR{#1}{#2}}\par\fi}
+
 % Versione "correzione": per ogni esercizio risultati A/B e criteri
 % (ogni blocco viene composto subito, con i valori di quell'esercizio,
 %  e messo da parte fino a \riepilogo)
@@ -275,7 +285,7 @@
 \newcommand{\v@registracorrezione}{%
   \setbox\v@scarto\vbox{\v@solbody}% fila A: unità di misura e criteri
   \begingroup % file B e C: solo per registrare le unità di misura
-    \def\criterio##1{}\def\criterioABC##1##2##3{}%
+    \def\criterio##1{}\def\criterioABC##1##2##3{}\def\criterioRR##1##2{}%
     \def\fila{B}\setbox\v@scarto\vbox{\v@solbody}%
     \def\fila{C}\setbox\v@scarto\vbox{\v@solbody}%
   \endgroup

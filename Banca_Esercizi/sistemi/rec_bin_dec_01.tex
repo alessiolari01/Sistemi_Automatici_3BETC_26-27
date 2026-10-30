@@ -1,0 +1,35 @@
+% ---------------------------------------------------------------------
+% RECUPERO (file R1, R2) - conversione binario -> decimale
+%   fila R1: 10111011=187, 101110011=371, 11100010=226, 1011110011=755
+%   fila R2: 110001011=395, 10101001=169, 1100100011=803, 11100110=230
+%   4 numeri (8, 8, 9, 10 bit), un solo pari, risultato < 1024
+% ---------------------------------------------------------------------
+\begin{esercizio}[8]
+Converti in decimale:
+\RR{%
+\par\smallskip\noindent\hspace*{1em}\begin{tabular}{@{}p{0.42\linewidth}p{0.42\linewidth}@{}}
+  \textbf{a)}~$10111011_{2} = \ldots\ldots\ldots_{10}$ & \textbf{b)}~$101110011_{2} = \ldots\ldots\ldots_{10}$\\[4pt]
+  \textbf{c)}~$11100010_{2} = \ldots\ldots\ldots_{10}$ & \textbf{d)}~$1011110011_{2} = \ldots\ldots\ldots_{10}$
+\end{tabular}}{%
+\par\smallskip\noindent\hspace*{1em}\begin{tabular}{@{}p{0.42\linewidth}p{0.42\linewidth}@{}}
+  \textbf{a)}~$110001011_{2} = \ldots\ldots\ldots_{10}$ & \textbf{b)}~$10101001_{2} = \ldots\ldots\ldots_{10}$\\[4pt]
+  \textbf{c)}~$1100100011_{2} = \ldots\ldots\ldots_{10}$ & \textbf{d)}~$11100110_{2} = \ldots\ldots\ldots_{10}$
+\end{tabular}}
+
+\begin{solution}
+\RR{%
+  \textbf{a)}~$10111011_2 = 128 + 32 + 16 + 8 + 2 + 1 = 187_{10}$\\[4pt]
+  \textbf{b)}~$101110011_2 = 256 + 64 + 32 + 16 + 2 + 1 = 371_{10}$\\[4pt]
+  \textbf{c)}~$11100010_2 = 128 + 64 + 32 + 2 = 226_{10}$\\[4pt]
+  \textbf{d)}~$1011110011_2 = 512 + 128 + 64 + 32 + 16 + 2 + 1 = 755_{10}$\\[4pt]
+  Si sommano i pesi $2^0, 2^1, 2^2, \ldots$ (da destra) dei soli bit a 1.}{%
+  \textbf{a)}~$110001011_2 = 256 + 128 + 8 + 2 + 1 = 395_{10}$\\[4pt]
+  \textbf{b)}~$10101001_2 = 128 + 32 + 8 + 1 = 169_{10}$\\[4pt]
+  \textbf{c)}~$1100100011_2 = 512 + 256 + 32 + 2 + 1 = 803_{10}$\\[4pt]
+  \textbf{d)}~$11100110_2 = 128 + 64 + 32 + 4 + 2 = 230_{10}$\\[4pt]
+  Si sommano i pesi $2^0, 2^1, 2^2, \ldots$ (da destra) dei soli bit a 1.}
+  \criterioRR
+  {2 pt per ogni numero: 1 pt pesi (potenze di 2) corretti, 1 pt somma e risultato. Risultati: a) $187_{10}$; b) $371_{10}$; c) $226_{10}$; d) $755_{10}$.}
+  {2 pt per ogni numero: 1 pt pesi (potenze di 2) corretti, 1 pt somma e risultato. Risultati: a) $395_{10}$; b) $169_{10}$; c) $803_{10}$; d) $230_{10}$.}
+\end{solution}
+\end{esercizio}

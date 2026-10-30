@@ -1,0 +1,82 @@
+% ---------------------------------------------------------------------
+% RECUPERO (file R1, R2) - diagramma di flusso con calcolo e due decisioni (con suggerimenti)
+%   fila R1: velocità media di un'auto -> troppo alta / troppo bassa / regolare
+%   fila R2: consumo mensile di energia -> alto / basso / normale
+% Stessa struttura e difficoltà dell'esercizio delle file A, B, C
+% ---------------------------------------------------------------------
+\begin{esercizio}[6]
+\RR{%
+Su un tratto di autostrada si controlla la velocità media delle auto. Disegna il diagramma di
+flusso di un algoritmo che decide quale messaggio visualizzare.\\
+\textbf{Dati da leggere:} $D$ = distanza percorsa (in km); $T$ = tempo impiegato (in ore).\\
+\textbf{Altre variabili:} $V$ = velocità media, cioè $V = D/T$.\\
+Prima controlla se $V > 130$: in questo caso visualizza ``Velocità troppo alta''. Altrimenti
+controlla se $V < 60$: in questo caso visualizza ``Velocità troppo bassa''; in caso contrario
+visualizza ``Velocità regolare''.}{%
+Un contatore misura l'energia elettrica consumata in casa. Disegna il diagramma di flusso di un
+algoritmo che giudica il consumo del mese.\\
+\textbf{Dati da leggere:} $L_1$ = lettura del contatore a inizio mese (in kWh); $L_2$ = lettura a
+fine mese (in kWh).\\
+\textbf{Altre variabili:} $C$ = consumo del mese, cioè $C = L_2 - L_1$.\\
+Prima controlla se $C > 300$: in questo caso visualizza ``Consumo alto''. Altrimenti controlla se
+$C < 100$: in questo caso visualizza ``Consumo basso''; in caso contrario visualizza ``Consumo normale''.}
+
+\begin{solution}
+\begin{center}
+\RR{%
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \node[fcterm] (ini) at (0,0) {Inizio};
+  \node[fcio]   (in)  at (0,-1.1) {Leggi $D$, $T$};
+  \node[fcproc] (med) at (0,-2.2) {$V \gets D / T$};
+  \node[fcdec]  (d1)  at (0,-3.55) {$V > 130$};
+  \node[fcio]   (o1)  at (4.6,-3.55) {Scrivi ``Velocità troppo alta''};
+  \node[fcdec]  (d2)  at (0,-5.25) {$V < 60$};
+  \node[fcio]   (o2)  at (4.6,-5.25) {Scrivi ``Velocità troppo bassa''};
+  \node[fcio]   (o3)  at (0,-6.75) {Scrivi ``Velocità regolare''};
+  \node[fcterm] (fin) at (0,-8.4) {Fine};
+  \draw[fcfreccia] (ini) -- (in);
+  \draw[fcfreccia] (in) -- (med);
+  \draw[fcfreccia] (med) -- (d1);
+  \draw[fcfreccia] (d1) -- node[fcsi,above] {Sì} (o1);
+  \draw[fcfreccia] (d1) -- node[fcno,right] {No} (d2);
+  \draw[fcfreccia] (d2) -- node[fcsi,above] {Sì} (o2);
+  \draw[fcfreccia] (d2) -- node[fcno,right] {No} (o3);
+  \draw[thick] (o1.east) -- (7.4,-3.55) |- (0,-7.65);
+  \draw[thick] (o2.east) -- (7.4,-5.25);
+  \draw[fcfreccia] (o3) -- (fin);
+\end{tikzpicture}}{%
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \node[fcterm] (ini) at (0,0) {Inizio};
+  \node[fcio]   (in)  at (0,-1.1) {Leggi $L_1$, $L_2$};
+  \node[fcproc] (med) at (0,-2.2) {$C \gets L_2 - L_1$};
+  \node[fcdec]  (d1)  at (0,-3.55) {$C > 300$};
+  \node[fcio]   (o1)  at (4.2,-3.55) {Scrivi ``Consumo alto''};
+  \node[fcdec]  (d2)  at (0,-5.25) {$C < 100$};
+  \node[fcio]   (o2)  at (4.2,-5.25) {Scrivi ``Consumo basso''};
+  \node[fcio]   (o3)  at (0,-6.75) {Scrivi ``Consumo normale''};
+  \node[fcterm] (fin) at (0,-8.4) {Fine};
+  \draw[fcfreccia] (ini) -- (in);
+  \draw[fcfreccia] (in) -- (med);
+  \draw[fcfreccia] (med) -- (d1);
+  \draw[fcfreccia] (d1) -- node[fcsi,above] {Sì} (o1);
+  \draw[fcfreccia] (d1) -- node[fcno,right] {No} (d2);
+  \draw[fcfreccia] (d2) -- node[fcsi,above] {Sì} (o2);
+  \draw[fcfreccia] (d2) -- node[fcno,right] {No} (o3);
+  \draw[thick] (o1.east) -- (6.6,-3.55) |- (0,-7.65);
+  \draw[thick] (o2.east) -- (6.6,-5.25);
+  \draw[fcfreccia] (o3) -- (fin);
+\end{tikzpicture}}
+\end{center}
+\RR{%
+  Il secondo controllo si fa solo se $V \leq 130$: quindi nel ramo ``No'' basta controllare $V < 60$.}{%
+  Il secondo controllo si fa solo se $C \leq 300$: quindi nel ramo ``No'' basta controllare $C < 100$.}
+  \criterioRR
+  {Inizio/Fine e simboli corretti (ovale, parallelogramma, rettangolo, rombo): 1 pt; lettura di $D$,
+    $T$ e calcolo di $V$: 1 pt; decisione $V>130$ con i rami Sì/No: 2 pt; decisione $V<60$ nel ramo
+    No: 1 pt; tre messaggi nei rami giusti e rami che si ricongiungono prima di Fine: 1 pt.}
+  {Inizio/Fine e simboli corretti (ovale, parallelogramma, rettangolo, rombo): 1 pt; lettura di $L_1$,
+    $L_2$ e calcolo di $C$ (attenzione all'ordine $L_2 - L_1$): 1 pt; decisione $C>300$ con i rami
+    Sì/No: 2 pt; decisione $C<100$ nel ramo No: 1 pt; tre messaggi nei rami giusti e rami che si
+    ricongiungono prima di Fine: 1 pt.}
+\end{solution}
+\end{esercizio}

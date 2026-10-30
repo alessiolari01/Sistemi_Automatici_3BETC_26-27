@@ -64,6 +64,10 @@ repo. Il materiale lo prepara Claude; Alessio imposta un file come
   In `contenuto_verifica.tex`: `\puntimassimi{42}`, `\sceltaesercizi{...}` prima del 5,
   `\tabellapunteggi` ridefinita con la colonna "5 oppure 6".
   Esempio: `Compiti/Verifica_2026_10_23_Sistemi_3BETC/`.
+- **File di recupero R1 e R2** (per chi recupera la verifica): stessa struttura, punteggi e criteri,
+  esercizi tutti diversi da A, B, C. Contenuto in `contenuto_recupero.tex` (con `\elencofile{R1 e R2}`),
+  file numerati 9–13 (testi R1/R2, soluzioni R1/R2, correzione). Negli esercizi `rec_*` della banca
+  si usa `\RR{testo R1}{testo R2}` e `\criterioRR{R1}{R2}` al posto di `\ABC`/`\criterioABC`.
 - Conversioni: più numeri per esercizio (4, disposti 2×2, `a)`–`d)`), testo come negli appunti
   `$173_{10} = \ldots_2$`; decimali a **3 cifre** (8–10 bit), binari da 8 a 10 bit (risultato decimale < 1024);
   **un solo numero pari** per esercizio; le tre file con gli stessi numeri di bit. 2 pt per numero.
